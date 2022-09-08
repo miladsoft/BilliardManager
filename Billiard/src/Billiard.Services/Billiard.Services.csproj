@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Billiard.Common\Billiard.Common.csproj" />
+    <ProjectReference Include="..\Billiard.DataLayer\Billiard.DataLayer.csproj" />
+    <ProjectReference Include="..\Billiard.Entities\Billiard.Entities.csproj" />
+    <ProjectReference Include="..\Billiard.ViewModels\Billiard.ViewModels.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DNTCommon.Web.Core" Version="3.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+</Project>
