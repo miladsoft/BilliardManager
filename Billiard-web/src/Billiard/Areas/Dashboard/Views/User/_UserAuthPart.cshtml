@@ -1,0 +1,863 @@
+@model UserItemViewModel
+@inject IUsersPhotoService PhotoService
+
+@{
+	var user = Model.User;
+	var photoUrl = PhotoService.GetUserPhotoUrl(user.PhotoFileName);
+}
+
+
+
+<div class="card-header cursor-pointer">
+	<div class="card-title m-0">
+		<h3 class="fw-bolder m-0">احراز هویت</h3>
+	</div>
+</div>
+<div class="card-body p-9">
+	<h3>مشخصات شناسنامه</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_auth_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-125px">
+						نام</th>
+					<th class="min-w-125px">
+						نام خانوادگی</th>
+					<th class="min-w-125px">
+						کد ملی</th>
+					<th class="min-w-125px">
+						تاریخ تولد
+					</th>
+					<th class="min-w-125px" rowspan="1" colspan="1" style="width: 174.717px;">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+				@{
+					var Color = "";
+				}
+				@if (Model.User.IsBirthDateConfirmed == isConfirmed.confirmed && Model.User.IsMelliCodeConfirmed ==
+						isConfirmed.confirmed)
+				{
+					Color = "success";
+				}
+				@if (Model.User.IsBirthDateConfirmed == isConfirmed.notConfirmed && Model.User.IsMelliCodeConfirmed ==
+						isConfirmed.notConfirmed)
+				{
+					Color = "danger";
+				}
+				@if (Model.User.IsBirthDateConfirmed == isConfirmed.waitingforconfirmation &&
+						Model.User.IsMelliCodeConfirmed ==
+						isConfirmed.waitingforconfirmation)
+				{
+					Color = "warning";
+				}
+				<tr class="align-items-center bg-light-@Color rounded p-5 mb-7 mt-7">
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">@Model.User.FirstName</span>
+					</td>
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">@Model.User.LastName</span>
+					</td>
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">@Model.User.MelliCode</span>
+					</td>
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">
+							@if (Model.User.BirthDate.HasValue)
+							{
+								@Model.User.BirthDate.Value.LocalDateTime.ToPersianYearMonthDay()
+
+							}
+							else
+							{
+								<span>-</span>
+							}
+						</span>
+					</td>
+					<td>
+						<span
+							class="badge badge-@Color fs-8 fw-bolder mr-10 ml-10">@Model.User.IsMelliCodeConfirmed.GetDisplayName()
+						</span>
+					</td>
+					<td class="text-end">
+						<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+							<span class="svg-icon svg-icon-5 m-0">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"></polygon>
+										<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+										</path>
+									</g>
+								</svg>
+							</span>
+						</a>
+						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+							<div class="menu-item px-3">
+								<a id="btnEditUserInfo-@Model.User.Id" data-edit-id="@Model.User.Id" href="#"
+									class="menu-link px-3">ویرایش</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptUserInfo","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+							</div>
+
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectUserInfo","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="separator separator-dashed my-6"></div>
+
+
+
+	<h3>شماره موبایل</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_mobile_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						شماره موبایل
+					</th>
+
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+				@{
+					var MobileColor = "";
+				}
+				@if (Model.User.IsMobileNumberConfirmed == isConfirmed.confirmed)
+				{
+					MobileColor = "success";
+				}
+				@if (Model.User.IsMobileNumberConfirmed == isConfirmed.notConfirmed)
+				{
+					MobileColor = "danger";
+				}
+				@if (Model.User.IsMobileNumberConfirmed == isConfirmed.waitingforconfirmation)
+				{
+					MobileColor = "warning";
+				}
+				<tr class="align-items-center bg-light-@MobileColor rounded p-5 mb-7 mt-7">
+
+
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">
+							@Model.User.MobileNumber
+						</span>
+					</td>
+
+					<td>
+
+						<span
+							class="badge badge-@MobileColor fs-8 fw-bolder mr-10 ml-10">@Model.User.IsMobileNumberConfirmed.GetDisplayName()
+						</span>
+
+					</td>
+
+					<td class="text-end">
+						<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+							<span class="svg-icon svg-icon-5 m-0">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"></polygon>
+										<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+										</path>
+									</g>
+								</svg>
+							</span>
+						</a>
+						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+							<div class="menu-item px-3">
+								<a id="btnEditMobile-@Model.User.Id" data-edit-id="@Model.User.Id" href="#"
+									class="menu-link px-3">ویرایش</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptMobile","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+							</div>
+
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectMobile","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="separator separator-dashed my-6"></div>
+	<h3>کارت های بانکی</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_auth_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-125px">
+						شماره کارت</th>
+					<th class="min-w-125px">
+						نام صاحب کارت</th>
+					<th class="min-w-125px">
+						نام بانک</th>
+					<th class="min-w-125px" rowspan="1" colspan="1" style="width: 174.717px;">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+
+
+				@foreach (var item in Model.User.UserBankCards)
+				{
+
+					var CardColor = "";
+
+					@if (item.CardStatus == CardStatus.accepted)
+					{
+						CardColor = "success";
+					}
+					@if (item.CardStatus == CardStatus.Deleted)
+					{
+						CardColor = "warning";
+					}
+					@if (item.CardStatus == CardStatus.rejected)
+					{
+						CardColor = "danger";
+					}
+					<tr class="align-items-center bg-light-@CardColor rounded p-5 mb-7 mt-7">
+						<td>
+							<span class="text-gray-600 text-hover-primary mb-1">@item.CardNumber</span>
+						</td>
+
+						<td>
+							<span class="text-gray-600 text-hover-primary mb-1">@item.CardOwner</span>
+						</td>
+
+						<td>
+							<span class="text-gray-600 text-hover-primary mb-1">@item.BankName</span>
+						</td>
+
+						<td>
+							<span
+							class="badge badge-@CardColor fs-8 fw-bolder mr-10 ml-10">@item.CardStatus.GetDisplayName()
+							</span>
+						</td>
+
+						<td class="text-end">
+							<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+								<span class="svg-icon svg-icon-5 m-0">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<polygon points="0 0 24 0 24 24 0 24"></polygon>
+											<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+											</path>
+										</g>
+									</svg>
+								</span>
+							</a>
+							<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+								<div class="menu-item px-3">
+									<a id="btnEditCard-@item.Id" data-edit-id="@item.Id" href=""
+									class="menu-link px-3">ویرایش</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptCard","User", new {Id = item.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+								</div>
+
+								<div class="menu-item px-3">
+									<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectCard","User", new {Id = item.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+								</div>
+
+								<div class="menu-item px-3">
+									<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("DeleteCard","User", new {Id = item.Id})"
+									data-ajax-update="#MessagePanel">حذف کردن</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+
+
+
+			</tbody>
+		</table>
+	</div>
+
+	<div class="separator separator-dashed my-6"></div>
+	<h3>حساب های بانکی</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_auth_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-125px">
+						شماره شبا</th>
+					<th class="min-w-125px">
+						نام صاحب شبا</th>
+					<th class="min-w-125px" rowspan="1" colspan="1" style="width: 174.717px;">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+
+
+
+				@foreach (var item in Model.User.UserBankShebas)
+				{
+
+					var ShebaColor = "";
+
+					@if (item.ShebaStatus == ShebaStatus.accepted)
+					{
+						ShebaColor = "success";
+					}
+					@if (item.ShebaStatus == ShebaStatus.Deleted)
+					{
+						ShebaColor = "warning";
+					}
+					@if (item.ShebaStatus == ShebaStatus.rejected)
+					{
+						ShebaColor = "danger";
+					}
+					<tr class="align-items-center bg-light-@ShebaColor rounded p-5 mb-7 mt-7">
+						<td>
+							<span class="text-gray-600 text-hover-primary mb-1">@item.ShebaNumber</span>
+						</td>
+
+						<td>
+							<span class="text-gray-600 text-hover-primary mb-1">@item.ShebaOwner</span>
+						</td>
+
+
+
+						<td>
+							<span
+							class="badge badge-@ShebaColor fs-8 fw-bolder mr-10 ml-10">@item.ShebaStatus.GetDisplayName()
+							</span>
+						</td>
+
+						<td class="text-end">
+							<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+								<span class="svg-icon svg-icon-5 m-0">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<polygon points="0 0 24 0 24 24 0 24"></polygon>
+											<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+											</path>
+										</g>
+									</svg>
+								</span>
+							</a>
+							<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+								<div class="menu-item px-3">
+									<a id="btnEditSheba-@item.Id" data-edit-id="@item.Id" href=""
+									class="menu-link px-3">ویرایش</a>
+								</div>
+								<div class="menu-item px-3">
+									<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptSheba","User", new {Id = item.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+								</div>
+
+								<div class="menu-item px-3">
+									<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectSheba","User", new {Id = item.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+								</div>
+
+								<div class="menu-item px-3">
+									<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("DeleteSheba","User", new {Id = item.Id})"
+									data-ajax-update="#MessagePanel">حذف کردن</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+
+
+
+			</tbody>
+		</table>
+	</div>
+
+	<div class="separator separator-dashed my-6"></div>
+
+	<h3>مدرک شناسایی</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_mobile_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						تصویر مدرک شناسایی
+					</th>
+
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+
+				@{
+					var DocColor = "";
+
+					if (Model.User.IsDocPhotoConfirmed == isConfirmed.confirmed)
+					{
+						DocColor = "success";
+					}
+					if (Model.User.IsDocPhotoConfirmed == isConfirmed.waitingforconfirmation)
+					{
+						DocColor = "warning";
+					}
+					if (Model.User.IsDocPhotoConfirmed == isConfirmed.notConfirmed)
+					{
+						DocColor = "danger";
+					}
+				}
+				<tr class="align-items-center bg-light-@DocColor rounded p-5 mb-7 mt-7">
+					<td>
+						<a href="~/file/download/AuthPPCUsers/@Model.User.Id/@Model.User.DocPhotoFileName"
+							data-lightbox="roadtrip" data-title="مدرک شناسایی">
+
+							<div class="d-flex align-items-center">
+								<div class="symbol symbol-45px me-5">
+
+									<img src="~/file/download/AuthPPCUsers/@Model.User.Id/@Model.User.DocPhotoFileName"
+										alt="">
+								</div>
+								<div class="d-flex justify-content-start flex-column">
+									<span class="text-dark fw-bolder text-hover-primary fs-6">@Model.User.FirstName
+										@Model.User.LastName </span>
+									<span class="text-muted fw-bold text-muted d-block fs-7">مدرک شناسایی</span>
+								</div>
+							</div>
+						</a>
+
+					</td>
+
+					<td>
+						<span
+							class="badge badge-@DocColor fs-8 fw-bolder mr-10 ml-10">@Model.User.IsDocPhotoConfirmed.GetDisplayName()
+						</span>
+					</td>
+
+					<td class="text-end">
+						<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+							<span class="svg-icon svg-icon-5 m-0">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"></polygon>
+										<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+										</path>
+									</g>
+								</svg>
+							</span>
+						</a>
+						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+							<div class="menu-item px-3">
+								<a id="btnEditDoc-@Model.User.Id" data-edit-id="@Model.User.Id" href="#"
+									class="menu-link px-3">ویرایش</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptDoc","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+							</div>
+
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectDoc","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+	<div class="separator separator-dashed my-6"></div>
+
+	<h3>تصویر سلفی</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_mobile_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						تصویر سلفی
+					</th>
+
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+
+				@{
+					var SelfiColor = "";
+
+					if (Model.User.IsSelfiPhotoConfirmed == isConfirmed.confirmed)
+					{
+						SelfiColor = "success";
+					}
+					if (Model.User.IsSelfiPhotoConfirmed == isConfirmed.waitingforconfirmation)
+					{
+						SelfiColor = "warning";
+					}
+					if (Model.User.IsSelfiPhotoConfirmed == isConfirmed.notConfirmed)
+					{
+						SelfiColor = "danger";
+					}
+				}
+				<tr class="align-items-center bg-light-@SelfiColor rounded p-5 mb-7 mt-7">
+					<td>
+						<a href="~/file/download/AuthPPCUsers/@Model.User.Id/@Model.User.SelfiPhotoFileName"
+							data-lightbox="roadtrip" data-title="تصویر سلفی">
+
+							<div class="d-flex align-items-center">
+								<div class="symbol symbol-45px me-5">
+
+									<img src="~/file/download/AuthPPCUsers/@Model.User.Id/@Model.User.SelfiPhotoFileName"
+										alt="">
+								</div>
+								<div class="d-flex justify-content-start flex-column">
+									<span class="text-dark fw-bolder text-hover-primary fs-6">@Model.User.FirstName
+										@Model.User.LastName </span>
+									<span class="text-muted fw-bold text-muted d-block fs-7">تصویر سلفی</span>
+								</div>
+							</div>
+						</a>
+
+					</td>
+
+					<td>
+						<span
+							class="badge badge-@SelfiColor fs-8 fw-bolder mr-10 ml-10">@Model.User.IsSelfiPhotoConfirmed.GetDisplayName()
+						</span>
+					</td>
+
+					<td class="text-end">
+						<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+							<span class="svg-icon svg-icon-5 m-0">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"></polygon>
+										<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+										</path>
+									</g>
+								</svg>
+							</span>
+						</a>
+						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+							<div class="menu-item px-3">
+								<a id="btnEditSelfi-@Model.User.Id" data-edit-id="@Model.User.Id" href="#"
+									class="menu-link px-3">ویرایش</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptSelfi","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+							</div>
+
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectSelfi","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="separator separator-dashed my-6"></div>
+
+	<h3>شماره تلفن ثابت</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_mobile_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						شماره تلفن
+					</th>
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						کد فعالسازی
+					</th>
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+				@{
+					var PhoneColor = "";
+				}
+				@if (Model.User.IsPhoneNumberConfirmed == isConfirmed.confirmed)
+				{
+					PhoneColor = "success";
+				}
+				@if (Model.User.IsPhoneNumberConfirmed == isConfirmed.notConfirmed)
+				{
+					PhoneColor = "danger";
+				}
+				@if (Model.User.IsPhoneNumberConfirmed == isConfirmed.waitingforconfirmation)
+				{
+					PhoneColor = "warning";
+				}
+				<tr class="align-items-center bg-light-@PhoneColor rounded p-5 mb-7 mt-7">
+
+
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">
+							@Model.User.HomePhoneNumber
+						</span>
+					</td>
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">
+							@Model.User.HomePhoneNumberCode
+						</span>
+					</td>
+					<td>
+
+						<span
+							class="badge badge-@PhoneColor fs-8 fw-bolder mr-10 ml-10">@Model.User.IsPhoneNumberConfirmed.GetDisplayName()
+						</span>
+
+					</td>
+
+					<td class="text-end">
+						<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+							<span class="svg-icon svg-icon-5 m-0">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"></polygon>
+										<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+										</path>
+									</g>
+								</svg>
+							</span>
+						</a>
+						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+							<div class="menu-item px-3">
+								<a id="btnEditPhone-@Model.User.Id" data-edit-id="@Model.User.Id" href="#"
+									class="menu-link px-3">ویرایش</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptPhone","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+							</div>
+
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectPhone","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
+	<h3>آدرس و کد پستی</h3>
+	<div class="table-responsive">
+		<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="ppc_mobile_table"
+			role="grid">
+			<thead>
+				<tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+
+					<th class="min-w-225px " rowspan="1" colspan="1">
+						آدرس
+					</th>
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						کد پستی
+					</th>
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						کد فعالسازی
+					</th>
+					<th class="min-w-125px " rowspan="1" colspan="1">
+						وضعیت
+					</th>
+					<th class="text-end min-w-70px"></th>
+				</tr>
+			</thead>
+			<tbody class="fw-bold text-gray-600">
+
+				@{
+					var AddressColor = "";
+				}
+				@if (Model.User.IsLocationConfirmed == isConfirmed.confirmed)
+				{
+					AddressColor = "success";
+				}
+				@if (Model.User.IsLocationConfirmed == isConfirmed.notConfirmed)
+				{
+					AddressColor = "danger";
+				}
+				@if (Model.User.IsLocationConfirmed == isConfirmed.waitingforconfirmation)
+				{
+					AddressColor = "warning";
+				}
+				<tr class="align-items-center bg-light-@AddressColor rounded p-5 mb-7 mt-7">
+
+
+
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">@Model.User.Location</span>
+					</td>
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">@Model.User.PostalCode</span>
+					</td>
+					<td>
+						<span class="text-gray-600 text-hover-primary mb-1">@Model.User.LocationCode</span>
+					</td>
+					<td>
+						<span
+							class="badge badge-@AddressColor fs-8 fw-bolder mr-10 ml-10">@Model.User.IsLocationConfirmed.GetDisplayName()
+						</span>
+					</td>
+
+					<td class="text-end">
+						<a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-ppc-menu-trigger="click"
+							data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">عملیات
+							<span class="svg-icon svg-icon-5 m-0">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"></polygon>
+										<path
+											d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+											fill="#000000" fill-rule="nonzero"
+											transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)">
+										</path>
+									</g>
+								</svg>
+							</span>
+						</a>
+						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+							data-ppc-menu="true" style="">
+							<div class="menu-item px-3">
+								<a id="btnEditAddress-@Model.User.Id" data-edit-id="@Model.User.Id" href="#"
+									class="menu-link px-3">ویرایش</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("AcceptAddress","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">تایید کردن</a>
+							</div>
+
+							<div class="menu-item px-3">
+								<a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+									data-ajax-url="@Url.Action("RejectAddress","User", new {Id = Model.User.Id})"
+									data-ajax-update="#MessagePanel">رد کردن</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
+
+</div>

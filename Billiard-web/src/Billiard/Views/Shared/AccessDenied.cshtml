@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "عدم دسترسی!";
+    //this.Context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+ 
+    Layout = "_LayoutAuth";
+}
+
+    <div class="pt-lg-10 text-center">
+
+        <h1 class="fw-bolder fs-4x text-gray-700 mb-10">مجوز دسترسی</h1>
+
+        <div class="fw-bold fs-3 text-gray-400 mb-15"> متاسفانه شما مجوز دسترسی به صفحه‌ی درخواستی را ندارید.
+             <br>به صفحه اصلی بروید
+        </div>
+
+           
+      
+
+        <div class="text-center">
+            <a asp-action="Index" asp-controller="Home" asp-area="" class="btn btn-lg btn-primary fw-bolder">رفتن به صفحه اصلی</a>
+        </div>
+    </div>
+
+
+ 

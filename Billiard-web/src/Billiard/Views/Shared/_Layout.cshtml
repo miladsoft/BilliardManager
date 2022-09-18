@@ -1,0 +1,295 @@
+@inject IUsersPhotoService PhotoService
+
+@{ 
+    var displayName = User.Identity.GetUserDisplayName();
+    var username = User.Identity.GetUserName();
+    var photoUrl = PhotoService.GetCurrentUserPhotoUrl(); }
+
+@{ 
+    var pageTitle = ViewData["Title"] ?? "باشگاه بیلیارد سناتور";
+    var pageDescription = ViewData["Description"] ?? "باشگاه بیلیارد سناتور";
+    var pageKeyword = ViewData["Keyword"] ?? "Billiard, باشگاه بیلیارد سناتور";
+}
+<html direction="rtl" dir="rtl" style="direction: rtl">
+<head>
+     <meta charset="utf-8" />
+    <title>@Html.Raw(pageTitle)</title>
+    <meta name="keywords" content="@Html.Raw(pageKeyword)" />
+    <meta name="theme-color" content="#ff6600"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="~/theme/Desktop/assets/media/logos/favicon.ico" />
+    <meta name="description" content="@Html.Raw(pageDescription)">
+    <meta name="image" content="https://Billiard.ir/assets/customimage/Billiard-logo.png">
+    <meta itemprop="name" content="باشگاه بیلیارد سناتور">
+    <meta itemprop="image" content="https://Billiard.ir/assets/customimage/Billiard-logo.png">
+    <meta property="og:site_name" content="Billiard.ir">
+    <meta property="og:title" content="باشگاه بیلیارد سناتور">
+    <meta property="og:url" content="https://Billiard.ir/">
+    <meta property="og:description" content="باشگاه بیلیارد سناتور">
+    <meta property="og:image" content="https://Billiard.ir/Billiard.png" />
+    <link href="~/theme/Desktop/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" asp-append-version="true"/>
+    <link href="~/theme/Desktop/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="~/css/CustomPublic.css" rel="stylesheet" asp-append-version="true" />
+     @await RenderSectionAsync("Style", required: false)
+
+</head>
+<body id="ppc_body"  data-bs-target="#ppc_landing_menu"  class="bg-white position-relative">
+    
+<div id="loader-page">
+    <div class="loader" id="line">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+    <div class="d-flex flex-column flex-root">
+        <div class="mb-0" id="home">
+            <div class="bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom landing-dark-bg" style="background-image: url(/theme/Desktop/assets/media/svg/illustrations/landing.svg)">
+                <div class="landing-header" data-ppc-sticky="true" data-ppc-sticky-name="landing-header" data-ppc-sticky-offset="{default: '200px', lg: '300px'}">
+                    <div class="container">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center flex-equal">
+                                <button class="btn btn-icon btn-active-color-primary me-3 d-flex d-lg-none" id="ppc_landing_menu_toggle">
+                                    <span class="svg-icon svg-icon-2hx">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5" />
+                                                <path d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z" fill="#000000" opacity="0.3" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <a asp-action="Index" asp-controller="Home" asp-area="">
+                                    <img alt="Logo" loading="lazy" src="~/theme/Desktop/assets/media/logos/logo-default.png" class="logo-default h-30px h-lg-35px" />
+                                    <img alt="Logo" loading="lazy" src="~/theme/Desktop/assets/media/logos/logo-default-dark.png" class="logo-sticky h-30px h-lg-35px" />
+                                </a>
+                            </div>
+                            <div class="d-lg-block" id="ppc_header_nav_wrapper">
+                                <div class="d-lg-block p-5 p-lg-0" data-ppc-drawer="true" data-ppc-drawer-name="landing-menu" data-ppc-drawer-activate="{default: true, lg: false}" data-ppc-drawer-overlay="true" data-ppc-drawer-width="200px" data-ppc-drawer-direction="start" data-ppc-drawer-toggle="#ppc_landing_menu_toggle" data-ppc-place="true" data-ppc-place-mode="prepend" data-ppc-place-parent="{default: '#ppc_body', lg: '#ppc_header_nav_wrapper'}">
+                                    <div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-gray-500 menu-state-title-primary nav nav-flush fs-5 fw-bold" id="ppc_landing_menu">
+                                        <div class="menu-item">
+                                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" asp-action="Index" asp-controller="Home" asp-area="">صفحه نخست</a>
+                                        </div>
+
+                                        <div class="menu-item">
+                                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" asp-action="Index" asp-controller="Consulting" asp-area="">مرکز مشاوره</a>
+                                        </div>
+
+                                        <div class="menu-item">
+                                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" asp-action="Index" asp-controller="Terms" asp-area="" >قوانین</a>
+                                        </div>
+
+                                        <div class="menu-item">
+                                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" asp-action="Index" asp-controller="Faq" asp-area="" >سوالات متداول</a>
+                                        </div>
+
+                                        <div class="menu-item">
+                                            <a class="menu-link nav-link py-3 px-4 px-xxl-6" asp-action="Index" asp-controller="Pricing" asp-area="">کارمزدها</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-equal text-end ms-1">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+
+
+                                 <div class="btn-group" role="group" >
+                                    <a asp-action="Index" asp-controller="Home" asp-area="@AreaConstants.DashboardArea" class="btn btn-warning cdbr">داشبورد‌</a>
+                         
+                                 </div>
+                                 }
+                                else
+                                  {
+                              <a asp-action="Index" asp-controller="Login" asp-area="@AreaConstants.DashboardArea" class="btn btn-success">ورود</a>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column flex-center w-100 min-h-350px min-h-lg-500px px-9">
+                    <div class="text-center mb-5 mb-lg-10 py-10 py-lg-20">
+                        <h1 class="text-white lh-base fw-bolder fs-2x fs-lg-3x mb-15">
+                           <span class="mb-10">سناتور</span> 
+                            <br /> <br />
+                            <span style="background: linear-gradient(to right, #F28D0B 0%, #FFD80C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                <span id="ppc_landing_hero_text">باشگاه بیلیارد سناتور</span>
+                            </span>
+                        </h1>
+                        @if (!User.Identity.IsAuthenticated)
+
+                        {<a asp-action="Index" asp-controller="Register" asp-area="@AreaConstants.DashboardArea" class="btn btn-primary">به سناتور بپیوندید</a>}
+                    </div>
+                    <div class="d-flex flex-center flex-wrap position-relative px-5">
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Bitcoin">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Bitcoin-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Ethereum">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Ethereum-ETH-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Binance">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Binance-Coin-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Cardano">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Cardano-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Ethereum Classic">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Ethereum-Classic-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Bitcoin Cash">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Bitcoin-Cash-BCH-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Monero">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Monero-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                        <div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="Dogecoin">
+                            <img loading="lazy" src="~/theme/Desktop/assets/media/icons/Dogecoin-icon.png" class="mh-30px mh-lg-40px iconimg" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="landing-curve landing-dark-color mb-10 mb-lg-10">
+                <svg viewBox="15 12 1470 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 11C3.93573 11.3356 7.85984 11.6689 11.7725 12H1488.16C1492.1 11.6689 1496.04 11.3356 1500 11V12H1488.16C913.668 60.3476 586.282 60.6117 11.7725 12H0V11Z"></path>
+                </svg>
+            </div>
+        </div>
+
+        @RenderBody()
+        
+        <div class="mb-0">
+            <div class="landing-curve landing-dark-color">
+                <svg viewBox="15 -1 1470 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 48C4.93573 47.6644 8.85984 47.3311 12.7725 47H1489.16C1493.1 47.3311 1497.04 47.6644 1501 48V47H1489.16C914.668 -1.34764 587.282 -1.61174 12.7725 47H1V48Z"></path>
+                </svg>
+            </div>
+            <div class="landing-dark-bg pt-20"style='background-image: url("css/footer-bg.png")'>
+                <div class="container">
+                    <div class="row py-10 py-lg-20">
+                        <div class="col-lg-6 pe-lg-16 mb-10 mb-lg-0">
+                            <div class="rounded landing-dark-border p-9 mb-10">
+                                <h2 class="text-white">باشگاه بیلیارد سناتور</h2>
+                                <span class="fw-normal fs-4 text-gray-700 mt-10">
+                                    شماره تماس :
+                                    <a href="tel:02191013717" class="text-white opacity-50 text-hover-primary"> 02191013717 </a>
+                                </span>
+                            </div>
+                            <div class="rounded landing-dark-border p-9">
+                                <h2 class="text-white">پشتیبانی</h2>
+                                <span class="fw-normal fs-4 text-gray-700">
+                                    هفت روز هفته، در 24 ساعت شبانه‌روز پاسخگوی شما هستیم
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 ps-lg-16">
+                            <div class="d-flex justify-content-center">
+                                <div class="d-flex fw-bold flex-column me-20">
+                                    <h4 class="fw-bolder text-gray-400 mb-6">لینک های مفید</h4>
+                                    <a href="#" class="text-white opacity-50 text-hover-primary fs-5 mb-6">درباره ما</a>
+                                    <a href="#" class="text-white opacity-50 text-hover-primary fs-5 mb-6">تماس با ما</a>
+                                    <a href="#" class="text-white opacity-50 text-hover-primary fs-5 mb-6">آموزشگاه سناتور</a>
+                                    <a href="#" class="text-white opacity-50 text-hover-primary fs-5 mb-6">مجوز ها</a>
+                                    <a href="#" class="text-white opacity-50 text-hover-primary fs-5 mb-6">توسعه دهندگان</a>
+                                </div>
+                                <div class="d-flex fw-bold flex-column ms-lg-20">
+                                    <h4 class="fw-bolder text-gray-400 mb-6">اتصال</h4>
+                                    <a href="#" class="mb-6">
+                                        <img loading="lazy" src="~/theme/Desktop/assets/media/svg/brand-logos/facebook-4.svg" class="h-20px me-2" alt="" />
+                                        <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">فیسبوک</span>
+                                    </a>
+                                    <a href="#" class="mb-6">
+                                        <img loading="lazy" src="~/theme/Desktop/assets/media/svg/brand-logos/github.svg" class="h-20px me-2" alt="" />
+                                        <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">گیت هاب</span>
+                                    </a>
+                                    <a href="#" class="mb-6">
+                                        <img loading="lazy" src="~/theme/Desktop/assets/media/svg/brand-logos/twitter.svg" class="h-20px me-2" alt="" />
+                                        <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">توئیتر</span>
+                                    </a>
+                                    <a href="#" class="mb-6">
+                                        <img loading="lazy" src="~/theme/Desktop/assets/media/svg/brand-logos/dribbble-icon-1.svg" class="h-20px me-2" alt="" />
+                                        <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">دریبل</span>
+                                    </a>
+                                    <a href="https://instagram.com/Billiard.ir" class="mb-6">
+                                        <img loading="lazy" src="~/theme/Desktop/assets/media/svg/brand-logos/instagram-2-1.svg" class="h-20px me-2" alt="" />
+                                        <span class="text-white opacity-50 text-hover-primary fs-5 mb-6">اینستاگرام</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="landing-dark-separator"></div>
+                <div class="container">
+                    <div class="d-flex flex-column flex-md-row flex-stack py-7 py-lg-10">
+                        <div class="d-flex align-items-center order-2 order-md-1">
+                  
+                            <span class="mx-5 fs-6 fw-bold text-gray-600 pt-1" href="https://Billiard.ir">© @DateTime.Now.Year - سناتور </span>
+                        </div>
+                        <ul class="menu menu-gray-600 menu-hover-primary fw-bold fs-6 fs-md-5 یاder-1 mb-5 mb-md-0">
+                
+                            <li class="menu-item mx-5">
+                                <span id="ppc_support_button"  class="menu-link px-2"
+                                                  title="با پشتیبان سناتور گفتگو کنید" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" data-bs-trigger="hover">
+                                    <div class="form-inline">
+                                        <span id="ppc_support_toggle_label">پشتیبانی آنلاین</span>
+                                        <span class="badge badge-danger mr-15" id="unread_counter"></span>
+                                    </div>
+                                </span>
+                            </li>
+         
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ppc_scrolltop" class="scrolltop" data-ppc-scrolltop="true">
+            <span class="svg-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <polygon points="0 0 24 0 24 24 0 24" />
+                        <rect fill="#000000" opacity="0.5" x="11" y="10" width="2" height="10" rx="1" />
+                        <path d="M6.70710678,12.7071068 C6.31658249,13.0976311 5.68341751,13.0976311 5.29289322,12.7071068 C4.90236893,12.3165825 4.90236893,11.6834175 5.29289322,11.2928932 L11.2928932,5.29289322 C11.6714722,4.91431428 12.2810586,4.90106866 12.6757246,5.26284586 L18.6757246,10.7628459 C19.0828436,11.1360383 19.1103465,11.7686056 18.7371541,12.1757246 C18.3639617,12.5828436 17.7313944,12.6103465 17.3242754,12.2371541 L12.0300757,7.38413782 L6.70710678,12.7071068 Z" fill="#000000" fill-rule="nonzero" />
+                    </g>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+
+
+    <script src="~/theme/Desktop/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/theme/Desktop/assets/js/scripts.bundle.js"></script>
+    <script src="~/theme/Desktop/assets/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
+    <script src="~/theme/Desktop/assets/plugins/custom/typedjs/typedjs.bundle.js"></script>
+    <script src="~/theme/Desktop/assets/js/custom/landing.js"></script>
+    <script src="~/theme/Desktop/assets/js/custom/pages/company/pricing.js"></script>
+    <script src="~/theme/Desktop/assets/js/custom/Billiard/support.js"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+window.addEventListener("goftino_ready", function () {
+    Goftino.setWidget({
+        icon: false,
+        counter: '#unread_counter'
+    });
+    document.getElementById("ppc_support_button").addEventListener("click", function () {
+        Goftino.toggle();
+    });
+    var uri = location.protocol + "//" + window.location.host;
+    Goftino.setUser({
+        email: '@Html.Raw(username)',
+        name: '@Html.Raw(displayName)',
+        about: '',
+        phone: '@Html.Raw(username)',
+        avatar: uri + '@photoUrl',
+        tags: '',
+        forceUpdate: true
+    });
+});
+    </script>
+        <div id="MessagePanel"></div>
+</body>
+</html>

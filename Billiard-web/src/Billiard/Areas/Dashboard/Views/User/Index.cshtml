@@ -1,0 +1,177 @@
+@model UserItemViewModel
+
+@{
+    ViewData["Title"] = $"صفحه شخصی {Model.User.DisplayName}";
+}
+
+<partial name="_UserItem" model="Model" />
+
+
+@section Style
+{
+
+<link href="~/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+}
+
+
+
+@section Scripts
+{
+<script src="~/lightbox/js/lightbox.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("a[id^='btnEditUserInfo']").click(function (e) {
+            e.preventDefault();
+            var userId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditUserInfo", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditUserInfo", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": userId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+
+        $("a[id^='btnEditMobile']").click(function (e) {
+            e.preventDefault();
+            var userId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditMobile", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditMobile", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": userId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+
+        $("a[id^='btnEditCard']").click(function (e) {
+            e.preventDefault();
+            var cardId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditCard", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditCard", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": cardId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+
+        $("a[id^='btnEditSheba']").click(function (e) {
+            e.preventDefault();
+            var shebaId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditSheba", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditSheba", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": shebaId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+        $("a[id^='btnEditDoc']").click(function (e) {
+            e.preventDefault();
+            var docId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditDoc", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditDoc", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": docId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+
+        $("a[id^='btnEditSelfi']").click(function (e) {
+            e.preventDefault();
+            var selfiId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditSelfi", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditSelfi", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": selfiId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+        $("a[id^='btnEditAddress']").click(function (e) {
+            e.preventDefault();
+            var addressId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditAddress", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditAddress", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": addressId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+
+        $("a[id^='btnEditPhone']").click(function (e) {
+            e.preventDefault();
+            var addressId = $(this).data("edit-id");
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditPhone", "User")',
+                renderModalPartialViewUrl: '@Url.Action("RenderEditPhone", "User")',
+                renderModalPartialViewData: JSON.stringify({ "id": addressId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+
+    });
+</script>
+}

@@ -1,0 +1,79 @@
+@model LoginViewModel
+
+@{ ViewData["Title"] = "ورود";
+
+    Layout = "_LayoutAuth"; }
+<div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+    <form class="form w-100" novalidate="novalidate" id="ppc_sign_in_form" asp-controller="Login"
+          asp-action="Index"
+          asp-route-returnurl="@ViewData["ReturnUrl"]"
+          method="post"
+          autocomplete="off">
+        <div class="text-center mb-10">
+            <h1 class="text-dark mb-3">ورود به سناتور</h1>
+
+            <div class="text-gray-400 fw-bold fs-4 mt-10">
+                
+                <a asp-action="Index" asp-controller="Register" asp-area="@AreaConstants.DashboardArea" class="link-primary fw-bolder">
+                   عضویت در سناتور
+
+                </a>
+            </div>
+        </div>
+        <div class="fv-row mb-10">
+            <label class="form-label fs-6 fw-bolder text-dark">ایمیل</label>
+            <input class="form-control form-control-lg form-control-solid" type="email" asp-for="Email" autocomplete="off" dir="ltr"  />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="fv-row mb-10">
+            <div class="d-flex flex-stack mb-2">
+                <label class="form-label fw-bolder text-dark fs-6 mb-0">رمزعبور</label>
+                <a asp-action="Index" asp-controller="ForgotPassword" class="link-primary fs-6 fw-bolder">فراموشی رمز عبور</a>
+            </div>
+            <input class="form-control form-control-lg form-control-solid" type="password" asp-for="Password" autocomplete="off" dir="ltr" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+        </div>
+
+        <div class="fv-row mb-10">
+            <label class="form-label fw-bolder text-dark fs-6">کد امنیتی</label>
+
+            <dnt-captcha asp-captcha-generator-max="30"
+                         asp-captcha-generator-min="1"
+                         asp-captcha-generator-language="English"
+                         asp-captcha-generator-display-mode="SumOfTwoNumbers"
+                         asp-font-name="Tahoma"
+                         asp-font-size="30"
+                         asp-refresh-button-class="fas fa-redo btn-sm"
+                         asp-fore-color="#333333"
+                         asp-back-color="#EEF3F7"
+                         asp-placeholder="جمع دو عدد را وارد کنید"    
+                         asp-validation-error-message="لطفا جمع دو عدد را وارد کنید"
+                         asp-use-relative-urls="true"
+                         asp-text-box-class="form-control form-control-lg form-control-solid"
+                         asp-text-box-template="{0} "
+                         asp-validation-message-class="text-danger" />
+        </div>
+
+
+        <div class="text-center">
+            <button onclick="dataBeginLogin()" type="submit" id="ppc_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                <span class="indicator-label">ورود</span>
+                <span class="indicator-progress">
+                    لطفا صبر نمایید...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+
+        </div>
+        <partial name="_CustomValidationSummary" />
+    </form>
+</div>
+
+
+<script>
+        function dataBeginLogin() {
+        $("#ppc_UserInfo_button .indicator-label").hide();
+        $("#ppc_UserInfo_button .indicator-progress").show();
+    }
+</script>

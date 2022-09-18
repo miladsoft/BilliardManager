@@ -1,0 +1,35 @@
+{
+  "name": "dntcommon.web.core.testwebapp",
+  "version": "1.0.0",
+  "description": "client side resources of the project",
+  "scripts": {},
+  "author": "VahidN",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VahidN/DNTIdentity.git"
+  },
+  "dependencies": {
+    "@fnando/sparkline": "^0.3.10",
+    "@ghalamborm/bootstrap4-rtl": "^1.6.0",
+    "bootstrap": "^5.0.1",
+    "bootstrap-fileinput": "^5.2.6",
+    "canvas-confetti": "^1.4.0",
+    "components-font-awesome": "^5.9.0",
+    "confetti-js": "0.0.18",
+    "jquery": "^3.4.1",
+    "jquery-ajax-unobtrusive": "^3.2.6",
+    "jquery-validation": "^1.19.0",
+    "jquery-validation-unobtrusive": "^3.2.11",
+    "jshint": "^2.13.1",
+    "lightbox2": "^2.11.3",
+    "popper.js": "^1.15.0",
+    "react-facebook-login": "^4.1.1",
+    "samim-font": "^1.0.2",
+    "vue": "^3.2.4",
+    "vue-persian-datetime-picker": "^2.8.0",
+    "vue-upload-component": "^3.0.50",
+    "vue3-persian-datetime-picker": "^1.0.0",
+    "vuetrend": "^0.3.4"
+  }
+}

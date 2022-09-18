@@ -1,0 +1,1 @@
+"use strict";var KTGeneralImageInputDemos={init:function(){}};PPCUtil.onDOMContentLoaded((function(){KTGeneralImageInputDemos.init()}));

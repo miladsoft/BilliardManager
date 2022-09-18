@@ -1,0 +1,1 @@
+"use strict";var KTAccountSettingsOverview={init:function(){}};PPCUtil.onDOMContentLoaded((function(){KTAccountSettingsOverview.init()}));

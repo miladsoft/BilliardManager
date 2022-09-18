@@ -1,0 +1,296 @@
+@model List<TechnicalToolsCoinViewModel>
+@{
+    ViewData["Title"] = "نمودار تکنیکال بیتکوین";
+    var i = 0;
+}
+
+
+
+<div class="d-flex flex-column flex-lg-row">
+    <div class="flex-column flex-lg-row-auto w-100 w-lg-300px w-xl-350px mb-10 mb-lg-0 d-flex align-items-stretch"
+        id="coinlist">
+        <div class="card card-flush">
+            <div class="card-header pt-7" id="ppc_chat_contacts_header">
+                <form class="w-100 position-relative" autocomplete="off">
+                    <span
+                        class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 ms-5 translate-middle-y">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path
+                                    d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+                                    fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                <path
+                                    d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+                                    fill="#000000" fill-rule="nonzero"></path>
+                            </g>
+                        </svg>
+                    </span>
+                    <input type="text" class="form-control form-control-solid px-15" name="search" value=""
+                        placeholder="جستجو بر اساس نام ">
+                </form>
+
+            </div>
+            <div class="card-body" id="ppc_chat_contacts_body">
+                <div class="scroll-y me-n5 pe-5 h-200px h-lg-auto" data-ppc-scroll="true"
+                    data-ppc-scroll-activate="{default: false, lg: true}" data-ppc-scroll-max-height="auto"
+                    data-ppc-scroll-dependencies="#ppc_header, #ppc_toolbar, #ppc_footer, #ppc_chat_contacts_header"
+                    data-ppc-scroll-wrappers="#ppc_content, #ppc_chat_contacts_body" data-ppc-scroll-offset="0px"
+                    style="max-height: 171px;">
+
+                    @foreach (var item in Model)
+                    {
+                        if (i == 0)
+                        {
+                            <div class="d-flex flex-stack py-4 Billiard-coin-item mb-3 form-control bg-light-warning">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-45px symbol-circle">
+                                        <span
+                                    class="symbol-label bg-light-danger text-danger fs-6 fw-bolder">@item.Symbol</span>
+                                    </div>
+                                    <div class="ms-5 Billiard-technical-chart-coin">
+                                        <a href="#"
+                                    class="fs-5 fw-bolder cursor-pointer text-hover-primary mb-2 Billiard-coin-current"
+                                    title="@item.Title" data-symbol="@item.ChartSymbol">@item.NameFa</a>
+                                        <div class="fw-bold text-gray-400">@item.NameEn</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column align-items-end ms-2">
+                                    @* <span class="text-muted fs-7 mb-1">BTC</span> *@
+                                    <span class="badge badge-sm badge-light-success">@item.IsActive.GetDisplayName()</span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="d-flex flex-stack py-4 Billiard-coin-item mb-3 form-control">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-45px symbol-circle">
+                                        <span
+                                    class="symbol-label bg-light-danger text-danger fs-6 fw-bolder">@item.Symbol</span>
+                                    </div>
+                                    <div class="ms-5 Billiard-technical-chart-coin">
+                                        <a href="#" class="fs-5 fw-bolder cursor-pointer text-hover-primary mb-2"
+                                    title="@item.Title" data-symbol="@item.ChartSymbol">@item.NameFa</a>
+                                        <div class="fw-bold text-gray-400">@item.NameEn</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column align-items-end ms-2">
+                                    @* <span class="text-muted fs-7 mb-1">BTC</span> *@
+                                    <span class="badge badge-sm badge-light-success">@item.IsActive.GetDisplayName()</span>
+                                </div>
+                            </div>
+                        }
+                        i++;
+
+                    }
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="flex-lg-row-fluid ms-lg-7 ms-xl-10 d-flex align-items-stretch">
+        <div class="card w-100">
+            <div class="card-header">
+                <div class="card-title" id="cardtitle">
+                    نمودار تکنیکال بیتکوین
+                </div>
+                <div class="card-toolbar">
+                    <div class="me-n3">
+                        <button class="btn btn-sm btn-icon btn-active-light-primary" data-ppc-menu-trigger="click"
+                            data-ppc-menu-placement="bottom-end" data-ppc-menu-flip="top-end">
+                            <i class="bi bi-three-dots fs-2"></i>
+                        </button>
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-150px py-3"
+                            data-ppc-menu="true" style="">
+
+                            <div class="menu-item px-3">
+                                <a href="#" onclick="ToggleList()" class="menu-link px-3 fs-5">نمایش لیست</a>
+                            </div>
+                            <div class="menu-item px-3">
+                                <a href="#" class="menu-link px-3" id="btnCreate" class="menu-link px-3 fs-5">افزودن
+                                    رمزارز</a>
+                            </div>
+                            <div class="menu-item px-3 my-1">
+                                <a href="#" class="menu-link px-3 fs-5" data-bs-toggle="tooltip">تنظیمات</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="card-body pl-0 pr-0 flex-fill chartcard">
+                <div class="me-n5 pe-5 h-300px h-lg-auto">
+
+                    <div id='technical-widget-container' class='Billiard-row h-100'>
+
+                        <div id="technical-widget"></div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+@if (User.IsInRole(ConstantRoles.Admin))
+{
+
+<script type="text/javascript">
+    $(function () {
+        $('#btnCreate').click(function (e) {
+            e.preventDefault();
+
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("AddItem", "TechnicalTools")',
+                renderModalPartialViewUrl: '@Url.Action("RenderItem", "TechnicalTools")',
+                renderModalPartialViewData: JSON.stringify({ "id": 0 }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+        $("a[id^='btnEdit']").click(function (e) {
+            e.preventDefault();
+            var roleId = $(this).data("edit-id");
+
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("EditItem", "TechnicalTools")',
+                renderModalPartialViewUrl: '@Url.Action("RenderItem", "TechnicalTools")',
+                renderModalPartialViewData: JSON.stringify({ "id": roleId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+
+        $("a[id^='btnDelete']").click(function (e) {
+            e.preventDefault();
+            var roleId = $(this).data("delete-id");
+
+            $.bootstrapModalAjaxForm({
+                postUrl: '@Url.Action("Delete", "TechnicalTools")',
+                renderModalPartialViewUrl: '@Url.Action("RenderDeleteItem", "TechnicalTools")',
+                renderModalPartialViewData: JSON.stringify({ "id": roleId }),
+                loginUrl: '/Dashboard/login',
+                beforePostHandler: function () {
+                },
+                completeHandler: function () {
+                    location.reload();
+                },
+                errorHandler: function () {
+                }
+            });
+        });
+    });
+</script>
+
+}
+
+
+
+
+<script language="javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script>
+    function __stylesheet_load() {
+        var flag = false;
+        document.querySelectorAll("link[href][rel='stylesheet']").forEach(function (el) {
+            var href = '';
+            if (!el.sheet || el.sheet.cssRules.length == 0) {
+                location.reload(false);
+            }
+        });
+        if (flag) {
+            setTimeout(__stylesheet_load, 100);
+        }
+    }
+    __stylesheet_load();
+
+    window.tradingview = null;
+    var search = location.search.replace("?", ""),
+        items = search.split("&"),
+        options = {
+            "symbol": "BINANCE:BTCUSDT",
+            "autosize": true,
+            "timezone": "Asia/Tehran",
+            "theme": "Light",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "withdateranges": true,
+            "hide_side_toolbar": false,
+            "hide_legend": false,
+            "timeframe": "1D",
+            "range": "1D",
+            "allow_symbol_change": true,
+            "container_id": "technical-widget",
+            "studies": [
+                "RSI@tv-basicstudies"
+            ],
+        };
+
+    for (var item of items) {
+        item = item.split("=");
+        if (item.length == 2) {
+            options[item[0]] = item[1];
+            if (item[0] == "theme" && item[1].toLowerCase() == "dark") {
+                document.body.classList.add("Billiard-technical-chart-coins-dark");
+            }
+        }
+    }
+    setTimeout(function () {
+        window.tradingview = new TradingView.widget(options);
+    }, 2000);
+    document.querySelectorAll(".Billiard-technical-chart-coin > a").forEach(function (el) {
+        el.setAttribute('data-href', el.getAttribute('href'));
+        el.removeAttribute('href');
+        el.addEventListener("click", function () {
+            var self = this,
+                symbol = self.getAttribute('data-symbol'),
+                title = self.getAttribute('title'),
+                href = self.getAttribute('data-href');
+            if (symbol) {
+                tradingview.options.symbol = symbol;
+                tradingview.reload();
+
+                document.title = title;
+
+                document.querySelector('#cardtitle').textContent = title;
+
+                document.querySelector(".Billiard-technical-chart-coin > a.Billiard-coin-current").parentElement.parentElement.parentElement.classList.remove('bg-light-warning');
+                document.querySelector(".Billiard-technical-chart-coin > a.Billiard-coin-current").classList.remove('Billiard-coin-current');
+
+                self.parentElement.parentElement.parentElement.classList.add('bg-light-warning');
+                self.classList.add('Billiard-coin-current');
+            }
+        });
+    });
+
+
+ 
+</script>
+
+}

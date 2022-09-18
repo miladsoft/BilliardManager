@@ -1,0 +1,137 @@
+@model ChangePasswordViewModel
+@{
+    ViewData["Title"] = "تغییر کلمه‌ی عبور";
+}
+
+
+
+
+
+<div class="card mb-5 mb-xl-10">
+    <div class="card-header border-0 cursor-pointer" role="" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_change_pass" aria-expوed="true" aria-controls="ppc_account_change_pass">
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">@ViewData["Title"]</h3>
+
+
+        </div>
+    </div>
+
+
+    <div id="ppc_account_change_pass" class="collapse show">
+        <form asp-controller="ChangePassword" asp-action="Index" method="post">
+
+            <div class="card-body border-top p-9">
+
+
+
+                @if (Model.LastUserPasswordChangeDate.HasValue)
+                {
+                    <div class="row mb-6">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6">پیام سیستم</label>
+                        <div class="col-lg-8">
+                            <div class="row">
+
+                                <div
+                                class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6 mb-6">
+                                    <span class="svg-icon svg-icon-2tx svg-icon-danger me-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path
+                                                d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                                fill="#000000" opacity="0.3"></path>
+                                                <path
+                                                d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                                                fill="#000000"></path>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                        <div class="mb-3 mb-md-0 fw-bold">
+                                            <h4 class="text-gray-800 fw-bolder">آخرین تاریخ تغییر کلمه‌ی عبور شما:</h4>
+                                            <div class="fs-6 text-gray-600 pe-7">
+
+                                                <strong>
+                                                    @Model.LastUserPasswordChangeDate.Value.ToFriendlyPersianDateTextify()
+                                                </strong>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">کلمه عبور فعلی</label>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <input type="text" dir="rtl" asp-for="OldPassword"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="کلمه عبور فعلی">
+                                <span asp-validation-for="OldPassword" class="text-danger mt-6 mb-6"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">کلمه عبور جدید</label>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <input type="text" dir="rtl" asp-for="NewPassword"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="کلمه عبور جدید">
+                                <span asp-validation-for="NewPassword" class="text-danger mt-6 mb-6"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">تکرار کلمه عبور جدید</label>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <input type="text" dir="rtl" asp-for="ConfirmPassword"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="تکرار کلمه عبور جدید">
+                                <span asp-validation-for="ConfirmPassword" class="text-danger mt-6 mb-6"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="ppc_UserInfo_button" class="card-footer d-flex justify-content-end py-6 px-9">
+
+                <button onclick="dataBeginChangePass()" type="submit" id="ppc_UserInfo_submit" class="btn btn-primary">
+                    <span class="indicator-label">ذخیره تغییرات</span>
+                    <span class="indicator-progress">لطفا صبر کنید...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function dataBeginChangePass() {
+        $("#ppc_UserInfo_button .indicator-label").hide();
+        $("#ppc_UserInfo_button .indicator-progress").show();
+    }
+</script>

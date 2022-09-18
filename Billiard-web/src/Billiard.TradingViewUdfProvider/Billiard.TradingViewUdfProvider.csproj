@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <PackageId>TradingView.Udf.Provider</PackageId>
+    <Authors>Mariusz Kotas</Authors>
+    <Description>TradingView data provider (UDF) that integrates into ASP.NET Core application</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Copyright>Copyright 2020 Mariusz Kotas. All rights reserved.</Copyright>
+    <PackageTags>TradingView chart data provider cryptocurrency exchange bitcoin extensions</PackageTags>
+    <PackageLicenseUrl>https://github.com/Marfusios/tradingview-udf-provider/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Marfusios/tradingview-udf-provider</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Marfusios/tradingview-udf-provider/master/icon.jpg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Marfusios/tradingview-udf-provider</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile> 
+    
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+  </ItemGroup>
+
+</Project>

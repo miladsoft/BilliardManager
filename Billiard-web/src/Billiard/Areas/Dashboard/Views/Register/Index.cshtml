@@ -1,0 +1,216 @@
+@model RegisterViewModel
+@{ ViewData["Title"] = "ثبت نام";
+    Layout = "_LayoutAuth"; }
+
+<div class="w-lg-600px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+    <form class="form w-100" novalidate="novalidate" id="ppc_sign_in_form" asp-controller="Register"
+          asp-action="Index"
+          method="post">
+        <div class="text-center mb-10">
+            <h1 class="text-dark mb-3">عضویت در سناتور</h1>
+
+            <div class="text-gray-400 fw-bold fs-4 mt-10">
+               
+                <a asp-action="Index" asp-controller="Login" asp-area="@AreaConstants.DashboardArea" class="link-primary fw-bolder">
+                   ورود به سناتور
+
+                </a>
+            </div>
+        </div>
+        <div class="row fv-row mb-7">
+            <div class="col-xl-6">
+                <label class="form-label fw-bolder text-dark fs-6">نام</label>
+                <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" asp-for="FirstName" autocomplete="off" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-xl-6">
+                <label class="form-label fw-bolder text-dark fs-6">نام خانوادگی</label>
+                <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" asp-for="LastName" autocomplete="off" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+
+            </div>
+        </div>
+
+        <div class="fv-row mb-7">
+            <label class="form-label fw-bolder text-dark fs-6">ایمیل</label>
+            <input class="form-control form-control-lg form-control-solid" type="email" placeholder="" asp-for="Email" autocomplete="off" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+             <div class="fv-row mb-7">
+            <label class="form-label fw-bolder text-dark fs-6" asp-for="Referrer" ></label>
+            <input class="form-control form-control-lg form-control-solid" type="text" placeholder="" asp-for="Referrer" autocomplete="off" />
+        </div>
+
+        <div class="mb-10 fv-row" data-ppc-password-meter="true">
+            <div class="mb-1">
+                کلمه عبور
+                <div class="position-relative mb-3">
+                    <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" asp-for="Password" autocomplete="off" />
+
+                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 ml-15" data-ppc-password-meter-control="visibility">
+                        <i class="bi bi-eye-slash fs-2"></i>
+                        <i class="bi bi-eye fs-2 d-none"></i>
+                    </span>
+
+                </div>
+                <div class="d-flex align-items-center mb-3" data-ppc-password-meter-control="highlight">
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                </div>
+
+            </div>
+            <div class="text-muted">از 8 حرف یا بیشتر با ترکیبی از حروف ، اعداد و نمادها استفاده کنید.</div> 
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="fv-row mb-5">
+            <label class="form-label fw-bolder text-dark fs-6">تکرار کلمه عبور</label>
+            <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" asp-for="ConfirmPassword" autocomplete="off" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+ 
+
+
+        <div class="fv-row mb-5">
+            <label class="form-label fw-bolder text-dark fs-6">کد امنیتی</label>
+
+            <dnt-captcha asp-captcha-generator-max="30"
+                         asp-captcha-generator-min="1"
+                         asp-captcha-generator-language="English"
+                         asp-captcha-generator-display-mode="SumOfTwoNumbers"
+                         asp-font-name="Tahoma"
+                         asp-font-size="30"
+                         asp-refresh-button-class="fas fa-redo btn-sm"
+                         asp-fore-color="#333333"
+                         asp-back-color="#EEF3F7"
+                         asp-placeholder="جمع دو عدد را وارد کنید"
+                         asp-validation-error-message="لطفا جمع دو عدد را وارد کنید"
+                         asp-use-relative-urls="true"
+                         asp-text-box-class="form-control form-control-lg form-control-solid"
+                         asp-text-box-template="{0} "
+                         asp-validation-message-class="text-danger" />
+        </div>
+
+
+        <div class="fv-row mb-10">
+            <label class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input" type="checkbox" name="toc" value="1" />
+                <span class="form-check-label fw-bold text-gray-700 fs-6">
+                    من تمام
+                    <a asp-action="Index" asp-controller="Terms" asp-area="" class="ms-1 link-primary" target="_blank">قوانین و شرایط</a>
+                    را میپذیرم
+                </span>
+            </label>
+        </div>
+        <div class="text-center">
+            <button type="submit" id="ppc_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                <span class="indicator-label">عضویت</span>
+                <span class="indicator-progress">
+                    لطفا صبر نمایید...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="card mt-5">
+        <div class="card-header">
+            <h5 class="card-title">@ViewData["Title"]</h5>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Register"
+                  asp-action="Index"
+                  method="post">
+                <partial name="_CustomValidationSummary" />
+                <div class="form-group row">
+                    <label asp-for="FirstName" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="LastName" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="rtl" asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Username" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="Username" onblur="triggerRemoteValidation()" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                        <span class="optional-label">(جهت لاگین)</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="Email" onblur="triggerRemoteValidation()" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Password" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ConfirmPassword" class="col-md-2 col-form-label text-md-left"></label>
+                    <div class="col-md-10">
+                        <input dir="ltr" asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col col-md-2 col-form-label text-md-left">
+                        کد امنیتی
+                    </label>
+                    <div class="col col-md-10">
+                        <Billiard-captcha asp-captcha-generator-max="30"
+                                     asp-captcha-generator-min="1"
+                                     asp-captcha-generator-language="Persian"
+                                     asp-captcha-generator-display-mode="SumOfTwoNumbers"
+                                     asp-font-name="Tahoma"
+                                     asp-font-size="20"
+                                     asp-refresh-button-class="fas fa-redo btn-sm"
+                                     asp-fore-color="#333333"
+                                     asp-back-color="#ccc"
+                                     asp-text-box-class="text-box form-control"
+                                     asp-text-box-template="<div class='input-group'><span class='input-group-prepend'><span class='input-group-text'><i class='fas fa-lock'></i></span></span>{0}</div>"
+                                     asp-validation-message-class="text-danger" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-md-2 col-md-10">
+                        <button type="submit" class="btn btn-info col-md-2">ثبت نام</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+*@
+
+
+

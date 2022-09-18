@@ -1,0 +1,31 @@
+@model RecoverBilliardWalletViewModel
+<partial name="_CustomValidationSummary" />
+<form asp-action="EditMobile" method="post">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title">بازیابی کیف پول</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="form-group row mb-5">
+                    <label asp-for="SecretNumber" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input asp-for="SecretNumber" class="form-control numEN"  dir="ltr"/>
+                        <span asp-validation-for="SecretNumber" class="text-danger"></span>
+                    </div>
+                </div>
+ 
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">بازیابی کیف پول</button>
+                <button class="btn btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+ 

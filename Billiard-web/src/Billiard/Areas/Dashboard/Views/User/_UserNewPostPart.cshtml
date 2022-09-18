@@ -1,0 +1,20 @@
+@model UserItemViewModel
+@inject IUsersPhotoService PhotoService
+
+@{
+	var user = Model.User;
+	var photoUrl = PhotoService.GetUserPhotoUrl(user.PhotoFileName); 
+}
+
+
+
+<div class="card-header cursor-pointer">
+	<div class="card-title m-0">
+		<h3 class="fw-bolder m-0">پست جدید</h3>
+	</div>
+</div>
+<div class="card-body p-9">
+
+
+
+</div>

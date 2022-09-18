@@ -1,0 +1,29 @@
+@model BlogPostCategory
+<partial name="_CustomValidationSummary" />
+<form asp-action="DeleteCategory" method="post" class="form-horizontal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title">حذف دسته</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <span class="text-center">
+                    آیا می‌خواهید دسته 
+                    <strong>@Model.Title</strong>
+                    را حذف کنید؟
+                    
+                </span>
+                <input hidden asp-for="Id" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="submit">تائید حذف</button>
+                <button class="btn btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>

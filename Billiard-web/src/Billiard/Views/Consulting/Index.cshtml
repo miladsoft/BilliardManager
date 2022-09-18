@@ -1,0 +1,239 @@
+@model BilliardConsultingViewModel
+@{
+  ViewData["Title"] = "مرکز مشاوره";
+  Layout = "_LayoutPage";
+}
+<div id="ppc_content_container" class="container">
+
+  <div class="card mt-n10 mt-lg-n10 ">
+
+    <div class="card-body p-lg-17">
+
+      <div class="row mb-3">
+
+        <div class="col-md-6 pe-lg-10">
+
+          <form class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" asp-action="RequestConsulting"
+            asp-controller="Consulting" method="post" data-ajax="true" data-ajax-update="#MessagePanel"
+            enctype="multipart/form-data">
+
+            <h1 class="fw-bolder text-dark mb-9">ارسال درخواست مشاوره</h1>
+            <p class="blogp mb-5">
+              سرمایه‌گذاری در ارز دیجیتال یکی از انوع سرمایه‌گذاری هاست که به راحتی می‌توانید کسب درآمد در منزل را تجربه
+              کنید. در حال حاضر بسیاری از علاقه‌مندان کسب و کارهای دیجیتالی به این سمت روی آورده‌اند و باعث ایجاد صنعتی
+              نوپا و کاملا کاربردی در دنیای تکنولوژی امروز شدند. اگر به فکر یک حرفه کاری در حوزه ارز دیجیتال و رمز ارزها
+              هستید، با ما همراه باشید تا به بررسی اجمالی از ارزهای دیجیتالی و سرمایه‌گذاری در این ارزها بپردازیم.
+            </p>
+            <div class="row mb-5">
+
+
+
+              <div class="col-md-6 fv-row fv-plugins-icon-container">
+
+                <label class="fs-5 fw-bold mb-2">نام</label>
+
+
+                <input type="text" class="form-control form-control-solid" placeholder="" asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger mt-6 mb-6"></span>
+
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+              </div>
+
+
+              <div class="col-md-6 fv-row fv-plugins-icon-container">
+
+                <label class="fs-5 fw-bold mb-2">موبایل</label>
+
+
+                <input type="text" class="form-control form-control-solid" placeholder="" asp-for="Mobile">
+                <span asp-validation-for="Mobile" class="text-danger mt-6 mb-6"></span>
+
+                <div class="fv-plugins-message-container invalid-feedback"></div>
+              </div>
+
+            </div>
+
+
+
+
+            <div class="flex-column mb-5 fv-row">
+
+              <label class="fs-5 fw-bold mb-2">موضوع</label>
+
+
+              <input class="form-control form-control-solid" placeholder="" asp-for="Subject">
+              <span asp-validation-for="Subject" class="text-danger mt-6 mb-6"></span>
+
+            </div>
+
+            <div class="flex-column mb-10 fv-row fv-plugins-icon-container">
+              <label class="fs-6 fw-bold mb-2">پیام</label>
+              <textarea class="form-control form-control-solid" rows="6" asp-for="Text" placeholder=""></textarea>
+              <span asp-validation-for="Text" class="text-danger mt-6 mb-6"></span>
+
+              <div class="fv-plugins-message-container invalid-feedback"></div>
+            </div>
+
+
+            <div id="ppc_request_button">
+              <button onclick="dataBeginPost()" type="submit" id="ppc_submit" class="btn btn-primary">
+                <span class="indicator-label">ارسال درخواست مشاوره</span>
+                <span class="indicator-progress">لطفا صبر کنید...
+                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+              </button>
+
+            </div>
+
+
+          </form>
+
+        </div>
+
+
+        <div class="col-md-6 ps-lg-10">
+          <img src="~/theme/Desktop/assets/media/page/moshavereh.png" class="img-fluid mb-10">
+          <p class="blogp">
+            مشاوره ارز دیجیتال بهترین و سریع ترین راه برای کسب اطلاعات مناسب در زمینه مشاوره سرمایه گذاری در بیت کوین و
+            دیگر ارزهای دیجیتال و مشاوره تردینگ است.
+
+            بسیاری از افراد پس از استخراج ارز دیجیتال از مبادله آن واهمه دارند، و این به دلیل قوانین خاص در مورد معامله
+            ارز دیجیتال است که در هر کشور متفاوت است. ساخت حساب کاربری، پیدا کردن صرافی های معتبر و استفاده از درگاه های
+            پرداخت مطمئن از دغدغه هایی است افراد پس از استخراج ارز دیجیتال با آن درگیر هستند.
+
+            استفاده از مشاور ارزدیجیتال می تواند دغدغه ها و دردسر های شما را کم کند تا به بهترین نحو بتوانید وارد سرمایه
+            گذاری و مبادله ارز های دیجیتال شوید.
+
+          </p>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="row g-5 mb-5 mb-lg-15">
+
+        <div class="col-sm-6 pe-lg-10">
+
+          <div class="text-center bg-light card-rounded d-flex flex-column justify-content-center p-10 h-lg-100">
+
+
+            <span class="svg-icon svg-icon-3tx svg-icon-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <g clip-path="url(#clip0)">
+                  <path opacity="0.25"
+                    d="M21.3902 19.5804L19.4852 21.4853C19.4852 21.4853 14.5355 23.6066 7.46441 16.5356C0.39334 9.46451 2.51466 4.51476 2.51466 4.51476L4.41959 2.60983C5.28021 1.74921 6.70355 1.85036 7.43381 2.82404L9.25208 5.24841C9.84926 6.04465 9.77008 7.15884 9.06629 7.86262L7.46441 9.46451C7.46441 9.46451 7.46441 10.8787 10.2928 13.7071C13.1213 16.5356 14.5355 16.5356 14.5355 16.5356L16.1374 14.9337C16.8411 14.2299 17.9553 14.1507 18.7516 14.7479L21.1759 16.5662C22.1496 17.2964 22.2508 18.7198 21.3902 19.5804Z"
+                    fill="#191213"></path>
+                  <path
+                    d="M4.41959 2.60987L3.92887 3.10059L8.17151 8.75745L9.06629 7.86267C9.77007 7.15888 9.84926 6.0447 9.25208 5.24846L7.4338 2.82409C6.70354 1.85041 5.28021 1.74926 4.41959 2.60987Z"
+                    fill="#121319"></path>
+                  <path
+                    d="M21.3901 19.5804L20.8994 20.0711L15.2426 15.8285L16.1373 14.9337C16.8411 14.2299 17.9553 14.1507 18.7515 14.7479L21.1759 16.5662C22.1496 17.2965 22.2507 18.7198 21.3901 19.5804Z"
+                    fill="#121319"></path>
+                </g>
+              </svg>
+            </span>
+            <a href="tel:02191013717">
+              <h1 class="text-dark fw-bolder my-5">با ما تماس بگیرید</h1>
+              <div class="text-gray-700 fw-bold fs-2">021-9101-3717</div>
+            </a>
+
+
+          </div>
+
+        </div>
+
+
+        <div class="col-sm-6 ps-lg-10">
+
+          <div class="text-center bg-light card-rounded d-flex flex-column justify-content-center p-10 h-lg-100">
+
+
+            <span class="svg-icon svg-icon-3tx svg-icon-primary">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M16,15.6315789 L16,12 C16,10.3431458 14.6568542,9 13,9 L6.16183229,9 L6.16183229,5.52631579 C6.16183229,4.13107011 7.29290239,3 8.68814808,3 L20.4776218,3 C21.8728674,3 23.0039375,4.13107011 23.0039375,5.52631579 L23.0039375,13.1052632 L23.0206157,17.786793 C23.0215995,18.0629336 22.7985408,18.2875874 22.5224001,18.2885711 C22.3891754,18.2890457 22.2612702,18.2363324 22.1670655,18.1421277 L19.6565168,15.6315789 L16,15.6315789 Z"
+                  fill="#000000"></path>
+                <path
+                  d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z"
+                  fill="#000000" opacity="0.3"></path>
+              </svg>
+            </span>
+
+
+            <div id="ppc_support" class="cursor-pointer">
+              <h1 class="text-dark fw-bolder my-5">گفتگوی آنلاین با ما</h1>
+
+
+              <div class="text-gray-700 fs-3 fw-bold">کلیک کنید</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card mb-4 bg-light text-center">
+
+        <div class="card-body py-12">
+
+          <a href="#" class="mx-4">
+            <img src="~/theme/Desktop/assets/media/svg/brand-logos/facebook-4.svg" class="h-30px my-2" alt="">
+          </a>
+
+
+          <a href="#" class="mx-4">
+            <img src="~/theme/Desktop/assets/media/svg/brand-logos/instagram-2-1.svg" class="h-30px my-2" alt="">
+          </a>
+
+
+          <a href="#" class="mx-4">
+            <img src="~/theme/Desktop/assets/media/svg/brand-logos/github.svg" class="h-30px my-2" alt="">
+          </a>
+
+
+          <a href="#" class="mx-4">
+            <img src="~/theme/Desktop/assets/media/svg/brand-logos/behance.svg" class="h-30px my-2" alt="">
+          </a>
+
+
+          <a href="#" class="mx-4">
+            <img src="~/theme/Desktop/assets/media/svg/brand-logos/pinterest-p.svg" class="h-30px my-2" alt="">
+          </a>
+
+
+          <a href="#" class="mx-4">
+            <img src="~/theme/Desktop/assets/media/svg/brand-logos/twitter.svg" class="h-30px my-2" alt="">
+          </a>
+
+
+          <a href="#" class="mx-4">
+            <img src="~/theme/Desktop/assets/media/svg/brand-logos/dribbble-icon-1.svg" class="h-30px my-2" alt="">
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+@section Scripts{
+<script>
+  document.getElementById("ppc_support").addEventListener("click", function () {
+    Goftino.toggle();
+  });
+
+  function dataBeginPost() {
+    $("#ppc_request_button .indicator-label").hide();
+    $("#ppc_request_button .indicator-progress").show();
+    setTimeout(function () {
+      $("#ppc_request_button .indicator-label").show();
+      $("#ppc_request_button .indicator-progress").hide();
+    }, 3000);
+  }
+</script>
+}

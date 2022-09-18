@@ -1,0 +1,197 @@
+@model PagedListViewModel<BlogPost>
+@inject IUsersPhotoService PhotoService
+@{
+	Layout = "_LayoutPage";
+	ViewData["Title"] = ViewData["Category"] ;
+}
+<div id="ppc_content_container" class="container">
+
+    <div class="card mt-n10 mt-lg-n10 ">
+
+        <div class="card-body p-lg-20">
+
+            <div class="mb-17">
+
+                <div class="d-flex flex-stack mb-5">
+                    <h3 class="text-black">وبلاگ سناتور</h3>
+
+                </div>
+
+                <div class="separator separator-dashed mb-9"></div>
+
+                <div class="row">
+                    <div class="d-flex flex-column flex-xl-row">
+                        <div class="flex-lg-row-fluid me-xl-15">
+
+                          
+@foreach (var item in Model.List)
+{
+           <div class="mb-16 mt-md-0 mt-17">
+                                <div class="mb-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-100px me-4">
+                                            				@if (string.IsNullOrEmpty(item.ImageFileName))
+				{
+					item.ImageFileName="blank.png";
+				}
+                                            <div class="symbol-label"
+                                                style="background-image: url('/file/download/BlogPost/@item.ImageFileName')">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <a asp-action="Post" asp-controller="Blog" asp-area="" asp-route-Id="@item.Id"
+                                                class="fw-bolder text-dark mb-4 fs-2 lh-base text-hover-primary">
+                                                @item.Title
+                                                </a>
+
+                                            <div class="fw-bold fs-5 mt-3 text-gray-600 text-dark blogp">
+                                                
+                                                @item.SeoDescription
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+		                        @{
+									var ItemphotoUrl = PhotoService.GetUserPhotoUrl(item.User.PhotoFileName);
+								}
+                                <div class="d-flex flex-stack flex-wrap">
+      					            <div class="d-flex align-items-center pe-2">
+										<div class="symbol symbol-35px symbol-circle me-3">
+											<img alt="" src="@ItemphotoUrl">
+										</div>
+										<div class="fs-5 fw-bolder">
+											<a asp-action="Index" asp-controller="User"
+											asp-area="@AreaConstants.DashboardArea" asp-route-Id="@item.User.Id"
+											class="text-gray-700 text-hover-primary">@item.User.DisplayName</a>
+				
+										</div>
+									</div>
+                                    <div class="d-flex flex-wrap">
+                                        <div class="me-9 my-1">
+                                            <span class="svg-icon svg-icon-primary svg-icon-2 me-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                    height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24" />
+                                                        <rect fill="#000000" x="4" y="4" width="7" height="7"
+                                                            rx="1.5" />
+                                                        <path
+                                                            d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+                                                            fill="#000000" opacity="0.3" />
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <span class="fw-bolder text-gray-400">@item.CreatedDateTime.ToPersianDateTextify()</span>
+                                
+                                        </div>
+                                        <div class="me-9 my-1">
+                                            <a asp-action="Category" asp-controller="Blog"
+												asp-route-Id="@item.BlogPostCategory.Name">
+                                            <span class="svg-icon svg-icon-primary svg-icon-2 me-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none">
+                                                    <path opacity="0.25"
+                                                        d="M13 6L12.4104 5.01732C11.8306 4.05094 10.8702 3.36835 9.75227 3.22585C8.83875 3.10939 7.66937 3 6.5 3C5.68392 3 4.86784 3.05328 4.13873 3.12505C2.53169 3.28325 1.31947 4.53621 1.19597 6.14628C1.09136 7.51009 1 9.43529 1 12C1 13.8205 1.06629 15.4422 1.15059 16.7685C1.29156 18.9862 3.01613 20.6935 5.23467 20.8214C6.91963 20.9185 9.17474 21 12 21C14.8253 21 17.0804 20.9185 18.7653 20.8214C20.9839 20.6935 22.7084 18.9862 22.8494 16.7685C22.9337 15.4422 23 13.8205 23 12C23 10.9589 22.9398 9.97795 22.8611 9.14085C22.7101 7.53313 21.4669 6.2899 19.8591 6.13886C19.0221 6.06022 18.0411 6 17 6H13Z"
+                                                        fill="#12131A" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M13 6H1.21033C1.39381 4.46081 2.58074 3.27842 4.13877 3.12505C4.86788 3.05328 5.68396 3 6.50004 3C7.66941 3 8.83879 3.10939 9.75231 3.22585C10.8702 3.36835 11.8306 4.05094 12.4104 5.01732L13 6Z"
+                                                        fill="#12131A" />
+                                                </svg>
+                                            </span>
+                                            <span class="fw-bolder text-gray-400">@item.BlogPostCategory.Title</span>
+                                            </a>
+                                        </div>
+                                        <div class="my-1">
+                                            <span class="svg-icon svg-icon-primary svg-icon-2 me-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none">
+                                                    <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M5.69477 2.48932C4.00472 2.74648 2.66565 3.98488 2.37546 5.66957C2.17321 6.84372 2 8.33525 2 10C2 11.6647 2.17321 13.1563 2.37546 14.3304C2.62456 15.7766 3.64656 16.8939 5 17.344V20.7476C5 21.5219 5.84211 22.0024 6.50873 21.6085L12.6241 17.9949C14.8384 17.9586 16.8238 17.7361 18.3052 17.5107C19.9953 17.2535 21.3344 16.0151 21.6245 14.3304C21.8268 13.1563 22 11.6647 22 10C22 8.33525 21.8268 6.84372 21.6245 5.66957C21.3344 3.98488 19.9953 2.74648 18.3052 2.48932C16.6859 2.24293 14.4644 2 12 2C9.53559 2 7.31411 2.24293 5.69477 2.48932Z"
+                                                        fill="#191213" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 7C6.44772 7 6 7.44772 6 8C6 8.55228 6.44772 9 7 9H17C17.5523 9 18 8.55228 18 8C18 7.44772 17.5523 7 17 7H7ZM7 11C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11C11.5523 13 12 12.5523 12 12C12 11.4477 11.5523 11 11 11H7Z"
+                                                        fill="#121319" />
+                                                </svg>
+                                            </span>
+                                            <span class="fw-bolder text-gray-400">@item.BlogPostComment.Count() دیدگاه</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+}
+                     
+
+
+
+
+
+                            <div>
+                                <cs-pager cs-paging-pagesize="@Model.Paging.ItemsPerPage"
+                                    cs-paging-pagenumber="@Model.Paging.CurrentPage"
+                                    cs-paging-totalitems="@Model.Paging.TotalItems" cs-pagenumber-param="page"
+                                    asp-controller="Blog" asp-action="Category"
+                                    cs-show-first-last="true"
+                                    cs-suppress-empty-nextprev="true" cs-suppress-inactive-firstlast="true"
+                                    cs-first-page-text="ابتدا" cs-last-page-text="انتها"
+                                    cs-pager-li-current-class="active" cs-pager-li-non-active-class="disabled"
+                                    cs-pager-ul-class="pagination" cs-pager-li-current-class="page-item active"
+                                    cs-pager-li-other-class="page-item"
+                                    cs-pager-li-non-active-class="page-item disabled"
+                                    cs-pager-link-current-class="page-link" cs-pager-link-other-class="page-link">
+                                </cs-pager>
+                            </div>
+
+
+                           
+
+                        </div>
+                        <div class="flex-column flex-lg-row-auto w-100 w-xl-300px mb-10">
+                            <div class="mb-16">
+                                <h4 class="text-black mb-7">جستجو</h4>
+                                <div class="position-relative">
+                                    <span
+                                        class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path
+                                                    d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+                                                    fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <path
+                                                    d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+                                                    fill="#000000" fill-rule="nonzero" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <form asp-controller="Blog" asp-action="Search" method="post"
+                                        enctype="multipart/form-data">
+                                        <input type="text" class="form-control form-control-solid ps-10" name="text"
+                                            value="" placeholder="جستجو" />
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+
+                            <vc:blog-category></vc:blog-category>
+
+					        <vc:last-blog-post></vc:last-blog-post>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

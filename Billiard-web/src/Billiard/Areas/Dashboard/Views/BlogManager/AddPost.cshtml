@@ -1,0 +1,266 @@
+@model BlogPostViewModel
+@inject IOptionsSnapshot<SiteSettings> SiteOptions
+
+
+@{
+    ViewData["Title"] = "افزودن پست";
+    var imageOptions = SiteOptions.Value.UserAvatarImageOptions;
+    List<BlogPostCategory> _Categories = (List<BlogPostCategory>)ViewData["Categories"];
+}
+
+<div class="card mb-5 mb-xl-10">
+    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_profile_details" aria-expوed="true" aria-controls="ppc_AddPost">
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">@ViewData["Title"] </h3>
+        </div>
+    </div>
+
+
+    <div id="ppc_AddPost" class="collapse show">
+        <form asp-controller="BlogManager" asp-action="AddPost" method="post" enctype="multipart/form-data">
+
+            <div class="card-body border-top p-9">
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label required fw-bold fs-6">انتخاب دسته</label>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <select asp-for="BlogPostCategoryId"
+                                    class="form-select form-select-solid fw-bolder js-select2">
+                                    <option value="" disabled selected hidden>انتخاب کنید</option>
+                                    @{
+                                        foreach (var item in _Categories)
+                                        {
+                                            <option value="@item.Id">@item.Title </option>
+                                        }
+                                    }
+                                </select>
+
+                                <span asp-validation-for="BlogPostCategoryId" class="text-danger mt-6 mb-6"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label required fw-bold fs-6">عنوان پست</label>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <input type="text" dir="rtl" asp-for="Title"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="عنوان پست">
+                                <span asp-validation-for="Title" class="text-danger mt-6 mb-6"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label required fw-bold fs-6">متن پست</label>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <textarea dir="rtl" asp-for="Text"
+                                    class="form-control form-control-lg form-control-solid"
+                                    placeholder="متن پست"></textarea>
+                                <span asp-validation-for="Text" class="Text-danger mt-6 mb-6"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label required fw-bold fs-6">توضیح مختصر</label>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <textarea dir="rtl" asp-for="SeoDescription"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="توضیح مختصر"></textarea>
+                                <span asp-validation-for="SeoDescription" class="text-danger mt-6 mb-6"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label required fw-bold fs-6">کلمات کلیدی</label>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+                                <input type="text" dir="rtl" asp-for="SeoKeyWords"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="کلمات کلیدی (کلمات را با , از هم جدا کنید)">
+                                <span asp-validation-for="SeoKeyWords" class="text-danger mt-6 mb-6"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label required fw-bold fs-6">پست ویژه</label>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+
+
+                                <div class="d-flex align-items-center">
+                                    <span class="bullet bullet-vertical h-40px bg-success"></span>
+
+                                    <div class="form-check form-check-custom form-check-solid mx-5">
+                                        <input class="form-check-input" type="checkbox" asp-for="IsSpecial">
+                                    </div>
+
+                                    <div class="flex-grow-1">
+                                        <span class="text-muted fw-bold d-block">پست ویژه</span>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6" id="VideoDiv" style="display: none">
+                    <label class="col-lg-3 col-form-label required fw-bold fs-6">انتخاب ویدیو </label>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12 fv-row">
+
+                                <input asp-for="Video" type="file" class="file" data-preview-file-type="text">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label fw-bold fs-6">تصویر شاخص پست</label>
+                    <div class="col-lg-9">
+                        <div class="image-input image-input-outline" data-ppc-image-input="true"
+                            style="background-image: url(/theme/Desktop/assets/media/avatars/blank.png)">
+                            <div class="image-input-wrapper w-125px h-125px"
+                                style="background-image: url(/theme/Desktop/assets/media/avatars/blank.png)"></div>
+                            <label
+                                class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                data-ppc-image-input-action="change" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="انتخاب عکس">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+                                <input type="file" asp-for="Image" accept=".png, .jpg, .jpeg">
+                                <input type="hidden" name="Image_remove">
+                            </label>
+
+
+                        </div>
+                        <div class="form-text">تصاویر مجاز برای ارسال از نوع‌های png، gif و jpg هستند؛
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div id="ppc_AddPost_button" class="card-footer d-flex justify-content-end py-6 px-9">
+                <button onclick="dataBeginChangeAddPost()" type="submit" id="ppc_AddPost_submit"
+                    class="btn btn-primary">
+                    <span class="indicator-label">ذخیره تغییرات</span>
+                    <span class="indicator-progress">لطفا صبر کنید...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Style{
+<link rel="stylesheet" href="~/redactor3/redactor.css" />
+<link rel="stylesheet" href="~/fileinput/css/fileinput.min.css" />
+}
+
+
+@section Scripts{
+<script src="~/redactor3/redactor.js"></script>
+<script src="~/redactor3/langs/fa.js"></script>
+<script src="~/redactor3/plugins/fullscreen/fullscreen.min.js"></script>
+<script src="~/redactor3/custom-plugins/iconic/iconic.js"></script>
+<script src="~/js/select2.min.js"></script>
+<script src="~/fileinput/js/fileinput.min.js"></script>
+<script src="~/fileinput/themes/bs5/theme.min.js"></script>
+
+<script src="~/fileinput/js/locales/fa.js"></script>
+
+<script>
+    $("#Video").fileinput({ 'showUpload': false, 'previewFileType': 'any',language: "fa",theme: 'bs5'});
+
+    $(document).ready(function () {
+        $('.js-select2').select2();
+    });
+
+    $(function () {
+        $("#IsSpecial").click(function () {
+            if ($(this).is(":checked")) {
+                $("#VideoDiv").show();
+            } else {
+                $("#VideoDiv").hide();
+            }
+        });
+    });
+
+
+
+
+    $('#Text').redactor({
+        shortcutsAdd: {
+            'ctrl+shift+0': { func: 'block.format', params: ['pre'] }
+        },
+        callbacks: {},
+        buttons: ['bold', 'italic', 'underline', 'lists', 'link', 'line'],
+        toolbarFixedTopOffset: 40,
+        formatting: ['p', 'pre'],
+        imageUpload: 'image_upload.php',
+        lang: 'fa',
+        direction: 'rtl',
+        plugins: ['clips', 'article_links', 'source', 'iconic2', 'emoticons', 'fullscreen'],
+        placeholder: 'متن پست ...',
+        linkNewTab: true,
+        toolbarFixed: false,
+        minHeight: '100px',
+        linkify: true,
+        linkNofollow: true,
+        pastePlainText: true,
+        linkSize: 1000
+    });
+
+
+    function dataBeginChangeAddPost() {
+        $("#ppc_AddPost_button .indicator-label").hide();
+        $("#ppc_AddPost_button .indicator-progress").show();
+        setTimeout(function () {
+            $("#ppc_AddPost_button .indicator-label").show();
+            $("#ppc_AddPost_button .indicator-progress").hide();
+        }, 3000);
+    }
+
+
+
+</script>
+}

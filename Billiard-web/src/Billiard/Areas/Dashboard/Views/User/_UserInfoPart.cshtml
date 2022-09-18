@@ -1,0 +1,152 @@
+@model UserItemViewModel
+@inject IUsersPhotoService PhotoService
+
+@{ var user = Model.User;
+                var photoUrl = PhotoService.GetUserPhotoUrl(user.PhotoFileName); }
+
+
+
+<div class="card-header cursor-pointer">
+    <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">جزئیات پروفایل</h3>
+    </div>
+    <a href="account/settings.html" class="btn btn-primary align-self-center"> پروفایل</a>
+</div>
+<div class="card-body p-9">
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">نام کامل</label>
+        <div class="col-lg-8">
+            <span class="fw-bolder fs-6 text-dark">میلاد رئیسی</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">شرکت</label>
+        <div class="col-lg-8 fv-row">
+            <span class="fw-bold fs-6">سناتور</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">
+            تلفن همراه
+            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="شماره تلفن باید فعال باشد"></i>
+        </label>
+        <div class="col-lg-8 d-flex align-items-center">
+            <span class="fw-bolder fs-6 me-2">09126506599</span>
+            <span class="badge badge-success">تایید شده</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">سایت شرکت</label>
+        <div class="col-lg-8">
+            <a href="#" class="fw-bold fs-6 text-dark text-hover-primary">Billiard.ir</a>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">
+            کشور
+            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="کشور مبدا"></i>
+        </label>
+        <div class="col-lg-8">
+            <span class="fw-bolder fs-6 text-dark">ایران</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">طریقه ی ارتباط</label>
+        <div class="col-lg-8">
+            <span class="fw-bolder fs-6 text-dark">ایمیل, تلفن</span>
+        </div>
+    </div>
+    <div class="row mb-10">
+        <label class="col-lg-4 fw-bold text-muted">اجازه تغییرات</label>
+        <div class="col-lg-8">
+            <span class="fw-bold fs-6">بله</span>
+        </div>
+    </div>
+    <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+        <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                <rect fill="#000000" x="11" y="7" width="2" height="8" rx="1" />
+                <rect fill="#000000" x="11" y="16" width="2" height="2" rx="1" />
+            </svg>
+        </span>
+        <div class="d-flex flex-stack flex-grow-1">
+            <div class="fw-bold">
+                <h4 class="text-gray-800 fw-bolder">ما به توجه شما نیاز داریم</h4>
+                <div class="fs-6 text-gray-600">
+                    پرداخت شما رد شد. لطفاً برای شروع استفاده از ابزارها
+                    <a class="fw-bolder" href="account/billing.html">روش پرداخت را اضافه کنید</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div class="mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-thumbnail" src="@photoUrl" alt="@user.DisplayName" asp-append-version="true"
+                 onerror="this.style.visibility = 'hidden';this.width=0; this.height=0;" />
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                <li>
+                    <span aria-hidden="true" class="fas fa-user"></span>
+                    <strong>عضو شماره:</strong> @user.Id.ToPersianNumbers()
+                </li>
+                <li>
+                    <span aria-hidden="true" class="fas fa-clock"></span>
+                    <strong>تاریخ عضویت: </strong><span dir="ltr">
+                        <abbr title="@user.CreatedDateTime.Value.ToFriendlyPersianDateTextify().ToPersianNumbers()">
+                            @user.CreatedDateTime.Value.ToShortPersianDateString().ToPersianNumbers()
+                        </abbr>
+                    </span>
+                </li>
+
+                @if (user.IsEmailPublic)
+                {
+    <li>
+        <span aria-hidden="true" class="fas fa-envelope"></span>
+        <img src="@Url.Action(action: "EmailToImage", controller:"User", values: new { id = user.Id })"
+             asp-append-version="true"
+             alt="@user.DisplayName Email" />
+    </li>            }
+
+                @if (!string.IsNullOrWhiteSpace(user.Location))
+                {
+    <li>
+        <span aria-hidden="true" class="fas fa-home"></span>
+        <strong>محل اقامت:</strong>
+        @user.Location
+    </li>            }
+
+                @if (user.LastVisitDateTime != null)
+                {
+    <li>
+        <span aria-hidden="true" class="fas fa-calendar-check"></span>
+        <strong>آخرین مراجعه:</strong>
+        @user.LastVisitDateTime.Value.ToFriendlyPersianDateTextify().ToPersianNumbers()
+    </li>            }
+            </ul>
+
+        </div>
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                @if (user.BirthDate.HasValue)
+                {
+    <li>
+        <span aria-hidden="true" class="fas fa-calendar"></span>
+        <strong>age:</strong>
+        <abbr title="@user.BirthDate.Value.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture), @user.BirthDate.Value.ToShortPersianDateString()">
+            @user.BirthDate.Value.GetAge().ToPersianNumbers()
+        </abbr>
+    </li>            }
+            </ul>
+        </div>
+    </div>
+</div>*@

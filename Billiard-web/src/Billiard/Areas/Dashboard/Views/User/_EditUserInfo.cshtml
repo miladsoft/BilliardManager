@@ -1,0 +1,89 @@
+@model EditUserInfoViewModel
+<partial name="_CustomValidationSummary" />
+<form asp-action="EditUserInfo" method="post">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title">ویرایش اطلاعات کاربر</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <input asp-for="UserId" />
+
+                <div class="form-group row mb-5">
+                    <label asp-for="FirstName" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="LastName" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="MelliCode" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input asp-for="MelliCode" class="form-control" />
+                        <span asp-validation-for="MelliCode" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="BirthDate" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input asp-for="BirthDate" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="IsMelliCodeConfirmed" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <select asp-for="IsMelliCodeConfirmed" asp-items="Html.GetEnumSelectList<isConfirmed>()"
+                            class="form-select form-select-solid fw-bolder js-select2"></select>
+
+                        <span asp-validation-for="IsMelliCodeConfirmed" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="IsBirthDateConfirmed" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <select asp-for="IsBirthDateConfirmed" asp-items="Html.GetEnumSelectList<isConfirmed>()"
+                            class="form-control form-select form-select-solid fw-bolder js-select2"></select>
+
+                        <span asp-validation-for="IsBirthDateConfirmed" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="UserInfoDescription" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <textarea asp-for="UserInfoDescription" class="form-control" ></textarea>
+                        <span asp-validation-for="UserInfoDescription" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">ثبت</button>
+                <button class="btn btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.js-select2').select2();
+    });
+</script>

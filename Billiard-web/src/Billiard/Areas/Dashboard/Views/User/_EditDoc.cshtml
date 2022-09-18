@@ -1,0 +1,46 @@
+@model EditDocViewModel
+<partial name="_CustomValidationSummary" />
+<form asp-action="EditDoc" method="post">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title">ویرایش مدرک شناسایی</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <input asp-for="UserId" />
+                <div class="form-group row mb-5">
+                    <label asp-for="IsDocPhotoConfirmed" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <select asp-for="IsDocPhotoConfirmed" asp-items="Html.GetEnumSelectList<isConfirmed>()"
+                            class="form-select form-select-solid fw-bolder js-select2"></select>
+
+                        <span asp-validation-for="IsDocPhotoConfirmed" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="DocDescription" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <textarea asp-for="DocDescription" class="form-control" ></textarea>
+                        <span asp-validation-for="DocDescription" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">ثبت</button>
+                <button class="btn btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.js-select2').select2();
+    });
+</script>

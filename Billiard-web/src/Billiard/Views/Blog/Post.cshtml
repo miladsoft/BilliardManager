@@ -1,0 +1,539 @@
+@model BlogPost
+@{
+	Layout = "_LayoutPage";
+	ViewData["Title"] = Model.Title;
+	ViewData["Keyword"] = Model.SeoKeyWords;
+	ViewData["Description"] = Model.SeoDescription;
+	int rate = int.Parse(ViewData["Rate"].ToString());
+	var _0 = ""; var _1 = ""; var _2 = ""; var _3 = ""; var _4 = "";
+
+	if (rate == 0)
+	{
+		_0 = "current";
+	}
+	if (rate == 1)
+	{
+		_0 = "active";
+		_1 = "current";
+	}
+	if (rate == 2)
+	{
+		_0 = "active";
+		_1 = "active";
+		_2 = "current";
+	}
+	if (rate == 3)
+	{
+		_0 = "active";
+		_1 = "active";
+		_2 = "active";
+		_3 = "current";
+	}
+	if (rate == 4)
+	{
+		_0 = "active";
+		_1 = "active";
+		_2 = "active";
+		_3 = "active";
+		_4 = "current";
+	}
+}
+
+<div id="ppc_content_container" class="container">
+	<div class="card mt-n10 mt-lg-n10 ">
+		<div class="card-body p-lg-20 pb-lg-0">
+			<div class="d-flex flex-column flex-xl-row">
+				<div class="flex-lg-row-fluid me-xl-15">
+					<div class="mb-17">
+						<div class="mb-8">
+							<div class="d-flex flex-wrap mb-6">
+
+
+								<div class="d-flex align-items-center flex-grow-1">
+
+									<div class="me-9 my-1">
+										<span class="svg-icon svg-icon-primary svg-icon-2 me-1">
+											<svg xmlns="http://www.w3.org/2000/svg"
+												xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+												viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24" />
+													<rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5" />
+													<path
+														d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
+														fill="#000000" opacity="0.3" />
+												</g>
+											</svg>
+										</span>
+										<span
+											class="fw-bolder text-gray-400">@Model.CreatedDateTime.ToPersianDateTextify()</span>
+									</div>
+									<div class="me-9 my-1">
+										<a asp-action="Category" asp-controller="Blog"
+											asp-route-Id="@Model.BlogPostCategory.Name">
+											<div class="fw-bolder">
+												<div class="me-9">
+													<span class="svg-icon svg-icon-primary svg-icon-2 me-1">
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+															viewBox="0 0 24 24" fill="none">
+															<path opacity="0.25"
+																d="M13 6L12.4104 5.01732C11.8306 4.05094 10.8702 3.36835 9.75227 3.22585C8.83875 3.10939 7.66937 3 6.5 3C5.68392 3 4.86784 3.05328 4.13873 3.12505C2.53169 3.28325 1.31947 4.53621 1.19597 6.14628C1.09136 7.51009 1 9.43529 1 12C1 13.8205 1.06629 15.4422 1.15059 16.7685C1.29156 18.9862 3.01613 20.6935 5.23467 20.8214C6.91963 20.9185 9.17474 21 12 21C14.8253 21 17.0804 20.9185 18.7653 20.8214C20.9839 20.6935 22.7084 18.9862 22.8494 16.7685C22.9337 15.4422 23 13.8205 23 12C23 10.9589 22.9398 9.97795 22.8611 9.14085C22.7101 7.53313 21.4669 6.2899 19.8591 6.13886C19.0221 6.06022 18.0411 6 17 6H13Z"
+																fill="#12131A" />
+															<path fill-rule="evenodd" clip-rule="evenodd"
+																d="M13 6H1.21033C1.39381 4.46081 2.58074 3.27842 4.13877 3.12505C4.86788 3.05328 5.68396 3 6.50004 3C7.66941 3 8.83879 3.10939 9.75231 3.22585C10.8702 3.36835 11.8306 4.05094 12.4104 5.01732L13 6Z"
+																fill="#12131A" />
+														</svg>
+													</span>
+													<span
+														class="fw-bolder text-gray-400">@Model.BlogPostCategory.Title</span>
+												</div>
+											</div>
+
+										</a>
+									</div>
+									<div class="me-9 my-1">
+										<span class="svg-icon svg-icon-primary svg-icon-2 me-1">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+												viewBox="0 0 24 24" fill="none">
+												<path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd"
+													d="M5.69477 2.48932C4.00472 2.74648 2.66565 3.98488 2.37546 5.66957C2.17321 6.84372 2 8.33525 2 10C2 11.6647 2.17321 13.1563 2.37546 14.3304C2.62456 15.7766 3.64656 16.8939 5 17.344V20.7476C5 21.5219 5.84211 22.0024 6.50873 21.6085L12.6241 17.9949C14.8384 17.9586 16.8238 17.7361 18.3052 17.5107C19.9953 17.2535 21.3344 16.0151 21.6245 14.3304C21.8268 13.1563 22 11.6647 22 10C22 8.33525 21.8268 6.84372 21.6245 5.66957C21.3344 3.98488 19.9953 2.74648 18.3052 2.48932C16.6859 2.24293 14.4644 2 12 2C9.53559 2 7.31411 2.24293 5.69477 2.48932Z"
+													fill="#191213" />
+												<path fill-rule="evenodd" clip-rule="evenodd"
+													d="M7 7C6.44772 7 6 7.44772 6 8C6 8.55228 6.44772 9 7 9H17C17.5523 9 18 8.55228 18 8C18 7.44772 17.5523 7 17 7H7ZM7 11C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11C11.5523 13 12 12.5523 12 12C12 11.4477 11.5523 11 11 11H7Z"
+													fill="#121319" />
+											</svg>
+										</span>
+										<span class="fw-bolder text-gray-400">
+											@Model.BlogPostComment.Count() دیدگاه
+										</span>
+									</div>
+								</div>
+								<div class="my-1">
+									<span class="svg-icon svg-icon-primary svg-icon-2 me-1">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+											viewBox="0 0 24 24" version="1.1">
+											<polygon fill="#000000" opacity="0.3" points="5 15 3 21.5 9.5 19.5">
+											</polygon>
+											<path
+												d="M13.5,21 C8.25329488,21 4,16.7467051 4,11.5 C4,6.25329488 8.25329488,2 13.5,2 C18.7467051,2 23,6.25329488 23,11.5 C23,16.7467051 18.7467051,21 13.5,21 Z M9,8 C8.44771525,8 8,8.44771525 8,9 C8,9.55228475 8.44771525,10 9,10 L18,10 C18.5522847,10 19,9.55228475 19,9 C19,8.44771525 18.5522847,8 18,8 L9,8 Z M9,12 C8.44771525,12 8,12.4477153 8,13 C8,13.5522847 8.44771525,14 9,14 L14,14 C14.5522847,14 15,13.5522847 15,13 C15,12.4477153 14.5522847,12 14,12 L9,12 Z"
+												fill="#000000"></path>
+										</svg>
+									</span>
+									<span class="fw-bolder text-gray-400">مطالعه در
+										@ViewData["MinReadTime"]
+									</span>
+								</div>
+
+
+							</div>
+							<a href="#" class="text-dark text-hover-primary fs-3 fw-bolder">
+								@Model.Title
+								@if (!string.IsNullOrEmpty(Model.ImageFileName))
+								{
+									<div class="overlay mt-8">
+										<div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-350px"
+										style="background-image:url('/file/download/BlogPost/@Model.ImageFileName')">
+										</div>
+										<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+											<a href="#" class="btn btn-primary">درباره ما</a>
+											<a href="#" class="btn btn-light-primary ms-3">به ما
+												بپوندید</a>
+										</div>
+									</div>
+								}
+
+						</div>
+						<div class="fs-5 fw-bold text-gray-600 blogp">
+							@Html.Raw(Model.Text)
+						</div>
+
+						<vc:user-info-box user-id="1"></vc:user-info-box>
+
+						<div class="d-flex flex-center border-dashed card-rounded p-5 p-lg-10 mb-14">
+							<nav class="rating" dir="ltr">
+								<ul>
+									<li class="@_0" data-rate="0" title="صفر امتباز" data-bs-toggle="tooltip"
+										data-bs-placement="top" data-bs-trigger="hover">
+										<svg>
+											<use xlink:href="#star"></use>
+										</svg>
+									</li>
+									<li class="@_1" data-rate="1" data-rate="0" title="یک امتباز"
+										data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
+										<svg>
+											<use xlink:href="#star"></use>
+										</svg>
+									</li>
+									<li class="@_2" data-rate="2" data-rate="0" title="دو امتباز"
+										data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
+										<svg>
+											<use xlink:href="#star"></use>
+										</svg>
+									</li>
+									<li class="@_3" data-rate="3" data-rate="0" title="سه امتباز"
+										data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
+
+										<svg>
+											<use xlink:href="#star"></use>
+										</svg>
+									</li>
+									<li class="@_4" data-rate="4" data-rate="0" title="چهار امتباز"
+										data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover">
+										<svg>
+											<use xlink:href="#star"></use>
+										</svg>
+									</li>
+								</ul>
+								<div><span>
+										<svg>
+											<use xlink:href="#star"></use>
+										</svg></span>
+								</div>
+							</nav>
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+								<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 34" id="star">
+									<path fill="currentColor"
+										d="M19.6859343,0.861782958 L24.8136328,8.05088572 C25.0669318,8.40601432 25.4299179,8.6717536 25.8489524,8.80883508 L34.592052,11.6690221 C35.6704701,12.021812 36.2532905,13.1657829 35.8938178,14.2241526 C35.8056709,14.4836775 35.6647294,14.7229267 35.4795411,14.9273903 L29.901129,21.0864353 C29.5299163,21.4962859 29.3444371,22.0366367 29.3872912,22.5833831 L30.1116131,31.8245163 C30.1987981,32.9368499 29.3506698,33.9079379 28.2172657,33.993502 C27.9437428,34.0141511 27.6687736,33.9809301 27.4085205,33.8957918 L18.6506147,31.0307612 C18.2281197,30.8925477 17.7713439,30.8925477 17.3488489,31.0307612 L8.59094317,33.8957918 C7.51252508,34.2485817 6.34688429,33.6765963 5.98741159,32.6182265 C5.90066055,32.3628116 5.86681029,32.0929542 5.88785051,31.8245163 L6.61217242,22.5833831 C6.65502653,22.0366367 6.46954737,21.4962859 6.09833466,21.0864353 L0.519922484,14.9273903 C-0.235294755,14.0935658 -0.158766688,12.8167745 0.690852706,12.0755971 C0.899189467,11.8938516 1.14297067,11.7555303 1.40741159,11.6690221 L10.1505113,8.80883508 C10.5695458,8.6717536 10.9325319,8.40601432 11.1858308,8.05088572 L16.3135293,0.861782958 C16.9654141,-0.0521682813 18.2488096,-0.274439442 19.1800736,0.365326425 C19.3769294,0.500563797 19.5481352,0.668586713 19.6859343,0.861782958 Z">
+									</path>
+								</symbol>
+								<path class="shadow"
+									d="M18.7022469,29.7633426 L29.1611722,33.6861584 C28.8859085,33.8576358 28.5650147,33.9672494 28.2172657,33.993502 C27.9437428,34.0141511 27.6687736,33.9809301 27.4085205,33.8957918 L18.6506147,31.0307612 C18.2281197,30.8925477 17.7713439,30.8925477 17.3488489,31.0307612 L8.59094317,33.8957918 C7.98083887,34.0953792 7.34281791,33.9989813 6.83864817,33.6859784 L17.2977531,29.7633426 C17.7505234,29.5935537 18.2494766,29.5935537 18.7022469,29.7633426 Z">
+								</path>
+							</svg>
+
+						</div>
+					</div>
+				</div>
+				<div class="flex-column flex-lg-row-auto w-100 w-xl-300px mb-10">
+					<div class="mb-16">
+						<h4 class="text-black mb-7">جستجو</h4>
+						<div class="position-relative">
+							<span
+								class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+									width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24" />
+										<path
+											d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+											fill="#000000" fill-rule="nonzero" opacity="0.3" />
+										<path
+											d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+											fill="#000000" fill-rule="nonzero" />
+									</g>
+								</svg>
+							</span>
+							<form asp-controller="Blog" asp-action="Search" method="post" enctype="multipart/form-data">
+								<input type="text" class="form-control form-control-solid ps-10" name="text" value=""
+									placeholder="جستجو" />
+							</form>
+						</div>
+
+					</div>
+
+
+
+					<vc:blog-category></vc:blog-category>
+
+					<vc:last-blog-post></vc:last-blog-post>
+
+					<div class="mb-16">
+						<h4 class="text-black mb-7">امتیاز</h4>
+						<div class="position-relative">
+							<div class="d-flex flex-stack fw-bold fs-5 text-muted mb-4">
+
+								<span class="text-muted text-hover-primary pe-2">مجموع امتیازات</span>
+
+								<div class="m-0" id="point">@ViewData["_Rate"]</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="card mt-5 mb-5 mb-xxl-8">
+		<div class="card-body pb-0">
+
+			<vc:user-info-insert-comment user-id="Model.UserId"></vc:user-info-insert-comment>
+
+			<div class="mb-10 mt-5">
+				<textarea id="content"></textarea>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	@foreach (var item in Model.BlogPostComment)
+	{
+		if (item.ParentId == 0)
+		{
+			<div class="card mb-5 mb-xxl-8">
+				<div class="card-body pb-0">
+					<div class="d-flex align-items-center mb-3">
+
+						<vc:user-info-comment user-id="@item.UserId"
+					date="@item.CreatedDateTime.ToFriendlyPersianDateTextify()">
+						</vc:user-info-comment>
+
+						<div class="my-0">
+							<div class="HeartAnimation"></div>
+						</div>
+					</div>
+					<div class="mb-7">
+						<div class="text-gray-800 mb-5">
+							@Html.Raw(item.Text)
+						</div>
+						<div class="d-flex align-items-center mb-5">
+							<span class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
+								<span class="svg-icon svg-icon-3">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
+								version="1.1">
+										<path
+									d="M16,15.6315789 L16,12 C16,10.3431458 14.6568542,9 13,9 L6.16183229,9 L6.16183229,5.52631579 C6.16183229,4.13107011 7.29290239,3 8.68814808,3 L20.4776218,3 C21.8728674,3 23.0039375,4.13107011 23.0039375,5.52631579 L23.0039375,13.1052632 L23.0206157,17.786793 C23.0215995,18.0629336 22.7985408,18.2875874 22.5224001,18.2885711 C22.3891754,18.2890457 22.2612702,18.2363324 22.1670655,18.1421277 L19.6565168,15.6315789 L16,15.6315789 Z"
+									fill="#000000"></path>
+										<path
+									d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z"
+									fill="#000000" opacity="0.3"></path>
+									</svg>
+								</span>
+								0
+							</span>
+							<span class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
+								<span class="svg-icon svg-icon-2">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+								width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<polygon points="0 0 24 0 24 24 0 24"></polygon>
+											<path
+										d="M16.5,4.5 C14.8905,4.5 13.00825,6.32463215 12,7.5 C10.99175,6.32463215 9.1095,4.5 7.5,4.5 C4.651,4.5 3,6.72217984 3,9.55040872 C3,12.6834696 6,16 12,19.5 C18,16 21,12.75 21,9.75 C21,6.92177112 19.349,4.5 16.5,4.5 Z"
+										fill="#000000" fill-rule="nonzero"></path>
+										</g>
+									</svg>
+								</span>
+								0
+							</span>
+						</div>
+					</div>
+					<div class="mb-7 ps-10">
+						@foreach (var comment in Model.BlogPostComment)
+						{
+							if (comment.ParentId == item.Id)
+							{
+
+								<vc:user-info-comment-replay text="@comment.Text" user-id="@comment.UserId"
+					date="@comment.CreatedDateTime.ToFriendlyPersianDateTextify()"></vc:user-info-comment-replay>
+							}
+						}
+
+					</div>
+
+					<div class="separator mb-4"></div>
+
+					<form asp-action="CommentReplay" asp-controller="Blog" method="post" data-ajax="true"
+				data-ajax-update="#MessagePanel" enctype="multipart/form-data" class="position-relative mb-6">
+						<input asp-for="Id" hidden>
+						<input id="commentId" name="commentId" value="@item.Id" hidden>
+						<textarea id="replayText" name="replayText"
+					class="form-control border-0 p-0 pe-10 resize-none min-h-25px" data-kt-autosize="true" rows="1"
+					placeholder="پاسخ.." style="overflow: hidden; overflow-wrap: break-word; height: 25px;"></textarea>
+						<div class="position-absolute top-0 end-0 me-n5">
+							<button class="btn btn-primary btn-sm" type="submit" tabindex="-1">ارسال پاسخ</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		}
+	}
+
+
+
+
+	<button class="btn btn-primary w-100 text-center" id="ppc_widget_5_load_more_btn">
+		<span class="indicator-label">نظرات بیشتر</span>
+		<span class="indicator-progress">در حال خواندن...
+			<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+	</button>
+</div>
+@section Style{
+<link rel="stylesheet" href="~/redactor3/redactor.css" />
+<link rel="stylesheet" href="/css/rating.css">
+}
+
+
+@section Scripts{
+<script src="~/redactor3/redactor.js"></script>
+<script src="~/redactor3/langs/fa.js"></script>
+<script src="~/redactor3/plugins/fullscreen/fullscreen.min.js"></script>
+<script src="~/redactor3/custom-plugins/iconic/iconic.js"></script>
+
+<script>
+
+	$('.rating ul li').on('click', function () {
+
+		let li = $(this),
+			ul = li.parent(),
+			rating = ul.parent(),
+			last = ul.find('.current');
+		var rate = $(this).data("rate");
+
+		if (!rating.hasClass('animate-left') && !rating.hasClass('animate-right')) {
+
+			last.removeClass('current');
+
+			ul.children('li').each(function () {
+				let current = $(this);
+				current.toggleClass('active', li.index() > current.index());
+			});
+
+			rating.addClass(li.index() > last.index() ? 'animate-right' : 'animate-left');
+			rating.css({
+				'--x': li.position().left + 'px'
+			});
+			li.addClass('move-to');
+			last.addClass('move-from');
+
+			setTimeout(() => {
+				li.addClass('current');
+				li.removeClass('move-to');
+				last.removeClass('move-from');
+				rating.removeClass('animate-left animate-right');
+			}, 800);
+		}
+
+		$.post('@Url.Action("Rate", "Blog")',
+			{
+				rate: rate,
+				id: @Model.Id
+			},
+			function (data, status) {
+
+				if (status == "success") {
+					if (isNaN(data)) {
+						$('#MessagePanel').html(data);
+					} else {
+						$('#point').html(data);
+					}
+				}
+
+
+			}
+		);
+
+	})
+
+
+
+
+	$('#content').redactor({
+		shortcutsAdd: {
+			'ctrl+shift+0': { func: 'block.format', params: ['pre'] }
+		},
+		clickToEdit: true,
+		clickToSave: { title: 'ارسال پاسخ' },
+		clickToCancel: { title: 'انصراف' },
+		callbacks: {
+			clickSave: function (html) {
+				$.post('@Url.Action("Comment", "Blog")',
+					{
+						text: html,
+						postid: @Model.Id
+					},
+					function (data, status) {
+						if (status == "success") {
+							window.location.reload();
+						}
+					}
+				);
+
+			},
+			clickCancel: function (html) {
+				$('#content').val('');
+			}
+		},
+		buttons: ['bold', 'italic', 'underline', 'lists', 'link', 'line'],
+		toolbarFixedTopOffset: 40,
+		formatting: ['p', 'pre'],
+		imageUpload: 'image_upload.php',
+		lang: 'fa',
+		direction: 'rtl',
+		plugins: ['clips', 'article_links', 'source', 'iconic2', 'emoticons', 'fullscreen'],
+		placeholder: 'نظر خود را بنویسید ...',
+		linkNewTab: true,
+		toolbarFixed: false,
+		minHeight: '100px',
+		linkify: true,
+		linkNofollow: true,
+		pastePlainText: true,
+		linkSize: 1000
+	});
+
+
+
+	$(function () {
+		$(".HeartAnimation").click(function () {
+			$(this).toggleClass("animate");
+			$.post('@Url.Action("Like", "Blog")',
+				{
+					commentid: 1,
+					uid: 1
+				},
+				function (data, status) {
+					alert("Data: " + data + "\nStatus: " + status);
+				}
+			);
+		});
+	});
+</script>
+
+
+<script language="javascript" type="text/javascript">
+	var uri = "wss://" + window.location.host + "/ws";
+
+	function connect() {
+		socket = new WebSocket(uri);
+
+		socket.onopen = function (event) {
+			console.log("opened connection to " + uri);
+		};
+
+		socket.onclose = function (event) {
+			console.log("closed connection from " + uri);
+		};
+
+		socket.onmessage = function (event) {
+			var obj = JSON.parse(event.data);
+			if (obj.Id == @Model.Id) {
+				UpdatePage(obj.Type, obj.Message, obj.Id);
+			}
+		};
+
+		socket.onerror = function (event) {
+			console.log("error: " + event.data);
+		};
+	}
+	connect();
+
+	function UpdatePage(type, message, id) {
+		switch (type) {
+			case "BlogRate":
+				{
+					$('#point').html(message);
+				}
+				break;
+		}
+	}
+
+
+</script>
+}

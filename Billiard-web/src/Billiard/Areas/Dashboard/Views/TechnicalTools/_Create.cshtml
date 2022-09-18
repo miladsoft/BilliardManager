@@ -1,0 +1,95 @@
+@model TechnicalToolsCoinViewModel
+<partial name="_CustomValidationSummary" />
+<form asp-action="AddItem" method="post"  enctype="multipart/form-data" id="modal_form_id" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.Id==0)
+                {
+                    <h5 class="modal-title">افزودن رمزارز جدید</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title">ویرایش</h5>
+                }
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <input asp-for="Id" />
+            <div class="modal-body">
+               
+                <div class="form-group row mb-5">
+                    <label asp-for="NameFa" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input dir="rtl" autocomplete="off" asp-for="NameFa" class="form-control" />
+                        <span asp-validation-for="NameFa" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="NameEn" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+
+                        <input dir="ltr" autocomplete="off" asp-for="NameEn" class="form-control" />
+                        <span asp-validation-for="NameEn" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="Title" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+
+                        <input dir="rtl" autocomplete="off" asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="Symbol" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+
+                        <input dir="ltr" autocomplete="off" asp-for="Symbol" class="form-control" />
+                        <span asp-validation-for="Symbol" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="ChartSymbol" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+
+                        <input dir="ltr" autocomplete="off" asp-for="ChartSymbol" class="form-control" />
+                        <span asp-validation-for="ChartSymbol" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-5">
+                    <label asp-for="CoinRank" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+
+                        <input dir="ltr" asp-for="CoinRank" class="form-control" />
+                        <span asp-validation-for="CoinRank" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="IsActive" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <select asp-for="IsActive" asp-items="Html.GetEnumSelectList<IsActive>()"
+                            class="form-select form-select-solid fw-bolder js-select2"></select>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">ثبت</button>
+                <button class="btn btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.js-select2').select2();
+    });
+</script>

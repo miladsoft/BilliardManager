@@ -1,0 +1,56 @@
+@{ var pageTitle = ViewData["Title"] ?? "باشگاه بیلیارد سناتور"; }
+
+
+<html direction="rtl" dir="rtl" style="direction: rtl">
+<head>
+     <meta charset="utf-8" />
+    <title>@pageTitle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="~/theme/Desktop/assets/media/logos/favicon.ico" />
+    <link href="~/theme/Desktop/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" asp-append-version="true"/>
+    <link href="~/theme/Desktop/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" asp-append-version="true"/>
+    <link href="~/css/CustomPublic.css" rel="stylesheet" asp-append-version="true"/>
+</head>
+<body id="ppc_body" class="bg-white">
+        
+<div id="loader-page">
+    <div class="loader" id="line">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+    <div class="d-flex flex-column flex-root">
+        <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(/theme/Desktop/assets/media/illustrations/progress-hd.png)">
+            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+                <a asp-action="Index" asp-controller="Home" asp-area="" class="mb-12">
+                    <img alt="Logo" src="~/theme/Desktop/assets/media/logos/logo-default-dark.png" class="h-45px" />
+                </a>
+                @RenderBody()
+
+            </div>
+            <div class="d-flex flex-center flex-column-auto p-10">
+                <div class="d-flex align-items-center fw-bold fs-6">
+                    <a href="#" class="text-muted text-hover-primary px-2" target="_blank">درباره ی ما</a>
+                    <a href="#" class="text-muted text-hover-primary px-2" target="_blank">پشتیبانی</a>
+                    <a href="#" class="text-muted text-hover-primary px-2" target="_blank">تماس با ما</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/theme/Desktop/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/theme/Desktop/assets/js/scripts.bundle.js"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+
+            @* var x = window.location.host+"/Mobile/Home/Index";
+                SA.redirection_mobile({
+                    tablet_redirection: "true",
+                    mobile_url: x,
+                    mobile_prefix: "https"
+                }); *@
+    </script>
+</body>
+</html>

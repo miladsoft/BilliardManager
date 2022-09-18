@@ -1,0 +1,2159 @@
+﻿@model UserProfileViewModel
+@inject IUsersPhotoService PhotoService
+@inject IOptionsSnapshot<SiteSettings> SiteOptions
+
+@{
+    ViewData["Title"] = "تنظیمات کاربری";
+    var changePasswordUrl = Url.Action("Index", "ChangePassword");
+    var imageOptions = SiteOptions.Value.UserAvatarImageOptions;
+    bool isauth = false;
+
+}
+
+<div class="card mb-5 mb-xl-10">
+    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_profile_details" aria-expوed="true" aria-controls="ppc_account_profile_details">
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">اطلاعات اصلی حساب کاربری</h3>
+           @{
+                var Color = "";
+            }
+            @if (Model.IsBirthDateConfirmed == isConfirmed.confirmed && Model.IsMelliCodeConfirmed == isConfirmed.confirmed)
+            {
+                Color = "success";
+                isauth = true;
+            }
+            @if (Model.IsBirthDateConfirmed != isConfirmed.confirmed && Model.IsMelliCodeConfirmed != isConfirmed.confirmed)
+            {
+                Color = "danger";
+            }
+            @if (Model.IsBirthDateConfirmed == isConfirmed.waitingforconfirmation && Model.IsMelliCodeConfirmed == isConfirmed.waitingforconfirmation)
+            {
+                Color = "warning";
+            }
+            <span
+                class="badge badge-light-@Color fs-8 fw-bolder mr-10 ml-10">@Model.IsMelliCodeConfirmed.GetDisplayName()</span>
+
+        </div>
+    </div>
+
+
+    <div id="ppc_account_profile_details" class="collapse show">
+        <form asp-controller="UserProfile" asp-action="Index" method="post" enctype="multipart/form-data">
+
+            <div class="card-body border-top p-9">
+                @if (Model.IsPasswordTooOld)
+                {
+                                            <div class="form-group row">
+                                                <div class="alert alert-warning" role="alert">
+                                                    <a href="#" class="close" data-bs-dismiss="alert">×</a>
+                                                    کلمه‌ی عبور شما بسیار قدیمی است. لطفا جهت تعویض آن <a href="@changePasswordUrl">اینجا</a> کلیک
+                                                    کنید.
+                                                </div>
+                                            </div>
+                }
+
+
+                @if (!string.IsNullOrEmpty(Model.UserInfoDescription) && !isauth)
+                {
+                                            <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6">پیام سیستم</label>
+                                            <div class="col-lg-8">
+                                                <div class="row">
+
+                        <div class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6 mb-6">
+                                <span class="svg-icon svg-icon-2tx svg-icon-danger me-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+            viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path
+                    d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                    fill="#000000" opacity="0.3"></path>
+                                        <path
+                    d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                    fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                <div class="mb-3 mb-md-0 fw-bold">
+                                    <h4 class="text-gray-800 fw-bolder">پیام سیستم احراز هویت</h4>
+                                    <div class="fs-6 text-gray-600 pe-7"> 
+                                                @Model.UserInfoDescription
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                }
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">تصویر کاربری</label>
+                    <div class="col-lg-8">
+                        <div class="image-input image-input-outline" data-ppc-image-input="true"
+                            style="background-image: url(/theme/Desktop/assets/media/avatars/blank.png)">
+                            <div class="image-input-wrapper w-125px h-125px"
+                                style="background-image: url(@PhotoService.GetUserPhotoUrl(Model.PhotoFileName))"></div>
+                            <label
+                                class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                data-ppc-image-input-action="change" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="تعویض عکس">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+                                <input type="file" asp-for="Photo" accept=".png, .jpg, .jpeg">
+                                <input type="hidden" name="avatar_remove">
+                            </label>
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                data-ppc-image-input-action="cancel" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="انصراف avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                data-ppc-image-input-action="remove" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="حذف avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                        </div>
+                        <div class="form-text">تصاویر مجاز برای ارسال از نوع‌های png، gif و jpg هستند؛ با حداکثر اندازه
+                            @imageOptions.MaxWidth
+                            در
+                            @imageOptions.MaxHeight
+
+                            پیکسل.</div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">نام کامل مطابق شناسنامه</label>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-6 fv-row">
+                                <input type="text" dir="rtl" asp-for="FirstName"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="نام">
+                                <span asp-validation-for="FirstName" class="text-danger mt-6 mb-6"></span>
+                            </div>
+                            <div class="col-lg-6 fv-row">
+                                <input type="text" dir="rtl" asp-for="LastName"
+                                    class="form-control form-control-lg form-control-solid" placeholder="نام خانوادگی">
+                                <span asp-validation-for="LastName" class="text-danger mt-6 mb-6"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">اطلاعات تایید هویت</label>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-6 fv-row">
+                                <input type="text" dir="rtl" asp-for="MelliCode"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="شماره ملی">
+                                <span asp-validation-for="MelliCode" class="text-danger mt-6 mb-6"></span>
+                            </div>
+                            <div class="col-lg-6 fv-row">
+                                <input type="text" dir="rtl" asp-for="BirthDate"
+                                    class="form-control form-control-lg form-control-solid" v-model="date"
+                                    placeholder="0000/00/00 : تاریخ تولد">
+                                <date-picker v-model="date" element="BirthDate"></date-picker>
+
+                                <span asp-validation-for="BirthDate" class="text-danger mt-6 mb-6"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">ایمیل</label>
+                    <div class="col-lg-8 fv-row">
+                        <input type="email" dir="ltr" asp-for="Email"
+                            class="form-control form-control-lg form-control-solid" placeholder="ایمیل">
+
+                        <div class="mt-6">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <br />
+                        <div
+                            class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6 mb-6">
+                            <span class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path
+                                            d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                            fill="#000000" opacity="0.3"></path>
+                                        <path
+                                            d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                                            fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                <div class="mb-3 mb-md-0 fw-bold">
+                                    <h4 class="text-gray-800 fw-bolder">نکته امنیتی</h4>
+                                    <div class="fs-6 text-gray-600 pe-7"> با تغییر ایمیل باید ایمیل جدید را
+                                        تایید
+                                        کنید. بدین منظور لینک فعالسازی برای ایمیل جدید شما ارسال خواهد شد.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <partial name="_CustomValidationSummary" />
+
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+            <div id="ppc_UserInfo_button" class="card-footer d-flex justify-content-end py-6 px-9">
+                <input asp-for="Pid" />
+                <input asp-for="IsAdminEdit" />
+                            <button onclick="dataBeginChangeUserInfo()" type="submit" id="ppc_UserInfo_submit" class="btn btn-primary">
+                                <span class="indicator-label">ذخیره تغییرات</span>
+                                <span class="indicator-progress">لطفا صبر کنید...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@if (Model.IsMelliCodeConfirmed == isConfirmed.confirmed && Model.IsBirthDateConfirmed == isConfirmed.confirmed)
+{
+                        <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_mobile">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">ثبت شماره موبایل</h3>
+                @{
+                    var AccColor = "";
+                }
+                @if (Model.IsMobileNumberConfirmed == isConfirmed.confirmed)
+                {
+                    AccColor = "success";
+                }
+                @if (Model.IsMobileNumberConfirmed == isConfirmed.notConfirmed)
+                {
+                    AccColor = "danger";
+                }
+                @if (Model.IsMobileNumberConfirmed == isConfirmed.waitingforconfirmation)
+                {
+                    AccColor = "warning";
+                }
+                                    <span
+                class="badge badge-light-@AccColor fs-8 fw-bolder mr-10 ml-10">@Model.IsMobileNumberConfirmed.GetDisplayName()</span>
+                                </div>
+                            </div>
+                            <div id="ppc_account_mobile" class="collapse show">
+                                <div class="card-body border-top p-9">
+
+                                    <form method="post" asp-controller="UserProfile" asp-action="UpdateMobile" role="form" data-ajax="true"
+                data-ajax-begin="dataAjaxBeginAddMobile" data-ajax-success="dataAjaxSuccessAddMobile"
+                data-ajax-failure="dataAjaxFailureAddMobile">
+
+
+
+
+                    @if (!string.IsNullOrEmpty(Model.MobileDescription) && Model.IsMobileNumberConfirmed == isConfirmed.notConfirmed)
+                    {
+                                                                    <div class="row mb-6">
+                                                                    <label class="col-lg-4 col-form-label  fw-bold fs-6">پیام سیستم</label>
+                                                                    <div class="col-lg-8">
+                                                                        <div class="row">
+
+                                                <div class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6 mb-6">
+                                                        <span class="svg-icon svg-icon-2tx svg-icon-danger me-4">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+            viewBox="0 0 24 24" version="1.1">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                                <path
+                    d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                    fill="#000000" opacity="0.3"></path>
+                                                                <path
+                    d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                    fill="#000000"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                        <div class="mb-3 mb-md-0 fw-bold">
+                                                            <h4 class="text-gray-800 fw-bolder">پیام سیستم احراز هویت</h4>
+                                                            <div class="fs-6 text-gray-600 pe-7"> 
+                                                    @Model.MobileDescription
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                    }
+
+
+
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label required fw-bold fs-6">شماره موبایل</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="number" dir="ltr" asp-for="MobileNumber"
+                            class="form-control form-control-lg form-control-solid" placeholder="شماره موبایل">
+                                                <div class="mt-6">
+                                                    <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                                                </div>
+                                                <div id="ppc_Mobile_button" class="ms-auto">
+
+                                                    <button type="submit" id="ppc_mobile_submit" class="btn btn-primary">
+                                                        <span class="indicator-label">ارسال کد فعالسازی</span>
+                                                        <span class="indicator-progress">لطفا صبر کنید...
+                                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                @if (Model.IsMobileNumberConfirmed == isConfirmed.waitingforconfirmation)
+                {
+
+                                                                <div class="separator separator-dashed my-6"></div>
+
+                                                                <form method="post" asp-controller="UserProfile" asp-action="ConfirmMobile" role="form"
+                data-ajax-method="post" data-ajax="true" data-ajax-begin="dataAjaxBeginMobileCode"
+                data-ajax-success="dataAjaxSuccessMobileCode" data-ajax-failure="dataAjaxFailureMobileCode">
+                                                                    <div class="row mb-6">
+                                                                        <label class="col-lg-4 col-form-label required fw-bold fs-6">کد تایید موبایل</label>
+                                                                        <div class="col-lg-8 fv-row">
+
+                                                                            <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+                                                                                <span class="svg-icon svg-icon-2tx svg-icon-warning me-4"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                                                                            <path
+                                            d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                            fill="#000000" opacity="0.3"></path>
+                                                                                            <path
+                                            d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                                            fill="#000000"></path>
+                                                                                        </g>
+                                                                                    </svg></span>
+                                                                                <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                                                    <div class="mb-3 mb-md-0 fw-bold">
+                                                                                        <h4 class="text-gray-800 fw-bolder">نکته</h4>
+                                                                                        <div class="fs-6 text-gray-600 pe-7">
+                                                                                            اگر کد فعالسازی برای شما ارسال نشده است و یا به آن دسترسی ندارید می تواند دوباره
+                                                                                            آن را
+                                                                                            درخواست کنید.
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+
+                                                                            <input type="number" dir="ltr" asp-for="MobileConfirmedCode"
+                            class="form-control form-control-lg form-control-solid" placeholder="کد تایید موبایل">
+
+                                                                            <div class="mt-6">
+                                                                                <span asp-validation-for="MobileConfirmedCode" class="text-danger"></span>
+                                                                            </div>
+
+                                                                         <div id="ppc_MobileCode_button" class="ms-auto">
+
+                                                                               <button type="submit" id="ppc_mobile_submit" class="btn btn-primary">
+                                                                                   <span class="indicator-label">تایید کد فعالسازی</span>
+                                                                                   <span class="indicator-progress">لطفا صبر کنید...
+                                                                                       <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                                               </button>
+                                                                           </div>
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </form>
+                }
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_card">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">ثبت شماره کارت</h3>
+                            </div>
+                        </div>
+                        <div id="ppc_account_card" class="collapse show">
+                            <div class="card-body border-top p-9">
+
+
+                @if (Model.CardNumbers.Count > 0)
+                {
+                                                            <div class="row mb-6">
+                                                                <label class="col-lg-4 col-form-label fw-bold fs-6">لیست کارت ها</label>
+                                                                <div class="col-lg-8 fv-row">
+                            @foreach (var item in Model.CardNumbers)
+                            {
+                                if (item.CardStatus == CardStatus.Deleted)
+                                {
+                                                                                                                    <div id="cardnumber-@item.Id" class="mb-10" disabled="disabled">
+                                                                                                                        <div class="input-group">
+                                                                                                                            <span class="input-group-text bg-light-warning line-height-0 py-0 text-danger">
+                                                @item.CardStatus.GetDisplayName()
+                                                                                                                            </span>
+                                                                                                                            <span class="form-control" dir="ltr" >@item.CardNumber - @item.BankName</span>
+                                                                                                                                    <a href="" class="input-group-text line-height-0 py-0 ">
+                                                                                                                                <i class="bi bi-trash icon-sm text-warning"></i>
+                                                                                                                            </a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                }
+                                else
+                                {
+                                    var cardcolor = "";
+                                    if (item.CardStatus == CardStatus.accepted)
+                                    {
+                                        cardcolor = "success";
+                                    }
+                                    if (item.CardStatus == CardStatus.rejected)
+                                    {
+                                        cardcolor = "danger";
+                                    }
+                                                                                                                    <div id="cardnumber-@item.Id" class="mb-10">
+                                                                                                                        <div class="input-group">
+                                                                                                                            <span class="input-group-text bg-light-@cardcolor line-height-0 py-0">
+                                                @item.CardStatus.GetDisplayName()
+                                                                                                                            </span>
+                                                                                                                            <span class="form-control" dir="ltr" >@item.CardNumber - @item.BankName</span>
+                                                                                                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-original-title="حذف شماره کارت" id="card-delete-@item.Id" data-delete-id="@item.Id"  class="input-group-text line-height-0 py-0 cursor-pointer">
+                                                                                                                                <i class="bi bi-trash icon-sm text-danger"></i>
+                                                                                                                            </a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                }
+                            }
+
+
+                                                                </div>
+
+                                                            </div>
+                                                <div class="separator separator-dashed my-6"></div>
+
+                }
+
+
+                                    <form method="post" asp-controller="UserProfile" asp-action="AddCardNumber" role="form"
+                data-ajax-method="post" data-ajax="true" data-ajax-begin="dataAjaxBeginAddCard"
+                data-ajax-success="dataAjaxSuccessAddCard" data-ajax-failure="dataAjaxFailureAddCard">
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label required fw-bold fs-6">شماره کارت</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input dir="ltr" asp-for="CardNumber"
+                            class="form-control form-control-lg form-control-solid txtCardNumber"
+                            placeholder="شماره کارت">
+
+                                                <div class="mt-6">
+                                                    <span asp-validation-for="CardNumber" class="text-danger"></span>
+                                                </div>
+
+                                                <div id="ppc_Card_button" class="ms-auto">
+                                                    <button type="submit" id="ppc_Card_submit" class="btn btn-primary">
+                                                        <span class="indicator-label">ثبت شماره کارت</span>
+                                                        <span class="indicator-progress">لطفا صبر کنید...
+                                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_Sheba">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">ثبت شماره شبا</h3>
+                            </div>
+                        </div>
+                        <div id="ppc_account_Sheba" class="collapse show">
+                            <div class="card-body border-top p-9">
+
+
+                @if (Model.ShebaNumbers.Count > 0)
+                {
+                                                            <div class="row mb-6">
+                                                                <label class="col-lg-4 col-form-label fw-bold fs-6">لیست شماره شبا</label>
+                                                                <div class="col-lg-8 fv-row">
+                            @foreach (var item in Model.ShebaNumbers)
+                            {
+                                if (item.ShebaStatus == ShebaStatus.Deleted)
+                                {
+                                                                                                                    <div id="ShebaNumber-@item.Id" class="mb-10" disabled="disabled">
+                                                                                                                        <div class="input-group">
+                                                                                                                            <span class="input-group-text bg-light-warning line-height-0 py-0 text-danger">
+                                                @item.ShebaStatus.GetDisplayName()
+                                                                                                                            </span>
+                                                                                                                            <span class="form-control" dir="ltr" >@item.ShebaNumber </span>
+                                                                                                                                    <a href="" class="input-group-text line-height-0 py-0 ">
+                                                                                                                                <i class="bi bi-trash icon-sm text-warning"></i>
+                                                                                                                            </a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                }
+                                else
+                                {
+                                    var shabacolor = "";
+                                    if (item.ShebaStatus == ShebaStatus.accepted)
+                                    {
+                                        shabacolor = "success";
+                                    }
+                                    if (item.ShebaStatus == ShebaStatus.rejected)
+                                    {
+                                        shabacolor = "danger";
+                                    }
+                                                                                                                    <div id="ShebaNumber-@item.Id" class="mb-10">
+                                                                                                                        <div class="input-group">
+                                                                                                                            <span class="input-group-text bg-light-@shabacolor line-height-0 py-0">
+                                                @item.ShebaStatus.GetDisplayName()
+                                                                                                                            </span>
+                                                                                                                            <span class="form-control" dir="ltr" >@item.ShebaNumber</span>
+                                                                                                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover" data-bs-original-title="حذف شماره شبا" id="sheba-delete-@item.Id" data-delete-id="@item.Id"  class="input-group-text line-height-0 py-0 cursor-pointer">
+                                                                                                                                <i class="bi bi-trash icon-sm text-danger"></i>
+                                                                                                                            </a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                }
+                            }
+
+
+                                                                </div>
+
+                                                            </div>
+                                                <div class="separator separator-dashed my-6"></div>
+
+                }
+
+
+                                    <form method="post" asp-controller="UserProfile" asp-action="AddShebaNumber" role="form"
+                data-ajax-method="post" data-ajax="true" data-ajax-begin="dataAjaxBeginAddSheba"
+                data-ajax-success="dataAjaxSuccessAddSheba" data-ajax-failure="dataAjaxFailureAddSheba">
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label required fw-bold fs-6">شماره شبا</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input dir="ltr" asp-for="ShebaNumber"
+                            class="form-control form-control-lg form-control-solid txtCardNumber"
+                            placeholder="شماره شبا">
+
+                                                <div class="mt-6">
+                                                    <span asp-validation-for="ShebaNumber" class="text-danger"></span>
+                                                </div>
+
+                                                <div id="ppc_Sheba_button" class="ms-auto">
+                                                    <button type="submit" id="ppc_Sheba_submit" class="btn btn-primary">
+                                                        <span class="indicator-label">ثبت شماره شبا</span>
+                                                        <span class="indicator-progress">لطفا صبر کنید...
+                                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_doc">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">ارسال تصویر مدرک شناسایی</h3>
+                @{
+                    var DocColor = "";
+                }
+                @if (Model.IsDocPhotoConfirmed == isConfirmed.confirmed)
+                {
+                    DocColor = "success";
+                }
+                @if (Model.IsDocPhotoConfirmed == isConfirmed.notConfirmed)
+                {
+                    DocColor = "danger";
+                }
+                @if (Model.IsDocPhotoConfirmed == isConfirmed.waitingforconfirmation)
+                {
+                    DocColor = "warning";
+                }
+                                    <span
+                class="badge badge-light-@DocColor fs-8 fw-bolder mr-10 ml-10">@Model.IsDocPhotoConfirmed.GetDisplayName()</span>
+                            </div>
+                        </div>
+                        <div id="ppc_account_doc" class="collapse show">
+                            <div class="card-body border-top p-9">
+
+                @if (!string.IsNullOrEmpty(Model.DocPhotoFileName))
+                {
+                                                <div class="row mb-6">
+                                                    <label class="col-lg-4 col-form-label fw-bold fs-6">تصویر مدرک شناسایی</label>
+                                                    <div class="col-lg-8 fv-row">
+
+
+
+                                                <a href="~/file/download/AuthPPCUsers/@Model.Id/@Model.DocPhotoFileName" data-lightbox="roadtrip" data-title="تصویر مدرک شناسایی">برای مشاهده مدرک شناسایی کلیک کنید</a>
+                                                 </div>
+                                                </div>
+                }
+                @if (Model.IsDocPhotoConfirmed == isConfirmed.notConfirmed || Model.IsDocPhotoConfirmed == isConfirmed.waitingforconfirmation)
+                {
+                                                    <div class="row mb-6">
+                                                    <label class="col-lg-4 col-form-label fw-bold fs-6">افزودن تصویر مدرک شناسایی</label>
+                                                    <div class="col-lg-8 fv-row">
+                                                        <div class="dropzone dropzone-default dropzone-primary dz-clickable" id="fileDoc">
+                                                            <div class="dropzone-msg dz-message needsclick">
+                                                                <h3 class="dropzone-msg-title"> تصویر مدرک شناسایی را در اینجا رها کنید یا برای بارگذاری
+                                                                    کلیک کنید.
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                }
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+              <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_selfi">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">ارسال تصویر سلفی</h3>
+                @{
+                    var SelfiColor = "";
+                }
+                @if (Model.IsSelfiPhotoConfirmed == isConfirmed.confirmed)
+                {
+                    SelfiColor = "success";
+                }
+                @if (Model.IsSelfiPhotoConfirmed == isConfirmed.notConfirmed)
+                {
+                    SelfiColor = "danger";
+                }
+                @if (Model.IsSelfiPhotoConfirmed == isConfirmed.waitingforconfirmation)
+                {
+                    SelfiColor = "warning";
+                }
+                                    <span
+                class="badge badge-light-@SelfiColor fs-8 fw-bolder mr-10 ml-10">@Model.IsSelfiPhotoConfirmed.GetDisplayName()</span>
+                            </div>
+                        </div>
+                        <div id="ppc_account_selfi" class="collapse show">
+                            <div class="card-body border-top p-9">
+
+                @if (!string.IsNullOrEmpty(Model.SelfiPhotoFileName))
+                {
+                                                <div class="row mb-6">
+                                                    <label class="col-lg-4 col-form-label fw-bold fs-6">تصویر سلفی</label>
+                                                    <div class="col-lg-8 fv-row">
+                                                    <a href="~/file/download/AuthPPCUsers/@Model.Id/@Model.SelfiPhotoFileName" data-lightbox="roadtrip" data-title="تصویر سلفی" >برای مشاهده تصویر سلفی کلیک کنید</a>
+
+                                                 </div>
+
+                                                </div>
+                }
+
+
+                @if (Model.IsSelfiPhotoConfirmed == isConfirmed.notConfirmed || Model.IsSelfiPhotoConfirmed == isConfirmed.waitingforconfirmation)
+                {
+                                                <div class="row mb-6">
+                                                    <label class="col-lg-4 col-form-label fw-bold fs-6">افزودن تصویر سلفی</label>
+                                                    <div class="col-lg-8 fv-row">
+                                                        <div class="dropzone dropzone-default dropzone-primary dz-clickable" id="fileSelfi">
+                                                            <div class="dropzone-msg dz-message needsclick">
+                                                            <h4 class="dropzone-msg-title"> تصویر سلفی را در اینجا رها کنید یا برای بارگذاری کلیک کنید.
+                                                                    کلیک کنید.
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                }
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+       <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_phone">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">ثبت شماره تلفن ثابت</h3>
+                @{
+                    var PhoneColor = "";
+                }
+                @if (Model.IsPhoneNumberConfirmed == isConfirmed.confirmed)
+                {
+                    PhoneColor = "success";
+                }
+                @if (Model.IsPhoneNumberConfirmed == isConfirmed.notConfirmed)
+                {
+                    PhoneColor = "danger";
+                }
+                @if (Model.IsPhoneNumberConfirmed == isConfirmed.waitingforconfirmation)
+                {
+                    PhoneColor = "warning";
+                }
+                                    <span
+                class="badge badge-light-@PhoneColor fs-8 fw-bolder mr-10 ml-10">@Model.IsPhoneNumberConfirmed.GetDisplayName()</span>
+                                </div>
+                            </div>
+                            <div id="ppc_account_phone" class="collapse show">
+                                <div class="card-body border-top p-9">
+
+                                    <form method="post" asp-controller="UserProfile" asp-action="UpdatePhone" role="form" data-ajax="true"
+                data-ajax-begin="dataAjaxBeginAddPhone" data-ajax-success="dataAjaxSuccessAddPhone"
+                data-ajax-failure="dataAjaxFailureAddPhone">
+
+
+
+
+                    @if (!string.IsNullOrEmpty(Model.HomePhoneDescription) && Model.IsPhoneNumberConfirmed == isConfirmed.notConfirmed)
+                    {
+                                                                    <div class="row mb-6">
+                                                                    <label class="col-lg-4 col-form-label  fw-bold fs-6">پیام سیستم</label>
+                                                                    <div class="col-lg-8">
+                                                                        <div class="row">
+
+                                                <div class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6 mb-6">
+                                                        <span class="svg-icon svg-icon-2tx svg-icon-danger me-4">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+            viewBox="0 0 24 24" version="1.1">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                                <path
+                    d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                    fill="#000000" opacity="0.3"></path>
+                                                                <path
+                    d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                    fill="#000000"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                        <div class="mb-3 mb-md-0 fw-bold">
+                                                            <h4 class="text-gray-800 fw-bolder">پیام سیستم احراز هویت</h4>
+                                                            <div class="fs-6 text-gray-600 pe-7"> 
+                                                    @Model.HomePhoneDescription
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                    }
+
+
+
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label required fw-bold fs-6">شماره تلفن ثابت</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="number" dir="ltr" asp-for="PhoneNumber"
+                            class="form-control form-control-lg form-control-solid" placeholder="شماره تلفن ثابت">
+                                                <div class="mt-6">
+                                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                                </div>
+                                                <div id="ppc_phonenumber_button" class="ms-auto">
+
+                                                    <button type="submit" id="ppc_phonenumber_submit" class="btn btn-primary">
+                                                        <span class="indicator-label">ارسال کد فعالسازی</span>
+                                                        <span class="indicator-progress">لطفا صبر کنید...
+                                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                @if (Model.IsPhoneNumberConfirmed == isConfirmed.waitingforconfirmation)
+                {
+
+                                                                <div class="separator separator-dashed my-6"></div>
+
+                                                                <form method="post" asp-controller="UserProfile" asp-action="ConfirmPhone" role="form"
+                data-ajax-method="post" data-ajax="true" data-ajax-begin="dataAjaxBeginConfirmPhone"
+                data-ajax-success="dataAjaxSuccessConfirmPhone" data-ajax-failure="dataAjaxFailureConfirmPhone">
+                                                                    <div class="row mb-6">
+                                                                        <label class="col-lg-4 col-form-label required fw-bold fs-6">کد تایید تلفن ثابت</label>
+                                                                        <div class="col-lg-8 fv-row">
+
+                                                 <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
+                                                <span class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                             width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                                            <path
+                                        d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                        fill="#000000" opacity="0.3"></path>
+                                                            <path
+                                        d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                                        fill="#000000"></path>
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                                <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                    <div class="mb-3 mb-md-0 fw-bold">
+                                                        <h4 class="text-gray-800 fw-bolder">آموزش فعالسازی تلفن ثابت</h4>
+                                                        <div class="fs-6 text-gray-600 pe-7">
+
+                                                            جهت دریافت کد فعالسازی تلفن ثابت با شماره <span
+                                        class="fs-6 text-danger">02191013717</span> تماس بگیرید و دکمه 3 را شماره گیری
+                                                            کنید
+                                                            <br>
+                                                            توجه کنید که ساکنین تهران می بایست با شماره <span
+                                        class="fs-6 text-danger">91013717</span> تماس بگیرند.
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                                                            <br>
+
+                                                                            <input type="number" dir="ltr" asp-for="PhoneConfirmedCode"
+                                                                           class="form-control form-control-lg form-control-solid" placeholder="کد تایید تلفن ثابت">
+
+                                                                            <div class="mt-6">
+                                                                                <span asp-validation-for="PhoneConfirmedCode" class="text-danger"></span>
+                                                                            </div>
+
+                                                                         <div id="ppc_phonenumberconfirm_button" class="ms-auto">
+
+                                                                               <button type="submit" id="ppc_phonenumberconfirm_submit" class="btn btn-primary">
+                                                                                   <span class="indicator-label">تایید کد فعالسازی</span>
+                                                                                   <span class="indicator-progress">لطفا صبر کنید...
+                                                                                       <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                                               </button>
+                                                                           </div>
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </form>
+                }
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_address">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">ثبت آدرس</h3>
+                @{
+                    var locColor = "";
+                }
+                @if (Model.IsLocationConfirmed == isConfirmed.confirmed)
+                {
+                    locColor = "success";
+                }
+                @if (Model.IsLocationConfirmed == isConfirmed.notConfirmed)
+                {
+                    locColor = "danger";
+                }
+                @if (Model.IsLocationConfirmed == isConfirmed.waitingforconfirmation)
+                {
+                    locColor = "warning";
+                }
+                                    <span
+                class="badge badge-light-@locColor fs-8 fw-bolder mr-10 ml-10">@Model.IsLocationConfirmed.GetDisplayName()</span>
+                                </div>
+                            </div>
+                            <div id="ppc_account_address" class="collapse show">
+                                <div class="card-body border-top p-9">
+
+                                    <form method="post" asp-controller="UserProfile" asp-action="UpdateAddress" role="form" data-ajax="true"
+                data-ajax-begin="dataAjaxBeginAddAddress" data-ajax-success="dataAjaxSuccessAddAddress"
+                data-ajax-failure="dataAjaxFailureAddAddress">
+
+
+
+
+                    @if (!string.IsNullOrEmpty(Model.AddressDescription) && Model.IsLocationConfirmed == isConfirmed.notConfirmed)
+                    {
+                                                                    <div class="row mb-6">
+                                                                    <label class="col-lg-4 col-form-label  fw-bold fs-6">پیام سیستم</label>
+                                                                    <div class="col-lg-8">
+                                                                        <div class="row">
+
+                                                <div class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6 mb-6">
+                                                        <span class="svg-icon svg-icon-2tx svg-icon-danger me-4">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+            viewBox="0 0 24 24" version="1.1">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                                <path
+                    d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                    fill="#000000" opacity="0.3"></path>
+                                                                <path
+                    d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                    fill="#000000"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                        <div class="mb-3 mb-md-0 fw-bold">
+                                                            <h4 class="text-gray-800 fw-bolder">پیام سیستم احراز هویت</h4>
+                                                            <div class="fs-6 text-gray-600 pe-7"> 
+                                                    @Model.AddressDescription
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                    }
+
+
+
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label required fw-bold fs-6">کد پستی</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="number" dir="ltr" asp-for="PostalCode" class="form-control form-control-lg form-control-solid" placeholder="کد پستی">
+
+                                                <div class="mt-6">
+                                                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                           <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label required fw-bold fs-6">آدرس</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <textarea asp-for="Location" class="form-control form-control-lg form-control-solid" placeholder="آدرس"></textarea>
+
+                                                <div class="mt-6">
+                                                    <span asp-validation-for="Location" class="text-danger"></span>
+                                                </div>
+                                                <div id="ppc_Address_button" class="ms-auto">
+
+                                                    <button type="submit" id="ppc_Address_button" class="btn btn-primary">
+                                                        <span class="indicator-label">ارسال کد فعالسازی</span>
+                                                        <span class="indicator-progress">لطفا صبر کنید...
+                                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                @if (Model.IsLocationConfirmed == isConfirmed.waitingforconfirmation)
+                {
+
+                                                                <div class="separator separator-dashed my-6"></div>
+
+                                                                <form method="post" asp-controller="UserProfile" asp-action="ConfirmAddress" role="form"
+                data-ajax-method="post" data-ajax="true" data-ajax-begin="dataAjaxBeginAddressCode"
+                data-ajax-success="dataAjaxSuccessAddressCode" data-ajax-failure="dataAjaxFailureAddressCode">
+                                                                    <div class="row mb-6">
+                                                                        <label class="col-lg-4 col-form-label required fw-bold fs-6">کد تایید آدرس</label>
+                                                                        <div class="col-lg-8 fv-row">
+
+                                                                            <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+                                                                                <span class="svg-icon svg-icon-2tx svg-icon-warning me-4"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                                                                            <path
+                                            d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                            fill="#000000" opacity="0.3"></path>
+                                                                                            <path
+                                            d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z"
+                                            fill="#000000"></path>
+                                                                                        </g>
+                                                                                    </svg></span>
+                                                                                <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                                                    <div class="mb-3 mb-md-0 fw-bold">
+                                                                                        <h4 class="text-gray-800 fw-bolder">نکته</h4>
+                                                                                        <div class="fs-6 text-gray-600 pe-7">
+                                                                                   کد فعالسازی به آدرس شما پست می شود
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+
+                                                                            <input type="number" dir="ltr" asp-for="AddressConfirmedCode"
+                            class="form-control form-control-lg form-control-solid" placeholder="کد تایید آدرس">
+
+                                                                            <div class="mt-6">
+                                                                                <span asp-validation-for="AddressConfirmedCode" class="text-danger"></span>
+                                                                            </div>
+
+                                                                         <div id="ppc_AddressCode_button" class="ms-auto">
+
+                                                                               <button type="submit" id="ppc_AddressCode_submit" class="btn btn-primary">
+                                                                                   <span class="indicator-label">تایید کد فعالسازی</span>
+                                                                                   <span class="indicator-progress">لطفا صبر کنید...
+                                                                                       <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                                               </button>
+                                                                           </div>
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </form>
+                }
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_connected_accounts" aria-expوed="true"
+        aria-controls="ppc_account_connected_accounts">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">امنیت</h3>
+                            </div>
+                        </div>
+
+
+            <form method="post"
+                asp-controller="UserProfile" 
+                asp-action="UpdateTwoFactorEnabled" role="form" data-ajax="true"
+                data-ajax-begin="dataAjaxBeginUpdateTwoFactorEnabled" 
+                data-ajax-success="dataAjaxSuccessUpdateTwoFactorEnabled"
+                data-ajax-failure="dataAjaxFailureUpdateTwoFactorEnabled">
+                        <div id="ppc_account_connected_accounts" class="collapse show">
+                            <div class="card-body border-top p-9">
+                                <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6">
+                                    <span class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
+                        version="1.1">
+                                            <path
+                            d="M18.5,8 C17.1192881,8 16,6.88071187 16,5.5 C16,4.11928813 17.1192881,3 18.5,3 C19.8807119,3 21,4.11928813 21,5.5 C21,6.88071187 19.8807119,8 18.5,8 Z M18.5,21 C17.1192881,21 16,19.8807119 16,18.5 C16,17.1192881 17.1192881,16 18.5,16 C19.8807119,16 21,17.1192881 21,18.5 C21,19.8807119 19.8807119,21 18.5,21 Z M5.5,21 C4.11928813,21 3,19.8807119 3,18.5 C3,17.1192881 4.11928813,16 5.5,16 C6.88071187,16 8,17.1192881 8,18.5 C8,19.8807119 6.88071187,21 5.5,21 Z"
+                            fill="#000000" opacity="0.3"></path>
+                                            <path
+                            d="M5.5,8 C4.11928813,8 3,6.88071187 3,5.5 C3,4.11928813 4.11928813,3 5.5,3 C6.88071187,3 8,4.11928813 8,5.5 C8,6.88071187 6.88071187,8 5.5,8 Z M11,4 L13,4 C13.5522847,4 14,4.44771525 14,5 C14,5.55228475 13.5522847,6 13,6 L11,6 C10.4477153,6 10,5.55228475 10,5 C10,4.44771525 10.4477153,4 11,4 Z M11,18 L13,18 C13.5522847,18 14,18.4477153 14,19 C14,19.5522847 13.5522847,20 13,20 L11,20 C10.4477153,20 10,19.5522847 10,19 C10,18.4477153 10.4477153,18 11,18 Z M5,10 C5.55228475,10 6,10.4477153 6,11 L6,13 C6,13.5522847 5.55228475,14 5,14 C4.44771525,14 4,13.5522847 4,13 L4,11 C4,10.4477153 4.44771525,10 5,10 Z M19,10 C19.5522847,10 20,10.4477153 20,11 L20,13 C20,13.5522847 19.5522847,14 19,14 C18.4477153,14 18,13.5522847 18,13 L18,11 C18,10.4477153 18.4477153,10 19,10 Z"
+                            fill="#000000"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="d-flex flex-stack flex-grow-1">
+                                        <div class="fw-bold">
+                                            <div class="fs-6 text-gray-600">
+                                                احراز هویت دو عاملی یک لایه امنیتی بیشتر به حساب شما اضافه می کند. برای ورود به
+                                                سیستم ، باید یک کد شگفت انگیز 6 رقمی ارائه دهید.
+                                                <a href="#" class="fw-bolder">بیشتر بدانید</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="py-2">
+                                    <div class="d-flex flex-stack">
+                                        <div class="d-flex">
+                                            <img src="/theme/Desktop/assets/media/logos/logo-dark.png" class="h-30px me-6" alt="">
+                                            <div class="d-flex flex-column">
+                                                <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">سناتور</a>
+                                                <div class="fs-6 fw-bold text-gray-400">ورود دو مرحله ای سناتور</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <div class="form-check form-check-solid form-switch">
+                                                <input class="form-check-input w-45px h-30px" type="checkbox" asp-for="TwoFactorEnabled">
+                                                <label class="form-check-label" for="TwoFactorEnabled"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                                                 <div id="ppc_twofactor_button" class="ms-auto">
+
+                                                                               <button type="submit" id="ppc_twofactor_submit" class="btn btn-primary">
+                                                                                   <span class="indicator-label">تایید کد فعالسازی</span>
+                                                                                   <span class="indicator-progress">لطفا صبر کنید...
+                                                                                   <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                                               </button>
+                                                                           </div>
+                            </div>
+                        </div>
+    </form>
+
+                    </div>
+                        <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_email_preferences" aria-expوed="true"
+        aria-controls="ppc_account_email_preferences">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">تنظیمات ایمیل</h3>
+                            </div>
+                        </div>
+                        <div id="ppc_account_email_preferences" class="collapse show">
+                            <form class="form">
+                                <div class="card-body border-top px-9 py-9">
+                                    <label class="form-check form-check-custom form-check-solid align-items-start">
+                                        <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" value="1">
+                                        <span class="form-check-label d-flex flex-column align-items-start">
+                                            <span class="fw-bolder fs-5 mb-0">پرداخت های موفق</span>
+                                            <span class="text-muted fs-6">برای هر پرداخت موفق اعلانی دریافت کنید.</span>
+                                        </span>
+                                    </label>
+                                    <div class="separator separator-dashed my-6"></div>
+                                    <label class="form-check form-check-custom form-check-solid align-items-start">
+                                        <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" checked="checked"
+                        value="1">
+                                        <span class="form-check-label d-flex flex-column align-items-start">
+                                            <span class="fw-bolder fs-5 mb-0">پرداخت ها</span>
+                                            <span class="text-muted fs-6">برای هر پرداخت آغاز شده اعلانی دریافت کنید.</span>
+                                        </span>
+                                    </label>
+                                    <div class="separator separator-dashed my-6"></div>
+                                    <label class="form-check form-check-custom form-check-solid align-items-start">
+                                        <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" value="1">
+                                        <span class="form-check-label d-flex flex-column align-items-start">
+                                            <span class="fw-bolder fs-5 mb-0">مجموعه هزینه</span>
+                                            <span class="text-muted fs-6">هر بار که هزینه ای را از فروش دریافت می کنید ، اعلانی
+                                                دریافت می کنید</span>
+                                        </span>
+                                    </label>
+                                    <div class="separator separator-dashed my-6"></div>
+                                    <label class="form-check form-check-custom form-check-solid align-items-start">
+                                        <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" checked="checked"
+                        value="1">
+                                        <span class="form-check-label d-flex flex-column align-items-start">
+                                            <span class="fw-bolder fs-5 mb-0">اختلاف پرداخت مشتری</span>
+                                            <span class="text-muted fs-6">اگر پرداختی توسط مشتری مورد اختلاف است و به دلیل اختلافات
+                                                ، اخطار دریافت کنید.</span>
+                                        </span>
+                                    </label>
+                                    <div class="separator separator-dashed my-6"></div>
+                                    <label class="form-check form-check-custom form-check-solid align-items-start">
+                                        <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" value="1">
+                                        <span class="form-check-label d-flex flex-column align-items-start">
+                                            <span class="fw-bolder fs-5 mb-0">هشدارهای بازپرداخت</span>
+                                            <span class="text-muted fs-6">در صورت اعلام پرداخت توسط اداره دارایی ، اعلامیه دریافت
+                                                کنید.</span>
+                                        </span>
+                                    </label>
+                                    <div class="separator separator-dashed my-6"></div>
+                                    <label class="form-check form-check-custom form-check-solid align-items-start">
+                                        <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" checked="checked"
+                        value="1">
+                                        <span class="form-check-label d-flex flex-column align-items-start">
+                                            <span class="fw-bolder fs-5 mb-0">پرداخت فاکتور</span>
+                                            <span class="text-muted fs-6">اگر مشتری مبلغ نادرستی را برای پرداخت فاکتور خود ارسال
+                                                کرده ، اخطار دریافت کنید.</span>
+                                        </span>
+                                    </label>
+                                    <div class="separator separator-dashed my-6"></div>
+                                    <label class="form-check form-check-custom form-check-solid align-items-start">
+                                        <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" value="1">
+                                        <span class="form-check-label d-flex flex-column align-items-start">
+                                            <span class="fw-bolder fs-5 mb-0">نقات پایان کلید دسترسی</span>
+                                            <span class="text-muted fs-6">اعلان هایی را دریافت کنید که نقاط پایانی API webhook
+                                                مرتباً خراب می شوند.</span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <button class="btn btn-white btn-active-light-primary me-2">صرف نظر</button>
+                                    <button class="btn btn-primary px-6">ذخیره تغییرات</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                        <div class="card mb-5 mb-xl-10">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_notifications" aria-expوed="true" aria-controls="ppc_account_notifications">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">اعلانات</h3>
+                            </div>
+                        </div>
+                        <div id="ppc_account_notifications" class="collapse show">
+                            <form class="form">
+                                <div class="card-body border-top px-9 pt-3 pb-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-row-dashed border-gray-300 align-middle gy-6">
+                                            <tbody class="fs-6 fw-bold">
+                                                <tr>
+                                                    <td class="min-w-250px fs-4 fw-bolder">اعلانات</td>
+                                                    <td class="w-125px">
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                            id="ppc_settings_notification_email" checked="checked" data-ppc-check="true"
+                                            data-ppc-check-target="[data-ppc-settings-notification=email]">
+                                                            <label class="form-check-label ps-2"
+                                            for="ppc_settings_notification_email">ایمیل</label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="w-125px">
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                            id="ppc_settings_notification_phone" checked="checked" data-ppc-check="true"
+                                            data-ppc-check-target="[data-ppc-settings-notification=phone]">
+                                                            <label class="form-check-label ps-2"
+                                            for="ppc_settings_notification_phone">تلفن</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>بروزرسانی صورتحساب</td>
+                                                    <td>
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="1" id="billing1"
+                                            checked="checked" data-ppc-settings-notification="email">
+                                                            <label class="form-check-label ps-2" for="billing1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="" id="billing2"
+                                            checked="checked" data-ppc-settings-notification="phone">
+                                                            <label class="form-check-label ps-2" for="billing2"></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>اعضای تیم جدید</td>
+                                                    <td>
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="" id="تیم1"
+                                            checked="checked" data-ppc-settings-notification="email">
+                                                            <label class="form-check-label ps-2" for="تیم1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="" id="تیم2"
+                                            data-ppc-settings-notification="phone">
+                                                            <label class="form-check-label ps-2" for="تیم2"></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>پروژه های کامل شده</td>
+                                                    <td>
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="" id="project1"
+                                            data-ppc-settings-notification="email">
+                                                            <label class="form-check-label ps-2" for="project1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="" id="project2"
+                                            checked="checked" data-ppc-settings-notification="phone">
+                                                            <label class="form-check-label ps-2" for="project2"></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border-bottom-0">خبرنامه ها</td>
+                                                    <td class="border-bottom-0">
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="" id="newsletter1"
+                                            data-ppc-settings-notification="email">
+                                                            <label class="form-check-label ps-2" for="newsletter1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-bottom-0">
+                                                        <div class="form-check form-check-solid">
+                                                            <input class="form-check-input" type="checkbox" value="" id="newsletter2"
+                                            data-ppc-settings-notification="phone">
+                                                            <label class="form-check-label ps-2" for="newsletter2"></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <button class="btn btn-white btn-active-light-primary me-2">صرف نظر</button>
+                                    <button class="btn btn-primary px-6">ذخیره تغییرات</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                        <div class="card">
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_deactivate" aria-expوed="true" aria-controls="ppc_account_deactivate">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">غیرفعال کردن اکانت کاربر</h3>
+                            </div>
+                        </div>
+                        <div id="ppc_account_deactivate" class="collapse show">
+                            <form id="ppc_account_deactivate_form" class="form fv-plugins-bootstrap5 fv-plugins-framework"
+            novalidate="novalidate">
+                                <div class="card-body border-top p-9">
+                                    <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6">
+                                        <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
+                            version="1.1">
+                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"></circle>
+                                                <rect fill="#000000" x="11" y="7" width="2" height="8" rx="1"></rect>
+                                                <rect fill="#000000" x="11" y="16" width="2" height="2" rx="1"></rect>
+                                            </svg>
+                                        </span>
+                                        <div class="d-flex flex-stack flex-grow-1">
+                                            <div class="fw-bold">
+                                                <h4 class="text-gray-800 fw-bolder">اکانت کاربری خود را غیرفعال کنید</h4>
+                                                <div class="fs-6 text-gray-600">
+                                                    برای امنیت بیشتر ، هنگام بازنشانی گذرواژه ثبت‌کننده ، لازم است ایمیل یا شماره
+                                                    تلفن خود را تأیید کنید.
+                                                    <br>
+                                                    <a class="fw-bolder" href="#">اموزش بیشتر</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check form-check-solid fv-row fv-plugins-icon-container">
+                                        <input name="deactivate" class="form-check-input" type="checkbox" value="" id="deactivate">
+                                        <label class="form-check-label fw-bold ps-2 fs-6" for="deactivate">من تایید میکنم اکانتم
+                                            غیرفعال شود</label>
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                    <button id="ppc_account_deactivate_account_submit" type="submit" class="btn btn-danger fw-bold">غیرفعال
+                                        کردن اکانت کاربر</button>
+                                </div>
+                                <input type="hidden">
+                                <div></div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+    @section Style
+{
+<link href="~/css/upload/dropzone.css" rel="stylesheet" />
+<link href="~/css/upload/cropper.css" rel="stylesheet" />
+<link href="~/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+}
+
+    @section Scripts
+{
+<script src="~/js/upload/dropzone.js"></script>
+<script src="~/js/upload/cropper.js"></script>
+<script src="~/js/upload/jquery-cropper.js"></script>
+<script src="~/lightbox/js/lightbox.min.js"></script>
+
+
+
+
+
+
+<script>
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+    function dataAjaxBeginAddMobile() {
+        $("#ppc_Mobile_button .indicator-label").hide();
+        $("#ppc_Mobile_button .indicator-progress").show();
+    }
+
+    function dataAjaxSuccessAddMobile(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bi bi-bell" aria-hidden="true"></span>کد تایید برای شما ارسال شد.</div>'
+        });
+        $("#ppc_Mobile_button .indicator-label").show();
+        $("#ppc_Mobile_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+    }
+
+    function dataAjaxFailureAddMobile(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $("#ppc_Mobile_button .indicator-label").show();
+        $("#ppc_Mobile_button .indicator-progress").hide();
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+
+    function dataAjaxBeginMobileCode() {
+        $("#ppc_MobileCode_button .indicator-label").hide();
+        $("#ppc_MobileCode_button .indicator-progress").show();
+    }
+
+    function dataAjaxSuccessMobileCode(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bi bi-bell" aria-hidden="true"></span>کد احراز هویت شما تایید شد</div>'
+        });
+        $("#ppc_MobileCode_button .indicator-label").show();
+        $("#ppc_MobileCode_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+    }
+
+    function dataAjaxFailureMobileCode(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $("#ppc_MobileCode_button .indicator-label").show();
+        $("#ppc_MobileCode_button .indicator-progress").hide();
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+
+
+    function dataAjaxBeginAddCard() {
+        $("#ppc_Card_button .indicator-label").hide();
+        $("#ppc_Card_button .indicator-progress").show();
+    }
+
+
+    function dataAjaxSuccessAddCard(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bx bx-bell" aria-hidden="true"></span>شماره کارت شما تایید شد.</div>'
+        });
+        $("#ppc_Card_button .indicator-label").show();
+        $("#ppc_Card_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+
+        }, 2000);
+    }
+    function dataAjaxFailureAddCard(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        $("#ppc_Card_button .indicator-label").show();
+        $("#ppc_Card_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+  function dataAjaxBeginAddAddress() {
+        $("#ppc_Address_button .indicator-label").hide();
+        $("#ppc_Address_button .indicator-progress").show();
+    }
+
+    function dataAjaxSuccessAddAddress(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bi bi-bell" aria-hidden="true"></span>آدرس شما با موفقیت ثبت شد.</div>'
+        });
+        $("#ppc_Address_button .indicator-label").show();
+        $("#ppc_Address_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+    }
+
+    function dataAjaxFailureAddAddress(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $("#ppc_Address_button .indicator-label").show();
+        $("#ppc_Address_button .indicator-progress").hide();
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+
+
+  function dataAjaxBeginAddressCode() {
+        $("#ppc_AddressCode_button .indicator-label").hide();
+        $("#ppc_AddressCode_button .indicator-progress").show();
+    }
+
+    function dataAjaxSuccessAddressCode(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bi bi-bell" aria-hidden="true"></span>آدرس شما با موفقیت ثبت شد.</div>'
+        });
+        $("#ppc_AddressCode_button .indicator-label").show();
+        $("#ppc_AddressCode_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+    }
+
+    function dataAjaxFailureAddressCode(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $("#ppc_AddressCode_button .indicator-label").show();
+        $("#ppc_AddressCode_button .indicator-progress").hide();
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+        $(function () {
+            $("a[id^='card-delete']").click(function (e) {
+                e.preventDefault(); 
+                var cardId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("DeleteCard", "UserProfile")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDeleteCard", "UserProfile")',
+                    renderModalPartialViewData: JSON.stringify({ "id": cardId }),
+                    loginUrl: '/Dashboard/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+        });
+
+
+
+
+
+
+
+    function dataAjaxBeginAddSheba() {
+        $("#ppc_Sheba_button .indicator-label").hide();
+        $("#ppc_Sheba_button .indicator-progress").show();
+    }
+
+
+    function dataAjaxSuccessAddSheba(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bx bx-bell" aria-hidden="true"></span>شماره شبا شما تایید شد.</div>'
+        });
+        $("#ppc_Sheba_button .indicator-label").show();
+        $("#ppc_Sheba_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+
+        }, 2000);
+    }
+    function dataAjaxFailureAddSheba(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        $("#ppc_Sheba_button .indicator-label").show();
+        $("#ppc_Sheba_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+        $(function () {
+            $("a[id^='sheba-delete']").click(function (e) {
+                e.preventDefault(); 
+                var shebaId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("DeleteSheba", "UserProfile")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDeleteSheba", "UserProfile")',
+                    renderModalPartialViewData: JSON.stringify({ "id": shebaId }),
+                    loginUrl: '/Dashboard/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+        });
+
+
+
+
+  function dataAjaxBeginAddPhone() {
+        $("#ppc_phonenumber_button .indicator-label").hide();
+        $("#ppc_phonenumber_button .indicator-progress").show();
+    }
+
+    function dataAjaxSuccessAddPhone(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bi bi-bell" aria-hidden="true"></span>لطفا برای فعالسازی تلفن ثابت با مرکز احراز هویت سناتور تماس بگیرید</div>'
+        });
+        $("#ppc_phonenumber_button .indicator-label").show();
+        $("#ppc_phonenumber_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+    }
+
+    function dataAjaxFailureAddPhone(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $("#ppc_phonenumber_button .indicator-label").show();
+        $("#ppc_phonenumber_button .indicator-progress").hide();
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+
+    function dataAjaxBeginConfirmPhone() {
+        $("#ppc_phonenumberconfirm_button .indicator-label").hide();
+        $("#ppc_phonenumberconfirm_button .indicator-progress").show();
+    }
+
+    function dataAjaxSuccessConfirmPhone(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bi bi-bell" aria-hidden="true"></span>کد احراز هویت شما تایید شد</div>'
+        });
+        $("#ppc_phonenumberconfirm_button .indicator-label").show();
+        $("#ppc_phonenumberconfirm_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+    }
+
+    function dataAjaxFailureConfirmPhone(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $("#ppc_phonenumberconfirm_button .indicator-label").show();
+        $("#ppc_phonenumberconfirm_button .indicator-progress").hide();
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+
+
+
+
+
+
+
+    function dataAjaxBeginUpdateTwoFactorEnabled() {
+        $("#ppc_twofactor_button .indicator-label").hide();
+        $("#ppc_twofactor_button .indicator-progress").show();
+    }
+
+    function dataAjaxSuccessUpdateTwoFactorEnabled(data, status, xhr) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bi bi-bell" aria-hidden="true"></span>وضعیت ورود دو مرحله ای شما تغییر کرد</div>'
+        });
+        $("#ppc_twofactor_button .indicator-label").show();
+        $("#ppc_twofactor_button .indicator-progress").hide();
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+    }
+
+    function dataAjaxFailureUpdateTwoFactorEnabled(xhr, status, error) {
+        if (xhr.status === 401) {
+            window.location.href = xhr.getResponseHeader('Location');
+            return;
+        }
+        $("#ppc_twofactor_button .indicator-label").show();
+        $("#ppc_twofactor_button .indicator-progress").hide();
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="fas fa-thumbs-down" aria-hidden="true"></span> ' + xhr.responseText + '</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+        }, 2000);
+    }
+
+
+
+
+
+    Dropzone.options.fileDoc = {
+        addRemoveLinks: true,
+        url: '/Dashboard/UserProfile/UploadDoc',
+        maxFilesize: 2,
+        maxFiles: 1,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        init: function () {
+
+            this.on("addedfile", function (file) {
+                if (!file.type.match('image.*')) {
+                                          $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="bx bx-bell" aria-hidden="true"></span>لطفا تصویر مدرک شناسایی خود را به درستی وارد نمایید</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+
+        }, 2000);
+                    return false;
+                }
+            });
+        this.on("maxfilesexceeded", function (file) {
+        if (!file.type.match('image.*')) {
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="bx bx-bell" aria-hidden="true"></span>لطفا تصویر مدرک شناسایی خود را به درستی وارد نمایید</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+
+        }, 2000);                   
+        return false;
+        }
+                this.removeAllFiles();
+                this.addFile(file);
+            });
+        },
+        complete: function (file) {
+            if (file.size > 10 * 1024 * 1024) {
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="bx bx-bell" aria-hidden="true"></span>حجم تصویر مدرک شناسایی شما باید کمتر از 10 مگابایت باشد</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+
+        }, 2000);
+                return false;
+            }
+        },
+        success: function (file, response) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bx bx-bell" aria-hidden="true"></span>فایل با موفقیت ارسال شد</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+
+            file.previewElement.querySelector(".dz-progress").remove();
+        },
+
+        @* transformFile: function (file, done) {
+
+                                    var fileDoc = this;
+
+                                    // Create the image editor overlay
+                                    var editor = document.createElement('div');
+                                    editor.style.position = 'fixed';
+                                    editor.style.left = 0;
+                                    editor.style.right = 0;
+                                    editor.style.top = 0;
+                                    editor.style.bottom = 0;
+                                    editor.style.zIndex = 9999;
+                                    editor.style.backgroundColor = '#000';
+
+                                    // Create the confirm button
+                                    var confirm = document.createElement('button');
+                                    confirm.className = "btn btn-info";
+                                    confirm.style.position = 'absolute';
+                                    confirm.style.left = '10px';
+                                    confirm.style.top = '10px';
+                                    confirm.style.zIndex = 9999;
+                                    confirm.textContent = 'بارگذاری تصویر';
+                                    confirm.addEventListener('click', function () {
+
+                                        // Get the canvas with image data from Cropper.js
+                                        var canvas = cropper.getCroppedCanvas({
+                                            width: 1024,
+                                            height: 860
+                                        });
+
+                                        // Turn the canvas into a Blob (file object without a name)
+                                        canvas.toBlob(function (blob) {
+
+                                            // Update the image thumbnail with the new image data
+                                            fileDoc.createThumbnail(
+                                                blob,
+                                                fileDoc.options.thumbnailWidth,
+                                                fileDoc.options.thumbnailHeight,
+                                                fileDoc.options.thumbnailMethod,
+                                                false,
+                                                function (dataURL) {
+
+                                                    // Update the Dropzone file thumbnail
+                                                    fileDoc.emit('thumbnail', file, dataURL);
+
+                                                    // Return modified file to dropzone
+                                                    done(blob);
+                                                }
+                                            );
+
+                                        });
+
+                                        try {
+                                            // Remove the editor from view
+                                            editor.parentNode.removeChild(editor);
+
+                                        }
+                                        catch { }
+
+
+                                    });
+                                    editor.appendChild(confirm);
+
+                                    // Load the image
+                                    var image = new Image();
+                                    image.src = URL.createObjectURL(file);
+                                    editor.appendChild(image);
+
+                                    // Append the editor to the page
+                                    document.body.appendChild(editor);
+
+                                    // Create Cropper.js and pass image
+                                    var cropper = new Cropper(image, {
+                                        aspectRatio: 0
+                                    });
+
+                                } *@
+    };
+
+
+    Dropzone.options.fileSelfi = {
+        addRemoveLinks: true,
+        url: '/Dashboard/UserProfile/UploadSelfi',
+        maxFilesize: 2,
+        maxFiles: 1,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        init: function () {
+
+            this.on("addedfile", function (file) {
+                if (!file.type.match('image.*')) {
+                                          $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="bx bx-bell" aria-hidden="true"></span>لطفا تصویر سلفی خود را به درستی وارد نمایید</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+
+        }, 2000);
+                    return false;
+                }
+            });
+        this.on("maxfilesexceeded", function (file) {
+        if (!file.type.match('image.*')) {
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="bx bx-bell" aria-hidden="true"></span>لطفا تصویر سلفی خود را به درستی وارد نمایید</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+
+        }, 2000);                   
+        return false;
+        }
+                this.removeAllFiles();
+                this.addFile(file);
+            });
+        },
+        complete: function (file) {
+            if (file.size > 10 * 1024 * 1024) {
+        $.bootstrapModalAlert({
+            caption: 'خطا در انجام عملیات',
+            body: '<div class="alert alert-danger"> <span class="bx bx-bell" aria-hidden="true"></span>حجم تصویر تصویر شما باید کمتر از 10 مگابایت باشد</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+
+        }, 2000);
+                return false;
+            }
+        },
+        success: function (file, response) {
+        $.bootstrapModalAlert({
+            caption: 'تائید انجام عملیات',
+            body: '<div class="alert alert-success"> <span class="bx bx-bell" aria-hidden="true"></span>فایل با موفقیت ارسال شد</div>'
+        });
+        setTimeout(function () {
+            $('.modal').modal('hide');
+            window.location.reload();
+        }, 2000);
+
+            file.previewElement.querySelector(".dz-progress").remove();
+        },
+
+        @* transformFile: function (file, done) {
+
+                                    var fileDoc = this;
+
+                                    // Create the image editor overlay
+                                    var editor = document.createElement('div');
+                                    editor.style.position = 'fixed';
+                                    editor.style.left = 0;
+                                    editor.style.right = 0;
+                                    editor.style.top = 0;
+                                    editor.style.bottom = 0;
+                                    editor.style.zIndex = 9999;
+                                    editor.style.backgroundColor = '#000';
+
+                                    // Create the confirm button
+                                    var confirm = document.createElement('button');
+                                    confirm.className = "btn btn-info";
+                                    confirm.style.position = 'absolute';
+                                    confirm.style.left = '10px';
+                                    confirm.style.top = '10px';
+                                    confirm.style.zIndex = 9999;
+                                    confirm.textContent = 'بارگذاری تصویر';
+                                    confirm.addEventListener('click', function () {
+
+                                        // Get the canvas with image data from Cropper.js
+                                        var canvas = cropper.getCroppedCanvas({
+                                            width: 1024,
+                                            height: 860
+                                        });
+
+                                        // Turn the canvas into a Blob (file object without a name)
+                                        canvas.toBlob(function (blob) {
+
+                                            // Update the image thumbnail with the new image data
+                                            fileDoc.createThumbnail(
+                                                blob,
+                                                fileDoc.options.thumbnailWidth,
+                                                fileDoc.options.thumbnailHeight,
+                                                fileDoc.options.thumbnailMethod,
+                                                false,
+                                                function (dataURL) {
+
+                                                    // Update the Dropzone file thumbnail
+                                                    fileDoc.emit('thumbnail', file, dataURL);
+
+                                                    // Return modified file to dropzone
+                                                    done(blob);
+                                                }
+                                            );
+
+                                        });
+
+                                        try {
+                                            // Remove the editor from view
+                                            editor.parentNode.removeChild(editor);
+
+                                        }
+                                        catch { }
+
+
+                                    });
+                                    editor.appendChild(confirm);
+
+                                    // Load the image
+                                    var image = new Image();
+                                    image.src = URL.createObjectURL(file);
+                                    editor.appendChild(image);
+
+                                    // Append the editor to the page
+                                    document.body.appendChild(editor);
+
+                                    // Create Cropper.js and pass image
+                                    var cropper = new Cropper(image, {
+                                        aspectRatio: 0
+                                    });
+
+                                } *@
+    };
+
+
+    var txtCardNumber = document.querySelector(".txtCardNumber");
+    txtCardNumber.addEventListener("input", onChangeTxtCardNumber);
+    function onChangeTxtCardNumber(e) {
+        var cardNumber = txtCardNumber.value;
+        var formattedCardNumber = cardNumber.replace(/[^\d]/g, "");
+        formattedCardNumber = formattedCardNumber.substring(0, 16);
+        var cardNumberSections = formattedCardNumber.match(/\d{1,4}/g);
+        if (cardNumberSections !== null) {
+            formattedCardNumber = cardNumberSections.join(' - ');
+        }
+        if (cardNumber !== formattedCardNumber) {
+            txtCardNumber.value = formattedCardNumber;
+        }
+    }
+
+
+
+
+</script>
+
+}
+}
+<script>
+        function dataBeginChangeUserInfo() {
+        $("#ppc_UserInfo_button .indicator-label").hide();
+        $("#ppc_UserInfo_button .indicator-progress").show();
+
+        setTimeout(function () {
+           $("#ppc_UserInfo_button .indicator-label").show();
+           $("#ppc_UserInfo_button .indicator-progress").hide();
+        }, 3000);
+    }
+</script>
+<partial name="_DateScript" />
+<script>
+    var app = Vue.createApp({
+        data: function () {
+            return {
+                date: '@Model.BirthDate',
+            }
+        },
+        components: {
+            DatePicker: Vue3PersianDatetimePicker,
+        }
+
+    }).mount('#app');
+
+
+</script>

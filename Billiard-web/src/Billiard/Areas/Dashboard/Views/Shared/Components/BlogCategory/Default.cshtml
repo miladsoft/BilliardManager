@@ -1,0 +1,15 @@
+@model List<BlogPostCategoryViewModel>
+
+<div class="mb-16">
+    <h4 class="text-black mb-7">دسته بندی ها</h4>
+@foreach (var item in Model)
+{
+    <div class="d-flex flex-stack fw-bold fs-5 text-muted mb-4">
+
+        <a asp-action="Category" asp-controller="Blog" asp-area="" asp-route-Id="@item.Name" class="text-muted text-hover-primary pe-2">@item.Title</a>
+
+        <div class="m-0">@item.BlogPosts.Count()</div>
+
+    </div>
+}
+</div>

@@ -1,0 +1,383 @@
+﻿/* General Variables */
+:root {
+  --color1: #17161b;
+  --color2: #f0b90a;
+  --color3: #2a2d3c;
+  --color4: #edf1f9;
+  --color5: #fff;
+  --color6: #3366ff;
+  --color7: #97a3b9;
+  --color8: #22b973;
+  --color9: #b92269;
+  --color10: rgb(223, 223, 223);
+  --pill: 2.5rem;
+  --round: 50%;
+  --full: 100%;
+}
+.bg-Billiard {
+  background-color: var(--color10);
+}
+body {
+  padding-right: 0 !important ;
+  overflow: auto !important;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #5f5f5f;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  /* background:#d3d3d3; */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #5f5f5f;
+  /* border-radius: 20px; */
+  /* border: 1px solid #d3d3d3; */
+}
+
+.iconimg {
+  opacity: 0.5;
+}
+
+.iconimg:hover {
+  opacity: 1;
+}
+
+.ml-15 {
+  margin-left: 15px !important;
+}
+.mr-15 {
+  margin-right: 15px !important;
+}
+.border-2 {
+  border: 2px solid #808080;
+}
+.aside-dark .menu .menu-item .menu-link.active {
+  background-color: #5f5f5f !important;
+}
+.aside-dark
+  .menu
+  .menu-item
+  .menu-link
+  .menu-icon
+  .svg-icon
+  svg
+  [fill]:not(.permanent):not(g) {
+  fill: #fff !important;
+}
+.aside-dark .menu .menu-item .menu-link.active .menu-bullet .bullet {
+  background-color: #fff !important;
+}
+.aside-dark .menu .menu-item .menu-link.active .menu-bullet .bullet:hover {
+  background-color: #fff !important;
+}
+.content {
+  background-color: #e4e8ea !important;
+}
+.tooltip {
+  font-family: IRANSansWeb, Poppins, Helvetica, sans-serif !important;
+}
+
+.vpd-header {
+  background-color: #f08d17 !important;
+}
+.vpd-day-effect {
+  background-color: #181c32 !important;
+}
+
+.dropzone {
+  height: auto;
+  min-height: 200px;
+  background-color: #f08d1838;
+}
+.ml-10 {
+  margin-left: 10px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.menu-item.menu-accordion.show {
+  border: 1px solid #464d5c;
+  background-color: #272e48;
+  -webkit-transition: none;
+  transition: none;
+}
+
+.aside.aside-dark .separator {
+  border-bottom-color: #464d5c !important;
+}
+
+/*  Page Loader */
+#loader-page {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: var(--color1);
+  z-index: 9999;
+}
+#line {
+  top: 40px;
+  right: -2.5px;
+}
+#line span {
+  display: inline-block;
+  width: 5px;
+  height: 20px;
+  background-color: var(--color2);
+}
+#line span:nth-child(1) {
+  animation: grow 1s ease-in-out infinite;
+}
+#line span:nth-child(2) {
+  animation: grow 1s ease-in-out 0.15s infinite;
+}
+#line span:nth-child(3) {
+  animation: grow 1s ease-in-out 0.3s infinite;
+}
+#line span:nth-child(4) {
+  animation: grow 1s ease-in-out 0.45s infinite;
+}
+@keyframes grow {
+  0%,
+  100% {
+    -webkit-transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    -o-transform: scaleY(1);
+    transform: scaleY(1);
+  }
+  50% {
+    -webkit-transform: scaleY(1.8);
+    -ms-transform: scaleY(1.8);
+    -o-transform: scaleY(1.8);
+    transform: scaleY(1.8);
+  }
+}
+.gbtn {
+  border-radius: 0 !important;
+}
+div[disabled="disabled"] {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Parts are from twitter.com */
+
+.HeartAnimation {
+  padding-top: 2em;
+  background-image: url("/css/web_heart_animation.png");
+  background-repeat: no-repeat;
+  background-size: 2900%;
+  background-position: left;
+  height: 90px;
+  width: 90px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.animate {
+  animation: heart-burst 0.8s steps(28) forwards;
+}
+
+@keyframes heart-burst {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+
+.pagination .active {
+  z-index: 2;
+  color: #009ef7;
+  text-decoration: none;
+  background-color: #ecf8ff;
+  border-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.475rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  font-weight: 500;
+  font-size: 1.075rem;
+}
+.fconvas {
+  z-index: 100;
+  position: fixed;
+}
+
+element.style {
+}
+.svg-icon.svg-icon-primary svg [fill]:not(.permanent):not(g) {
+  fill: #ff9d00 !important;
+}
+/* a {
+    color: #F08D18 !important;
+}
+.breadcrumb-item.active {
+    color: #F08D18 !important;
+}
+.border-primary {
+    border-color: #F08D18 !important;
+} */
+
+.blogp {
+  margin: 0;
+  text-indent: 2rem;
+  text-align: justify;
+  line-height: 2.5;
+}
+.ult {
+  text-align: justify;
+  line-height: 2.5;
+}
+
+video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.8rem;
+}
+
+input[type="file"]:focus,
+.custom-file-input:focus ~ .custom-file-label {
+  outline: none !important;
+  border-color: transparent;
+  box-shadow: none !important;
+}
+.custom-file,
+.custom-file-label,
+.custom-file-input {
+  cursor: pointer;
+}
+.mw-400 {
+  max-width: 400px;
+}
+.numEN,
+.lb-details {
+  font-family: "IRANSansWebENnum", "Times New Roman", Times, serif !important;
+  direction: ltr !important;
+}
+.lb-data .lb-caption {
+  font-size: 10px !important;
+}
+
+#ppc_chat_messenger_body {
+  background: url(../theme/Desktop/assets/media/page/bg-chat.png) repeat center
+    center;
+}
+.ppc_chat-card {
+  padding: 0rem 1rem 0rem 1.5rem !important;
+}
+.chat-footer-pading {
+  padding: 0.5rem 1rem !important;
+}
+.input-chat {
+  background-color: aliceblue !important;
+  border-radius: 0.475rem !important;
+}
+.menu-item {
+  font-size: larger;
+}
+.text-orange {
+  color: #f08d17 !important;
+}
+.breadcrumb-item.active {
+  color: #f08d17 !important;
+}
+.Billiard-technical-chart-coins-dark #technical-chart-coins,
+.Billiard-technical-chart-coins-dark .chartcard {
+  background-color: #1a1e29;
+}
+
+.Billiard-coin-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #181c32;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  appearance: none;
+  border-radius: 0.475rem;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.Billiard-technical-chart-coin > a {
+  color: #000000;
+}
+.Billiard-technical-chart-coin > a.Billiard-coin-current {
+  color: #f08d17 !important;
+}
+
+.Billiard-technical-chart-coin > a .Billiard-coin-sprite {
+  margin-right: 5px;
+  transform: scale(0.8);
+}
+
+.Billiard-coin-sprite-custom {
+  width: 25.6px;
+  height: 25.6px;
+  background-size: cover;
+}
+.displaynone {
+  display: none !important;
+}
+
+.displayflex {
+  display: flex !important;
+}
+.backred {
+  background-color: red;
+}
+
+.btnchange {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -25px;
+  margin-top: 8px;
+  color: var(--color4);
+}
+.inputswap {
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.landing-dark-bg {
+    background-repeat: repeat;
+    background-size: 631.33px 366px;
+}

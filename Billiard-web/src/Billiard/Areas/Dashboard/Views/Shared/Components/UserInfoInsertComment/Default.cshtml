@@ -1,0 +1,18 @@
+@model User
+@inject IUsersPhotoService PhotoService
+@{
+    var photoUrl = PhotoService.GetUserPhotoUrl(Model.PhotoFileName);
+}
+
+
+<div class="d-flex align-items-center">
+    <div class="d-flex align-items-center flex-grow-1">
+        <div class="symbol symbol-45px me-5">
+            <img src="@photoUrl" alt="@Model.DisplayName">
+        </div>
+        <div class="d-flex flex-column">
+            <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@Model.DisplayName</a>
+            <span class="text-gray-400 fw-bold">@Model.Job</span>
+        </div>
+    </div>
+</div>

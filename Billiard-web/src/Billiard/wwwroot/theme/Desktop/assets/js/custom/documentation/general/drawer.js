@@ -1,0 +1,1 @@
+"use strict";var KTGeneralDrawerDemos={init:function(){}};PPCUtil.onDOMContentLoaded((function(){KTGeneralDrawerDemos.init()}));

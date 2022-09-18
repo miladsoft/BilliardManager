@@ -1,0 +1,72 @@
+@model EditAddressViewModel
+<partial name="_CustomValidationSummary" />
+<form asp-action="EditAddress" method="post">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title">ویرایش آدرس</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <input asp-for="UserId" />
+               
+                <div class="form-group row mb-5">
+                    <label asp-for="Location" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <textarea asp-for="Location" class="form-control" ></textarea>
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="PostalCode" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <input type="number" asp-for="PostalCode" class="form-control" ></textarea>
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="IsLocationConfirmed" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <select asp-for="IsLocationConfirmed" asp-items="Html.GetEnumSelectList<isConfirmed>()"
+                            class="form-select form-select-solid fw-bolder js-select2"></select>
+
+                        <span asp-validation-for="IsLocationConfirmed" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-5">
+                    <label asp-for="IsPostalCodeConfirmed" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <select asp-for="IsPostalCodeConfirmed" asp-items="Html.GetEnumSelectList<isConfirmed>()"
+                            class="form-select form-select-solid fw-bolder js-select2"></select>
+
+                        <span asp-validation-for="IsPostalCodeConfirmed" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-5">
+                    <label asp-for="AddressDescription" class="col-md-3 col-form-label text-md-left"></label>
+                    <div class="col-md-9">
+                        <textarea asp-for="AddressDescription" class="form-control" ></textarea>
+                        <span asp-validation-for="AddressDescription" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">ثبت</button>
+                <button class="btn btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">انصراف</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.js-select2').select2();
+    });
+</script>

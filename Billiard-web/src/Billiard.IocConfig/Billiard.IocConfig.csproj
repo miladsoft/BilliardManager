@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <NoWarn>RCS1090</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Billiard.Common\Billiard.Common.csproj" />
+    <ProjectReference Include="..\Billiard.DataLayer\Billiard.DataLayer.csproj" />
+    <ProjectReference Include="..\Billiard.Entities\Billiard.Entities.csproj" />
+    <ProjectReference Include="..\Billiard.ViewModels\Billiard.ViewModels.csproj" />
+    <ProjectReference Include="..\Billiard.Services\Billiard.Services.csproj" />
+
+    <ProjectReference Include="..\Billiard.DataLayer.InMemoryDatabase\Billiard.DataLayer.InMemoryDatabase.csproj" />
+    <ProjectReference Include="..\Billiard.DataLayer.MSSQL\Billiard.DataLayer.MSSQL.csproj" />
+    <ProjectReference Include="..\Billiard.DataLayer.SQLite\Billiard.DataLayer.SQLite.csproj" />
+
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+  </ItemGroup>
+</Project>

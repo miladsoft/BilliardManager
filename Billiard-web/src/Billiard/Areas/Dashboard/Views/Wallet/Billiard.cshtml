@@ -1,0 +1,200 @@
+@model PagedListViewModel<WalletBilliardViewModel>
+@{
+    ViewData["Title"] = "کیف پول سناتور";
+}
+<div class="card mb-5 mb-xl-10">
+    <div class="card-body pt-9 pb-0">
+        <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
+
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="symbol symbol-25px symbol-lg-25px symbol-fixed position-relative ml-10">
+                                <img src="/theme/Desktop/assets/media/wallet/Billiard-wallet-Billiard.png" alt="Billiard" />
+                            </div>
+                            <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1" asp-controller="Wallet"
+                                asp-action="Billiard" asp-area="@AreaConstants.DashboardArea">
+                                کیف پول سناتور
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap flex-stack">
+                    <div class="d-flex flex-column flex-grow-1 pe-8">
+                        <div class="d-flex flex-wrap">
+                            <div class="border border-gray-300 border-dashed rounded  py-3 px-4 me-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-2 fw-bolder" data-ppc-countup="true" data-ppc-countup-value="13569">0
+                                    </div>
+                                </div>
+                                <div class="fw-bold fs-6 text-gray-400">موجودی کلی</div>
+                            </div>
+                            <div class="border border-gray-300 border-dashed rounded  py-3 px-4 me-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-2 fw-bolder" data-ppc-countup="true" data-ppc-countup-value="13400">0
+                                    </div>
+                                </div>
+                                <div class="fw-bold fs-6 text-gray-400"> موجودی قابل برداشت</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex overflow-auto h-55px">
+            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap"
+                id="myTab">
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" data-ppc-countup-tabs="true" data-bs-toggle="tab"
+                        href="#addwallet-Billiard">افزودن کیف پول</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" data-ppc-countup-tabs="true" data-bs-toggle="tab"
+                        href="#mng-Billiard">مدیریت | دریافت</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" data-ppc-countup-tabs="true" data-bs-toggle="tab"
+                        href="#send-Billiard">ارسال</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" data-ppc-countup-tabs="true" data-bs-toggle="tab"
+                        href="#buy-Billiard">خرید</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" data-ppc-countup-tabs="true" data-bs-toggle="tab"
+                        href="#transaction-Billiard">تراکنش ها</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tab-content">
+
+    <div class="card mb-5 mb-xl-10 tab-pane fade" id="addwallet-Billiard" role="tabpanel">
+        <div class="card-header cursor-pointer">
+            <div class="card-title m-0">
+                <h3 class="fw-bolder m-0">افزودن کیف پول</h3>
+            </div>
+        </div>
+        <div class="card-body p-9">
+
+            <div class="row g-9 mb-3" data-kt-buttons="true" data-kt-buttons-target="[data-kt-button]">
+
+                <div class="col-6">
+
+
+                    <a href="" class="menu-link px-3" data-ajax-method="POST" data-ajax="true"
+                        data-ajax-url="@Url.Action("AddWalletBilliard","Wallet")" data-ajax-update="#ResultPanel">
+
+                        <label
+                            class="btn btn-outline btn-outline-dashed btn-outline-default d-flex flex-column text-start p-6"
+                            data-kt-button="true">
+
+                            <span class="d-flex mb-2">
+
+                                <span class="form-check form-check-custom form-check-solid form-check-sm me-5">
+                                    <input class="form-check-input" type="radio"
+                                        name="layout-builder[layout][illustrations][set]" value="addWallet">
+                                </span>
+
+
+                                <span class="fs-4 fw-bolder">افزودن کیف پول جدید</span>
+
+                            </span>
+
+
+                            <span style="background-image:url('/theme/Desktop/assets/media/illustrations/coding.png')"
+                                class="d-block h-200px w-100 bgi-no-repeat bgi-size-contain bgi-position-center"></span>
+
+                        </label>
+                    </a>
+                </div>
+
+
+                <div class="col-6">
+
+                    <label
+                        class="btn btn-outline btn-outline-dashed btn-outline-default d-flex flex-column text-start p-6"
+                        data-kt-button="true">
+
+                        <span class="d-flex mb-2">
+
+                            <span class="form-check form-check-custom form-check-solid form-check-sm me-5">
+                                <input class="form-check-input" type="radio"
+                                    name="layout-builder[layout][illustrations][set]" value="recoverWallet">
+                            </span>
+
+
+                            <span class="fs-4 fw-bolder">بازیابی کیف پول</span>
+
+                        </span>
+
+
+                        <span style="background-image:url('/theme/Desktop/assets/media/illustrations/presentation.png')"
+                            class="d-block h-200px w-100 bgi-no-repeat bgi-size-contain bgi-position-center"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class="row" id="ResultPanel">
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="card mb-5 mb-xl-10 tab-pane fade" id="mng-Billiard" role="tabpanel">
+        <div class="card-header cursor-pointer">
+            <div class="card-title m-0">
+                <h3 class="fw-bolder m-0">مدیریت | دریافت</h3>
+            </div>
+        </div>
+        <div class="card-body p-9">
+
+            <div id="gridcontainer" class="mt-5">
+                <partial name="_BilliardWalletList" model="Model" />
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card mb-5 mb-xl-10 tab-pane fade" id="buy-Billiard" role="tabpanel">
+        <div class="card-header cursor-pointer">
+            <div class="card-title m-0">
+                <h3 class="fw-bolder m-0">خرید سناتور</h3>
+            </div>
+        </div>
+        <div class="card-body p-9">
+
+   
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Style
+{
+
+<link href="~/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+}
+
+
+
+@section Scripts
+{
+<script src="~/lightbox/js/lightbox.min.js"></script>
+}

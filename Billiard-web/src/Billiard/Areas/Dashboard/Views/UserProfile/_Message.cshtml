@@ -1,0 +1,11 @@
+@model AlertMessageViewModel
+<script>
+    $.bootstrapModalAlert({
+        caption: '@Model.MessageTitle',
+        body: '<div class="alert alert-@Model.MessageType"> <span class="bi bi-bell m-5" aria-hidden="true"></span>@Model.MessageText</div>'
+    });
+    setTimeout(function () {
+        $('.modal').modal('hide');
+        window.location.reload();
+    }, 2000);
+</script>

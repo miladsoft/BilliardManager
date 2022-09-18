@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "خطا!";
+    this.Context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+    Layout = "_LayoutAuth";
+}
+
+<div class="pt-lg-10 text-center">
+
+    <h1 class="fw-bolder fs-4x text-gray-700 mb-10">خطای سیستمی</h1>
+
+    <div class="fw-bold fs-3 text-gray-400 mb-15"> متاسفانه در حین پردازش درخواست جاری خطایی رخ داده‌است.
+
+        <br>به صفحه اصلی بروید
+    </div>
+
+    <div class="text-center">
+        @if (User.IsInRole(ConstantRoles.Admin))
+        {
+            <a asp-controller="SystemLog" asp-action="Index" asp-area="@AreaConstants.DashboardArea"
+            class="btn btn-lg btn-danger fw-bolder mr-5 ml-5"> مشاهده‌ی لیست خطاهای ثبت شده. </a>
+        }
+        <a asp-action="Index" asp-controller="Home" asp-area="" class="btn btn-lg btn-primary fw-bolder mr-5 ml-5">رفتن به صفحه
+            اصلی</a>
+    </div>
+</div>

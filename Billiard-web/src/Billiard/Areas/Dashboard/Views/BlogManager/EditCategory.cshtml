@@ -1,0 +1,102 @@
+@model BlogPostCategoryViewModel
+@inject IOptionsSnapshot<SiteSettings> SiteOptions
+
+@{
+    ViewData["Title"] = "افزودن دسته بندی";
+    var imageOptions = SiteOptions.Value.UserAvatarImageOptions;
+}
+
+<div class="card mb-5 mb-xl-10">
+    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+        data-bs-target="#ppc_account_profile_details" aria-expوed="true" aria-controls="ppc_EditCategory">
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">@ViewData["Title"] </h3>
+        </div>
+    </div>
+
+
+    <div id="ppc_EditCategory" class="collapse show">
+        <form asp-controller="BlogManager" asp-action="EditCategory" method="post" enctype="multipart/form-data">
+            <input asp-for="Id" hidden />
+            <div class="card-body border-top p-9">
+
+
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">مشخصات دسته بندی</label>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-6 fv-row">
+                                <input type="text" dir="rtl" asp-for="Name"
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                    placeholder="نام دسته بندی">
+                                <span asp-validation-for="Name" class="text-danger mt-6 mb-6"></span>
+                            </div>
+                            <div class="col-lg-6 fv-row">
+                                <input type="text" dir="rtl" asp-for="Title"
+                                    class="form-control form-control-lg form-control-solid"
+                                    placeholder="عنوان فارسی دسته بندی">
+                                <span asp-validation-for="Title" class="text-danger mt-6 mb-6"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">تصویر کاور دسته بندی</label>
+                    <div class="col-lg-8">
+                        <div class="image-input image-input-outline" data-ppc-image-input="true"
+                            style="background-image: url(/theme/Desktop/assets/media/avatars/blank.png)">
+                            <div class="image-input-wrapper w-125px h-125px"
+                                style="background-image: url(/file/download/BlogCategory/@Model.ImageFileName)"></div>
+                            <label
+                                class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                data-ppc-image-input-action="change" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="انتخاب عکس">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+                                <input type="file" asp-for="Image" accept=".png, .jpg, .jpeg">
+                                <input type="hidden" name="avatar_remove">
+                            </label>
+
+
+                        </div>
+                        <div class="form-text">تصاویر مجاز برای ارسال از نوع‌های png، gif و jpg هستند؛ با حداکثر اندازه
+                            @imageOptions.MaxWidth
+                            در
+                            @imageOptions.MaxHeight
+
+                            پیکسل.</div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div id="ppc_EditCategory_button" class="card-footer d-flex justify-content-end py-6 px-9">
+                <button onclick="dataBeginChangeEditCategory()" type="submit" id="ppc_EditCategory_submit"
+                    class="btn btn-primary">
+                    <span class="indicator-label">ذخیره تغییرات</span>
+                    <span class="indicator-progress">لطفا صبر کنید...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        function dataBeginChangeEditCategory() {
+        $("#ppc_EditCategory_button .indicator-label").hide();
+        $("#ppc_EditCategory_button .indicator-progress").show();
+        setTimeout(function () {
+           $("#ppc_EditCategory_button .indicator-label").show();
+           $("#ppc_EditCategory_button .indicator-progress").hide();
+        }, 3000);
+    }
+</script>
+
+}

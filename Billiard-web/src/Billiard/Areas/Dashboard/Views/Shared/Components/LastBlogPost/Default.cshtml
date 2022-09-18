@@ -1,0 +1,25 @@
+@model List<BlogPost>
+
+<div class="mb-16">
+	<h4 class="text-black mb-7">آخرین مطالب وبلاگ</h4>
+	@foreach (var item in Model)
+	{
+		<div class="d-flex mb-7">
+			<div class="symbol symbol-60px me-4">
+				@if (string.IsNullOrEmpty(item.ImageFileName))
+				{
+					item.ImageFileName="blank.png";
+				}
+				<div class="symbol-label" style="background-image: url('/file/download/BlogPost/@item.ImageFileName')">
+				</div>
+			</div>
+
+			<div class="m-0">
+				<a asp-action="post" asp-controller="blog" asp-route-Id="@item.Id"
+				class="text-dark text-justify fw-bolder text-hover-primary fs-7">@item.Title
+				</a>
+				<span class="text-gray-600 fw-bold d-block pt-1 fs-8">@item.CreatedDateTime.ToPersianDateTextify()</span>
+			</div>
+		</div>
+	}
+</div>

@@ -1,0 +1,1 @@
+"use strict";var KTGeneralTypedJsDemos={init:function(){new Typed("#ppc_typedjs_example_1",{strings:["First sentence.","Second sentence.","Third sentense","And some longer sentence"],typeSpeed:30})}};PPCUtil.onDOMContentLoaded((function(){KTGeneralTypedJsDemos.init()}));

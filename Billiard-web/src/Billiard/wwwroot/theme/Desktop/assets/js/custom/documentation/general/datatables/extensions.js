@@ -1,0 +1,1 @@
+"use strict";var KTDatatablesExtensions={init:function(){var a,t;a=$("#ppc_datatable_example_1").DataTable(),t=1,$("#ppc_datatable_example_1_addrow").on("click",(function(){a.row.add([t+".1",t+".2",t+".3",t+".4",t+".5"]).draw(!1),t++})),$("#ppc_datatable_example_1_addrow").click()}};PPCUtil.onDOMContentLoaded((function(){KTDatatablesExtensions.init()}));

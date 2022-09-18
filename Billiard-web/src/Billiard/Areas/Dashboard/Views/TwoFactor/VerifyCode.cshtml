@@ -1,0 +1,115 @@
+@model VerifyCodeViewModel
+@{
+        ViewData["Title"] = "اعتبارسنجی دو مرحله‌ای";
+
+
+    Layout = "_LayoutAuth"; }
+
+@* <div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-info">
+            <a href="#" class="close" data-bs-dismiss="alert">×</a>
+            <ul>
+                <li>
+                    هم اکنون ایمیلی حاوی یک کد امنیتی جدید، به صندوق پست الکترونیک شما ارسال گردید.
+                    لطفا این کد را در فرم جاری، وارد و ارسال نمائید.
+                    <partial name="_PickupFolder" />
+                </li>
+                <li>
+                    گزینه‌ی «به‌خاطر سپاری مرورگر جاری» به این معنا است که تنها بر روی این کامپیوتر و مرورگر، در دفعات آتی لاگین به سیستم،‌ نیازی به ورود اطلاعات کد امنیتی دو مرحله‌ای نخواهید داشت.
+                </li>
+            </ul>
+        </div>
+
+        <form asp-controller="TwoFactor"
+              asp-action="VerifyCode"
+              asp-route-returnurl="@ViewData["ReturnUrl"]"
+              method="post">
+            <partial name="_CustomValidationSummary" />
+            <input asp-for="Provider" type="hidden" />
+            <input asp-for="RememberMe" type="hidden" />
+            <h4>@ViewData["Status"]</h4>
+            <hr />
+            <div class="form-group row">
+                <label asp-for="Code" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input asp-for="Code" dir="ltr" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col col-md-10">
+                    <input asp-for="RememberBrowser" />
+                    <label asp-for="RememberBrowser"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <button type="submit" class="btn btn-info col-md-2">ارسال</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> *@
+
+
+
+
+<div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+        <form asp-controller="TwoFactor"
+              asp-action="VerifyCode"
+              asp-route-returnurl="@ViewData["ReturnUrl"]"
+              method="post">
+ 
+        <div class="text-center mb-10">
+            <h1 class="text-dark mb-3">ورود دو مرحله ای</h1>
+         <div class="alert alert-info">
+            <a href="#" class="close" data-bs-dismiss="alert">×</a>
+            <ul>
+                <li>
+                    هم اکنون ایمیلی حاوی یک کد امنیتی جدید، به صندوق پست الکترونیک شما ارسال گردید.
+                    لطفا این کد را در فرم جاری، وارد و ارسال نمائید.
+                    <partial name="_PickupFolder" />
+                </li>
+                <li>
+                    گزینه‌ی «به‌خاطر سپاری مرورگر جاری» به این معنا است که تنها بر روی این کامپیوتر و مرورگر، در دفعات آتی لاگین به سیستم،‌ نیازی به ورود اطلاعات کد امنیتی دو مرحله‌ای نخواهید داشت.
+                </li>
+            </ul>
+        </div>
+        </div>
+        <div class="fv-row mb-10">
+            <label class="form-label fs-6 fw-bolder text-dark">کد اعتبار سنجی</label>
+            <input class="form-control form-control-lg form-control-solid" type="number" asp-for="Code" autocomplete="off" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+
+
+        <div class="fv-row mb-10">
+            <label class="form-label fs-6 fw-bolder text-dark"></label>
+                <div class="col col-md-10">
+                    <input asp-for="RememberBrowser" />
+                    <label asp-for="RememberBrowser"></label>
+                </div>
+            </div>
+ 
+
+           <input asp-for="Provider" type="hidden" />
+            <input asp-for="RememberMe" type="hidden" />
+        <div class="text-center">
+            <button type="submit" id="ppc_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                <span class="indicator-label">ورود</span>
+                <span class="indicator-progress">
+                    لطفا صبر نمایید...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+
+        </div>
+        <partial name="_CustomValidationSummary" />
+    </form>
+</div>

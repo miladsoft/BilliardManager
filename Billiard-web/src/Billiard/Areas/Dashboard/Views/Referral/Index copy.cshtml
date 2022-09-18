@@ -1,0 +1,44 @@
+
+
+<button onclick="run()">click here</button>
+<canvas id="canvas" class="fconvas"></canvas>
+@section Scripts {
+<script src="~/js/confetti.browser.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    function run() {
+        var Canvas = document.getElementById('canvas');
+        var Confetti = confetti.create(Canvas, {
+            resize: true,
+            useWorker: true
+        });
+
+
+        var duration = 30 * 1000;
+        var end = Date.now() + duration;
+
+        (function frame() {
+
+            confetti({
+                particleCount: 100,
+                startVelocity: 30,
+                spread: 360,
+                origin: {
+                    x: Math.random(),
+                    y: Math.random() - 0.2
+                }
+            });
+
+
+
+            setTimeout(function () {
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }, 1000)
+        }());
+
+
+    }
+
+</script>
+}

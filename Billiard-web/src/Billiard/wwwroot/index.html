@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redactor</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/redactor3/redactor.css" />
+</head>
+<body>
+    <textarea id="content"></textarea>
+    <script
+  src="jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    <script src="/redactor3/redactor.js"></script>
+    <script src="/redactor3/langs/fa.js"></script>
+    <script>
+       $('#content').redactor({
+                    shortcutsAdd: {
+                        'ctrl+shift+0': {func: 'block.format', params: ['pre']}
+                    },
+                    callbacks: {},
+                    buttons: [ 'bold', 'italic', 'underline', 'lists', 'link', 'line'],
+                    toolbarFixedTopOffset: 40,
+                    formatting: ['p', 'pre'],
+                    imageUpload: 'image_upload.php',
+                    lang: 'fa',
+                    direction: 'rtl',
+                    plugins: ['clips', 'article_links', 'source', 'iconic2', 'emoticons'],
+                    linkNewTab: true,
+                    toolbarFixed: false,
+                    minHeight: '200px',
+                    linkify: true,
+                    linkNofollow: true,
+                    pastePlainText: true,
+                    linkSize: 1000
+                });
+    </script>
+</body>
+</html>
+
+
+

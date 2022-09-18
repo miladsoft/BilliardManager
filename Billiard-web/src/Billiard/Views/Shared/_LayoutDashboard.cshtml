@@ -1,0 +1,815 @@
+﻿@{
+    var pageTitle = ViewData["Title"] ?? "باشگاه بیلیارد سناتور";
+}
+@inject IUsersPhotoService PhotoService
+
+@{
+    var displayName = User.Identity.GetUserDisplayName();
+    var username = User.Identity.GetUserName();
+    var photoUrl = PhotoService.GetCurrentUserPhotoUrl();
+    var continer = (bool?)ViewData["isMarket"] == true ? "flex-grow-1" : "container-fluid";
+}
+
+
+
+<html direction="rtl" dir="rtl" style="direction: rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <title>@Html.Raw(pageTitle)</title>
+    <meta name="keywords" content="Billiard, سناتور " />
+    <meta name="theme-color" content="#ff6600" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/theme/Desktop/assets/logo/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/theme/Desktop/assets/logo/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/theme/Desktop/assets/logo/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/theme/Desktop/assets/logo/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/theme/Desktop/assets/logo/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/theme/Desktop/assets/logo/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/theme/Desktop/assets/logo/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/theme/Desktop/assets/logo/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/theme/Desktop/assets/logo/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/theme/Desktop/assets/logo/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/theme/Desktop/assets/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/theme/Desktop/assets/logo/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/theme/Desktop/assets/logo/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ff6600">
+    <meta name="msapplication-TileImage" content="/theme/Desktop/assets/logo/ms-icon-144x144.png">
+    <meta name="description"
+        content="باشگاه بیلیارد سناتور با ارائه خدمات حرفه ای در خرید و فروش ارز بدون واسطه بهترین امکانات را در اختیار شما قرار میدهد">
+    <meta name="image" content="https://Billiard.ir/theme/Desktop/assets/logo/Billiard.png">
+    <meta itemprop="name"
+        content="باشگاه بیلیارد سناتور با ارائه خدمات حرفه ای در خرید و فروش ارز بدون واسطه بهترین امکانات را در اختیار شما قرار میدهد">
+    <meta itemprop="image" content="https://Billiard.ir/theme/Desktop/assets/logo/Billiard.png">
+    <meta property="og:site_name" content="Billiard.ir">
+    <meta property="og:title" content="باشگاه بیلیارد سناتور">
+    <meta property="og:url" content="https://Billiard.ir/">
+    <meta property="og:description"
+        content="باشگاه بیلیارد سناتور با ارائه خدمات حرفه ای در خرید و فروش ارز بدون واسطه بهترین امکانات را در اختیار شما قرار میدهد">
+    <link href="~/theme/Desktop/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css"
+        asp-append-version="true" />
+    <link href="~/theme/Desktop/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css"
+        asp-append-version="true" />
+    <link href="~/css/CustomPublic.css" rel="stylesheet" asp-append-version="true" />
+
+    @await RenderSectionAsync("Style", required: false)
+    <meta name="referrer" content="unsafe-url">
+
+</head>
+
+<body id="ppc_body"
+    class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed"
+    style="--ppc-toolbar-height:55px;--ppc-toolbar-height-tablet-and-mobile:55px">
+
+
+    <div id="loader-page">
+        <div class="loader" id="line">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="d-flex flex-column flex-root">
+        <div class="page d-flex flex-row flex-column-fluid">
+            <div id="ppc_aside" class="aside aside-dark aside-hoverable" data-ppc-drawer="true"
+                data-ppc-drawer-name="aside" data-ppc-drawer-activate="{default: true, lg: false}"
+                data-ppc-drawer-overlay="true" data-ppc-drawer-width="{default:'200px', '300px': '250px'}"
+                data-ppc-drawer-direction="start" data-ppc-drawer-toggle="#ppc_aside_mobile_toggle">
+                <div class="aside-logo flex-column-auto" id="ppc_aside_logo">
+                    <a asp-controller="Home" asp-action="Index" asp-area="@AreaConstants.DashboardArea">
+                        <img alt="Logo" src="~/theme/Desktop/assets/media/logos/logo-default.png" class="h-35px logo" />
+                    </a>
+                    <div id="ppc_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle"
+                        data-ppc-toggle="true" data-ppc-toggle-state="active" data-ppc-toggle-target="body"
+                        data-ppc-toggle-name="aside-minimize">
+                        <span class="svg-icon svg-icon-1 rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <polygon points="0 0 24 0 24 24 0 24" />
+                                    <path
+                                        d="M5.29288961,6.70710318 C4.90236532,6.31657888 4.90236532,5.68341391 5.29288961,5.29288961 C5.68341391,4.90236532 6.31657888,4.90236532 6.70710318,5.29288961 L12.7071032,11.2928896 C13.0856821,11.6714686 13.0989277,12.281055 12.7371505,12.675721 L7.23715054,18.675721 C6.86395813,19.08284 6.23139076,19.1103429 5.82427177,18.7371505 C5.41715278,18.3639581 5.38964985,17.7313908 5.76284226,17.3242718 L10.6158586,12.0300721 L5.29288961,6.70710318 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(8.999997, 11.999999) scale(-1, 1) translate(-8.999997, -11.999999)" />
+                                    <path
+                                        d="M10.7071009,15.7071068 C10.3165766,16.0976311 9.68341162,16.0976311 9.29288733,15.7071068 C8.90236304,15.3165825 8.90236304,14.6834175 9.29288733,14.2928932 L15.2928873,8.29289322 C15.6714663,7.91431428 16.2810527,7.90106866 16.6757187,8.26284586 L22.6757187,13.7628459 C23.0828377,14.1360383 23.1103407,14.7686056 22.7371482,15.1757246 C22.3639558,15.5828436 21.7313885,15.6103465 21.3242695,15.2371541 L16.0300699,10.3841378 L10.7071009,15.7071068 Z"
+                                        fill="#000000" fill-rule="nonzero" opacity="0.5"
+                                        transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999)" />
+                                </g>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <partial name="_AdminMenu" />
+
+
+                <div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="ppc_aside_footer">
+                    <a asp-controller="Home" asp-action="Index" asp-area="" class="btn btn-custom btn-primary w-100"
+                        data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-delay-show="8000">
+                        <span class="btn-label">صفحه نخست سناتور</span>
+                        <span class="svg-icon btn-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z"
+                                        fill="#000000" opacity="0.3" />
+                                    <path
+                                        d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z"
+                                        fill="#000000" />
+                                    <rect fill="#000000" opacity="0.3" x="7" y="10" width="5" height="2" rx="1" />
+                                    <rect fill="#000000" opacity="0.3" x="7" y="14" width="9" height="2" rx="1" />
+                                </g>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="ppc_wrapper">
+                <div id="ppc_header" style="" class="header align-items-stretch">
+                    <div class="container-fluid d-flex align-items-stretch justify-content-between">
+                        <div class="d-flex align-items-center d-lg-none ms-n3 me-1" title="Show aside menu">
+                            <div class="btn btn-icon btn-active-light-primary" id="ppc_aside_mobile_toggle">
+                                <span class="svg-icon svg-icon-2x mt-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5" />
+                                            <path
+                                                d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z"
+                                                fill="#000000" opacity="0.3" />
+                                        </g>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
+                            <a href="index.html" class="d-lg-none">
+                                <img alt="Logo" src="~/theme/Desktop/assets/media/logos/logo-default-dark.png"
+                                    class="h-35px" />
+                            </a>
+                        </div>
+
+
+                        <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
+                            <div class="d-flex align-items-stretch" id="ppc_header_nav">
+                                <div class="header-menu align-items-stretch" data-ppc-drawer="true"
+                                    data-ppc-drawer-name="header-menu"
+                                    data-ppc-drawer-activate="{default: true, lg: false}" data-ppc-drawer-overlay="true"
+                                    data-ppc-drawer-width="{default:'200px', '300px': '250px'}"
+                                    data-ppc-drawer-direction="end"
+                                    data-ppc-drawer-toggle="#ppc_header_menu_mobile_toggle" data-ppc-place="true"
+                                    data-ppc-place-mode="prepend"
+                                    data-ppc-place-parent="{default: '#ppc_body', lg: '#ppc_header_nav'}">
+                                    <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
+                                        id="#ppc_header_menu" data-ppc-menu="true">
+                                        <div class="menu-item me-lg-1">
+                                            <a class="menu-link active py-3" href="#">
+                                                <span class="menu-title">راهنمای کامل سناتور</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-stretch flex-shrink-0">
+                                <div class="d-flex align-items-stretch flex-shrink-0">
+                                    <security-trimming asp-area="@AreaConstants.DashboardArea" asp-controller="Wallet"
+                                        asp-action="Index">
+
+                                        <div class="d-flex align-items-center ms-1 ms-lg-3">
+                                            <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
+                                                id="ppc_activities_toggle">
+                                                <span class="svg-icon svg-icon-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24" />
+                                                            <rect fill="#000000" opacity="0.3" x="13" y="4" width="3"
+                                                                height="16" rx="1.5" />
+                                                            <rect fill="#000000" x="8" y="9" width="3" height="11"
+                                                                rx="1.5" />
+                                                            <rect fill="#000000" x="18" y="11" width="3" height="9"
+                                                                rx="1.5" />
+                                                            <rect fill="#000000" x="3" y="13" width="3" height="7"
+                                                                rx="1.5" />
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </security-trimming>
+                                    <partial name="_UserMenu"></partial>
+
+                                    <div class="d-flex align-items-center d-lg-none ms-2 me-n3"
+                                        title="Show header menu">
+                                        <div class="btn btn-icon btn-active-light-primary"
+                                            id="ppc_header_menu_mobile_toggle">
+                                            <span class="svg-icon svg-icon-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                    height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M22 11.5C22 12.3284 21.3284 13 20.5 13H3.5C2.6716 13 2 12.3284 2 11.5C2 10.6716 2.6716 10 3.5 10H20.5C21.3284 10 22 10.6716 22 11.5Z"
+                                                            fill="black" />
+                                                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M14.5 20C15.3284 20 16 19.3284 16 18.5C16 17.6716 15.3284 17 14.5 17H3.5C2.6716 17 2 17.6716 2 18.5C2 19.3284 2.6716 20 3.5 20H14.5ZM8.5 6C9.3284 6 10 5.32843 10 4.5C10 3.67157 9.3284 3 8.5 3H3.5C2.6716 3 2 3.67157 2 4.5C2 5.32843 2.6716 6 3.5 6H8.5Z"
+                                                            fill="black" />
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content d-flex flex-column flex-column-fluid" id="ppc_content">
+                    <div class="toolbar" id="ppc_toolbar">
+                        <div id="ppc_toolbar_container" class="container-fluid d-flex flex-stack">
+                            <div data-ppc-place="true"
+                                class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
+                                <div class="d-flex align-items-center text-dark fw-bolder my-1">
+                                    <breadcrumb asp-homepage-title="داشبورد" asp-bootstrap-version="V4"
+                                        asp-homepage-url="@Url.Action("Index", "Home", values: new { area = AreaConstants.DashboardArea })">
+                                    </breadcrumb>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center py-1">
+                                <button id="ppc_support_button" class="btn btn-sm btn-primary shadow-sm"
+                                    title="با پشتیبان سناتور گفتگو کنید" data-bs-toggle="tooltip"
+                                    data-bs-placement="right" data-bs-trigger="hover">
+                                    <div class="form-inline">
+                                        <span id="ppc_support_toggle_label">پشتیبانی آنلاین</span>
+                                        <span class="badge badge-danger mr-15" id="unread_counter"></span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post d-flex flex-column-fluid" id="ppc_post">
+                        <div id="ppc_content_container" class="@continer">
+                            <div id="app">
+
+                                @RenderBody()
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="footer py-4 d-flex flex-lg-column" id="ppc_footer">
+                    <div
+                        class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
+                        <div class="text-dark order-2 order-md-1">
+                            <span class="text-muted fw-bold me-1">2021©</span>
+                            <a href="" target="_blank" class="text-gray-800 text-hover-primary">سناتور</a>
+                        </div>
+                        <ul class="menu menu-gray-600 menu-hover-primary fw-bold یاder-1">
+                            <li class="menu-item">
+                                <a href="https://Billiard.ir/faqs" target="_blank" class="menu-link px-2">درباره ی
+                                    ما</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://Billiard.ir/support" target="_blank" class="menu-link px-2">پشتیبانی</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">خرید</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ppc_activities" class="bg-white" data-ppc-drawer="true" data-ppc-drawer-name="activities"
+        data-ppc-drawer-activate="true" data-ppc-drawer-overlay="true"
+        data-ppc-drawer-width="{default:'300px', 'lg': '900px'}" data-ppc-drawer-direction="end"
+        data-ppc-drawer-toggle="#ppc_activities_toggle" data-ppc-drawer-close="#ppc_activities_close">
+        <div class="card shadow-none">
+            <div class="card-header" id="ppc_activities_header">
+                <h3 class="card-title fw-bolder text-dark">گزارش ها</h3>
+                <div class="card-toolbar">
+                    <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"
+                        id="ppc_activities_close">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                    fill="#000000">
+                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                    <rect fill="#000000" opacity="0.5"
+                                        transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                        x="0" y="7" width="16" height="2" rx="1" />
+                                </g>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body position-relative" id="ppc_activities_body">
+                <div id="ppc_activities_scroll" class="position-relative scroll-y me-n5 pe-5" data-ppc-scroll="true"
+                    data-ppc-scroll-height="auto" data-ppc-scroll-wrappers="#ppc_activities_body"
+                    data-ppc-scroll-dependencies="#ppc_activities_header, #ppc_activities_footer"
+                    data-ppc-scroll-offset="5px">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px me-4">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <polygon fill="#000000" opacity="0.3" points="5 15 3 21.5 9.5 19.5" />
+                                            <path
+                                                d="M13.5,21 C8.25329488,21 4,16.7467051 4,11.5 C4,6.25329488 8.25329488,2 13.5,2 C18.7467051,2 23,6.25329488 23,11.5 C23,16.7467051 18.7467051,21 13.5,21 Z M9,8 C8.44771525,8 8,8.44771525 8,9 C8,9.55228475 8.44771525,10 9,10 L18,10 C18.5522847,10 19,9.55228475 19,9 C19,8.44771525 18.5522847,8 18,8 L9,8 Z M9,12 C8.44771525,12 8,12.4477153 8,13 C8,13.5522847 8.44771525,14 9,14 L14,14 C14.5522847,14 15,13.5522847 15,13 C15,12.4477153 14.5522847,12 14,12 L9,12 Z"
+                                                fill="#000000" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-bold mb-2">در پروژه نرم افزار موبایل دو وظیفه وجود دارد</div>
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">اضافه شده در ساعت 4:12</div>
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
+                                            data-bs-boundary="window" data-bs-placement="top" title="Nina Nilson">
+                                            <img src="~/theme/Desktop/assets/media/avatars/150-11.jpg" alt="img" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overflow-auto pb-5">
+                                    <div
+                                        class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-750px px-7 py-3 mb-5">
+                                        <a href="#"
+                                            class="fs-5 text-dark text-hover-primary fw-bold w-375px min-w-200px">ملاقات
+                                            با مشتری</a>
+                                        <div class="min-w-175px pe-2">
+                                            <span class="badge badge-light text-muted">طراحی اپلیکیشن</span>
+                                        </div>
+                                        <div class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px pe-2">
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <img src="~/theme/Desktop/assets/media/avatars/150-3.jpg" alt="img" />
+                                            </div>
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <img src="~/theme/Desktop/assets/media/avatars/150-11.jpg" alt="img" />
+                                            </div>
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <div class="symbol-label fs-8 fw-bold bg-primary text-inverse-primary">A
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="min-w-125px pe-2">
+                                            <span class="badge badge-light-primary">درحال پردازش</span>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-light btn-active-light-primary">نمایش</a>
+                                    </div>
+                                    <div
+                                        class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-750px px-7 py-3 mb-0">
+                                        <a href="#"
+                                            class="fs-5 text-dark text-hover-primary fw-bold w-375px min-w-200px">آماده
+                                            سازی تحویل پروژه</a>
+                                        <div class="min-w-175px">
+                                            <span class="badge badge-light text-muted">توسعه دهنده سیستم</span>
+                                        </div>
+                                        <div class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px">
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <img src="~/theme/Desktop/assets/media/avatars/150-5.jpg" alt="img" />
+                                            </div>
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <div class="symbol-label fs-8 fw-bold bg-success text-inverse-primary">B
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="min-w-125px">
+                                            <span class="badge badge-light-success">کامل شد</span>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-light btn-active-light-primary">نمایش</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <path
+                                                d="M11.6734943,8.3307728 L14.9993074,6.09979492 L14.1213255,5.22181303 C13.7308012,4.83128874 13.7308012,4.19812376 14.1213255,3.80759947 L15.535539,2.39338591 C15.9260633,2.00286161 16.5592283,2.00286161 16.9497526,2.39338591 L22.6066068,8.05024016 C22.9971311,8.44076445 22.9971311,9.07392943 22.6066068,9.46445372 L21.1923933,10.8786673 C20.801869,11.2691916 20.168704,11.2691916 19.7781797,10.8786673 L18.9002333,10.0007208 L16.6692373,13.3265608 C16.9264145,14.2523264 16.9984943,15.2320236 16.8664372,16.2092466 L16.4344698,19.4058049 C16.360509,19.9531149 15.8568695,20.3368403 15.3095595,20.2628795 C15.0925691,20.2335564 14.8912006,20.1338238 14.7363706,19.9789938 L5.02099894,10.2636221 C4.63047465,9.87309784 4.63047465,9.23993286 5.02099894,8.84940857 C5.17582897,8.69457854 5.37719743,8.59484594 5.59418783,8.56552292 L8.79074617,8.13355557 C9.76799113,8.00149544 10.7477104,8.0735815 11.6734943,8.3307728 Z"
+                                                fill="#000000" />
+                                            <polygon fill="#000000" opacity="0.3"
+                                                transform="translate(7.050253, 17.949747) rotate(-315.000000) translate(-7.050253, -17.949747)"
+                                                points="5.55025253 13.9497475 5.55025253 19.6640332 7.05025253 21.9497475 8.55025253 19.6640332 8.55025253 13.9497475" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mb-10 mt-n2">
+                                <div class="overflow-auto pe-3">
+                                    <div class="fs-5 fw-bold mb-2">دعوت نامه برای ساخت طراحی های جذاب که کارگاه انسانی
+                                        را بیان می کنند</div>
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">ارسال شده در ساعت 4:23</div>
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
+                                            data-bs-boundary="window" data-bs-placement="top" title="Alan Nilson">
+                                            <img src="~/theme/Desktop/assets/media/avatars/150-2.jpg" alt="img" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path
+                                                    d="M11.7573593,15.2426407 L8.75735931,15.2426407 C8.20507456,15.2426407 7.75735931,15.6903559 7.75735931,16.2426407 C7.75735931,16.7949254 8.20507456,17.2426407 8.75735931,17.2426407 L11.7573593,17.2426407 L11.7573593,18.2426407 C11.7573593,19.3472102 10.8619288,20.2426407 9.75735931,20.2426407 L5.75735931,20.2426407 C4.65278981,20.2426407 3.75735931,19.3472102 3.75735931,18.2426407 L3.75735931,14.2426407 C3.75735931,13.1380712 4.65278981,12.2426407 5.75735931,12.2426407 L9.75735931,12.2426407 C10.8619288,12.2426407 11.7573593,13.1380712 11.7573593,14.2426407 L11.7573593,15.2426407 Z"
+                                                    fill="#000000" opacity="0.3"
+                                                    transform="translate(7.757359, 16.242641) rotate(-45.000000) translate(-7.757359, -16.242641)" />
+                                                <path
+                                                    d="M12.2426407,8.75735931 L15.2426407,8.75735931 C15.7949254,8.75735931 16.2426407,8.30964406 16.2426407,7.75735931 C16.2426407,7.20507456 15.7949254,6.75735931 15.2426407,6.75735931 L12.2426407,6.75735931 L12.2426407,5.75735931 C12.2426407,4.65278981 13.1380712,3.75735931 14.2426407,3.75735931 L18.2426407,3.75735931 C19.3472102,3.75735931 20.2426407,4.65278981 20.2426407,5.75735931 L20.2426407,9.75735931 C20.2426407,10.8619288 19.3472102,11.7573593 18.2426407,11.7573593 L14.2426407,11.7573593 C13.1380712,11.7573593 12.2426407,10.8619288 12.2426407,9.75735931 L12.2426407,8.75735931 Z"
+                                                    fill="#000000"
+                                                    transform="translate(16.242641, 7.757359) rotate(-45.000000) translate(-16.242641, -7.757359)" />
+                                                <path
+                                                    d="M5.89339828,3.42893219 C6.44568303,3.42893219 6.89339828,3.87664744 6.89339828,4.42893219 L6.89339828,6.42893219 C6.89339828,6.98121694 6.44568303,7.42893219 5.89339828,7.42893219 C5.34111353,7.42893219 4.89339828,6.98121694 4.89339828,6.42893219 L4.89339828,4.42893219 C4.89339828,3.87664744 5.34111353,3.42893219 5.89339828,3.42893219 Z M11.4289322,5.13603897 C11.8194565,5.52656326 11.8194565,6.15972824 11.4289322,6.55025253 L10.0147186,7.96446609 C9.62419433,8.35499039 8.99102936,8.35499039 8.60050506,7.96446609 C8.20998077,7.5739418 8.20998077,6.94077682 8.60050506,6.55025253 L10.0147186,5.13603897 C10.4052429,4.74551468 11.0384079,4.74551468 11.4289322,5.13603897 Z M0.600505063,5.13603897 C0.991029355,4.74551468 1.62419433,4.74551468 2.01471863,5.13603897 L3.42893219,6.55025253 C3.81945648,6.94077682 3.81945648,7.5739418 3.42893219,7.96446609 C3.0384079,8.35499039 2.40524292,8.35499039 2.01471863,7.96446609 L0.600505063,6.55025253 C0.209980772,6.15972824 0.209980772,5.52656326 0.600505063,5.13603897 Z"
+                                                    fill="#000000" opacity="0.3"
+                                                    transform="translate(6.014719, 5.843146) rotate(-45.000000) translate(-6.014719, -5.843146)" />
+                                                <path
+                                                    d="M17.9142136,15.4497475 C18.4664983,15.4497475 18.9142136,15.8974627 18.9142136,16.4497475 L18.9142136,18.4497475 C18.9142136,19.0020322 18.4664983,19.4497475 17.9142136,19.4497475 C17.3619288,19.4497475 16.9142136,19.0020322 16.9142136,18.4497475 L16.9142136,16.4497475 C16.9142136,15.8974627 17.3619288,15.4497475 17.9142136,15.4497475 Z M23.4497475,17.1568542 C23.8402718,17.5473785 23.8402718,18.1805435 23.4497475,18.5710678 L22.0355339,19.9852814 C21.6450096,20.3758057 21.0118446,20.3758057 20.6213203,19.9852814 C20.2307961,19.5947571 20.2307961,18.9615921 20.6213203,18.5710678 L22.0355339,17.1568542 C22.4260582,16.76633 23.0592232,16.76633 23.4497475,17.1568542 Z M12.6213203,17.1568542 C13.0118446,16.76633 13.6450096,16.76633 14.0355339,17.1568542 L15.4497475,18.5710678 C15.8402718,18.9615921 15.8402718,19.5947571 15.4497475,19.9852814 C15.0592232,20.3758057 14.4260582,20.3758057 14.0355339,19.9852814 L12.6213203,18.5710678 C12.2307961,18.1805435 12.2307961,17.5473785 12.6213203,17.1568542 Z"
+                                                    fill="#000000" opacity="0.3"
+                                                    transform="translate(18.035534, 17.863961) scale(1, -1) rotate(45.000000) translate(-18.035534, -17.863961)" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="mb-5 pe-3">
+                                    <a href="#" class="fs-5 fw-bold text-gray-800 text-hover-primary mb-2">3 پروژه ورودی
+                                        جدید پرونده ها:</a>
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">ارسال شده در ساعت 10:30</div>
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
+                                            data-bs-boundary="window" data-bs-placement="top" title="Jan Hummer">
+                                            <img src="~/theme/Desktop/assets/media/avatars/150-6.jpg" alt="img" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overflow-auto pb-5">
+                                    <div
+                                        class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-5">
+                                        <div class="d-flex flex-aligns-center pe-10 pe-lg-20">
+                                            <img alt="" class="w-30px me-3"
+                                                src="~/theme/Desktop/assets/media/svg/files/pdf.svg" />
+                                            <div class="ms-1 fw-bold">
+                                                <a href="#" class="fs-6 text-hover-primary fw-bolder">دارایی، مالیه،
+                                                    سرمایه گذاری </a>
+                                                <div class="text-gray-400">1.9mb</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-aligns-center pe-10 pe-lg-20">
+                                            <img alt="" class="w-30px me-3"
+                                                src="~/theme/Desktop/assets/media/svg/files/doc.svg" />
+                                            <div class="ms-1 fw-bold">
+                                                <a href="#" class="fs-6 text-hover-primary fw-bolder">نتایج تست سرویس
+                                                    گیرنده</a>
+                                                <div class="text-gray-400">18kb</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-aligns-center">
+                                            <img alt="" class="w-30px me-3"
+                                                src="~/theme/Desktop/assets/media/svg/files/css.svg" />
+                                            <div class="ms-1 fw-bold">
+                                                <a href="#" class="fs-6 text-hover-primary fw-bolder">دارایی، مالیه،
+                                                    سرمایه گذاری گزارش ها</a>
+                                                <div class="text-gray-400">20mb</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path
+                                                    d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
+                                                    fill="#000000" />
+                                                <rect fill="#000000" opacity="0.3"
+                                                    transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                                    x="16.3255682" y="2.94551858" width="3" height="18" rx="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-bold mb-2">
+                                        وظیفه
+                                        <a href="#" class="text-primary fw-bolder me-1">#45890</a>ادغام با
+                                        <a href="#" class="text-primary fw-bolder me-1">#45890</a>درپروژه داشبورد ادمین
+                                    </div>
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">آغاز شده در 4:23 بعد از ظهر توسط</div>
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
+                                            data-bs-boundary="window" data-bs-placement="top" title="Nina Nilson">
+                                            <img src="~/theme/Desktop/assets/media/avatars/150-11.jpg" alt="img" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <path
+                                                d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
+                                                fill="#000000" fill-rule="nonzero"
+                                                transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)" />
+                                            <path
+                                                d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
+                                                fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-bold mb-2">3 مفهوم جدید طراحی برنامه اضافه شده است:</div>
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">ایجاد شده در 4:23 بعد از ظهر توسط</div>
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
+                                            data-bs-boundary="window" data-bs-placement="top" title="Marcus Dotson">
+                                            <img src="~/theme/Desktop/assets/media/avatars/150-3.jpg" alt="img" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overflow-auto pb-5">
+                                    <div
+                                        class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
+                                        <div class="overlay me-10">
+                                            <div class="overlay-wrapper">
+                                                <img alt="img" class="rounded w-200px"
+                                                    src="~/theme/Desktop/assets/media/demos/demo1.png" />
+                                            </div>
+                                            <div class="overlay-layer bg-dark bg-opacity-10 rounded">
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">کاوش کنید</a>
+                                            </div>
+                                        </div>
+                                        <div class="overlay me-10">
+                                            <div class="overlay-wrapper">
+                                                <img alt="img" class="rounded w-200px"
+                                                    src="~/theme/Desktop/assets/media/demos/demo2.png" />
+                                            </div>
+                                            <div class="overlay-layer bg-dark bg-opacity-10 rounded">
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">کاوش کنید</a>
+                                            </div>
+                                        </div>
+                                        <div class="overlay">
+                                            <div class="overlay-wrapper">
+                                                <img alt="img" class="rounded w-200px"
+                                                    src="~/theme/Desktop/assets/media/demos/demo3.png" />
+                                            </div>
+                                            <div class="overlay-layer bg-dark bg-opacity-10 rounded">
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">کاوش کنید</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <path
+                                                d="M12.7037037,14 L15.6666667,10 L13.4444444,10 L13.4444444,6 L9,12 L11.2222222,12 L11.2222222,14 L6,14 C5.44771525,14 5,13.5522847 5,13 L5,3 C5,2.44771525 5.44771525,2 6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,13 C19,13.5522847 18.5522847,14 18,14 L12.7037037,14 Z"
+                                                fill="#000000" opacity="0.3" />
+                                            <path
+                                                d="M9.80428954,10.9142091 L9,12 L11.2222222,12 L11.2222222,16 L15.6666667,10 L15.4615385,10 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 L9.80428954,10.9142091 Z"
+                                                fill="#000000" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-bold mb-2">
+                                        کیس جدید
+                                        <a href="#" class="text-primary fw-bolder me-1">#67890</a>در پروژه طراحی پایگاه
+                                        داده چند پلتفرمی به شما اختصاص داده شده است
+                                    </div>
+                                    <div class="overflow-auto pb-5">
+                                        <div class="d-flex align-items-center mt-1 fs-6">
+                                            <div class="text-muted me-2 fs-7">اضافه شده در ساعت 4:12</div>
+                                            <a href="#" class="text-primary fw-bolder me-1">شهریار حسینی</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
+                                            <path
+                                                d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
+                                                fill="#000000" fill-rule="nonzero"
+                                                transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)" />
+                                            <path
+                                                d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
+                                                fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-bold mb-2">رسید به دست شما سفارش جدید</div>
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">در 5:05 صبح توسط</div>
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
+                                            data-bs-boundary="window" data-bs-placement="top" title="Robert Rich">
+                                            <img src="~/theme/Desktop/assets/media/avatars/150-14.jpg" alt="img" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overflow-auto pb-5">
+                                    <div
+                                        class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+                                        <span class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                                viewBox="0 0 24 24" version="1.1">
+                                                <path
+                                                    d="M6,7 C7.1045695,7 8,6.1045695 8,5 C8,3.8954305 7.1045695,3 6,3 C4.8954305,3 4,3.8954305 4,5 C4,6.1045695 4.8954305,7 6,7 Z M6,9 C3.790861,9 2,7.209139 2,5 C2,2.790861 3.790861,1 6,1 C8.209139,1 10,2.790861 10,5 C10,7.209139 8.209139,9 6,9 Z"
+                                                    fill="#000000" fill-rule="nonzero" />
+                                                <path
+                                                    d="M7,11.4648712 L7,17 C7,18.1045695 7.8954305,19 9,19 L15,19 L15,21 L9,21 C6.790861,21 5,19.209139 5,17 L5,8 L5,7 L7,7 L7,8 C7,9.1045695 7.8954305,10 9,10 L15,10 L15,12 L9,12 C8.27142571,12 7.58834673,11.8052114 7,11.4648712 Z"
+                                                    fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <path
+                                                    d="M18,22 C19.1045695,22 20,21.1045695 20,20 C20,18.8954305 19.1045695,18 18,18 C16.8954305,18 16,18.8954305 16,20 C16,21.1045695 16.8954305,22 18,22 Z M18,24 C15.790861,24 14,22.209139 14,20 C14,17.790861 15.790861,16 18,16 C20.209139,16 22,17.790861 22,20 C22,22.209139 20.209139,24 18,24 Z"
+                                                    fill="#000000" fill-rule="nonzero" />
+                                                <path
+                                                    d="M18,13 C19.1045695,13 20,12.1045695 20,11 C20,9.8954305 19.1045695,9 18,9 C16.8954305,9 16,9.8954305 16,11 C16,12.1045695 16.8954305,13 18,13 Z M18,15 C15.790861,15 14,13.209139 14,11 C14,8.790861 15.790861,7 18,7 C20.209139,7 22,8.790861 22,11 C22,13.209139 20.209139,15 18,15 Z"
+                                                    fill="#000000" fill-rule="nonzero" />
+                                            </svg>
+                                        </span>
+                                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                            <div class="mb-3 mb-md-0 fw-bold">
+                                                <h4 class="text-gray-800 fw-bolder">پایگاه داده برگشت فرآیند کامل شد!
+                                                </h4>
+                                                <div class="fs-6 text-gray-600 pe-7">برای اطمینان از درستی داده ها ، به
+                                                    مدیر داشبورد وارد شوید</div>
+                                            </div>
+                                            <a href="#"
+                                                class="btn btn-primary px-6 align-self-center text-nowrap">پردازش</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-line w-40px"></div>
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                                <div class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path opacity="0.25"
+                                                d="M3.19406 11.1644C3.09247 10.5549 3.56251 10 4.18045 10H19.8195C20.4375 10 20.9075 10.5549 20.8059 11.1644L19.4178 19.4932C19.1767 20.9398 17.9251 22 16.4586 22H7.54138C6.07486 22 4.82329 20.9398 4.58219 19.4932L3.19406 11.1644Z"
+                                                fill="#7E8299" />
+                                            <path
+                                                d="M2 9.5C2 8.67157 2.67157 8 3.5 8H20.5C21.3284 8 22 8.67157 22 9.5C22 10.3284 21.3284 11 20.5 11H3.5C2.67157 11 2 10.3284 2 9.5Z"
+                                                fill="#7E8299" />
+                                            <path
+                                                d="M10 13C9.44772 13 9 13.4477 9 14V18C9 18.5523 9.44772 19 10 19C10.5523 19 11 18.5523 11 18V14C11 13.4477 10.5523 13 10 13Z"
+                                                fill="#7E8299" />
+                                            <path
+                                                d="M14 13C13.4477 13 13 13.4477 13 14V18C13 18.5523 13.4477 19 14 19C14.5523 19 15 18.5523 15 18V14C15 13.4477 14.5523 13 14 13Z"
+                                                fill="#7E8299" />
+                                            <g opacity="0.25">
+                                                <path
+                                                    d="M10.7071 3.70711C11.0976 3.31658 11.0976 2.68342 10.7071 2.29289C10.3166 1.90237 9.68342 1.90237 9.29289 2.29289L4.29289 7.29289C3.90237 7.68342 3.90237 8.31658 4.29289 8.70711C4.68342 9.09763 5.31658 9.09763 5.70711 8.70711L10.7071 3.70711Z"
+                                                    fill="#7E8299" />
+                                                <path
+                                                    d="M13.2929 3.70711C12.9024 3.31658 12.9024 2.68342 13.2929 2.29289C13.6834 1.90237 14.3166 1.90237 14.7071 2.29289L19.7071 7.29289C20.0976 7.68342 20.0976 8.31658 19.7071 8.70711C19.3166 9.09763 18.6834 9.09763 18.2929 8.70711L13.2929 3.70711Z"
+                                                    fill="#7E8299" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="timeline-content mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-bold mb-2">
+                                        سفارش جدید
+                                        <a href="#" class="text-primary fw-bolder me-1">#67890</a>is placed for Wیاkshow
+                                        Planning &amp; بودجه Estimation
+                                    </div>
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">در ساعت 4:23 بعد از ظهر توسط</div>
+                                        <a href="#" class="text-primary fw-bolder me-1">محage علی ابادی</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer py-5 text-center" id="ppc_activities_footer">
+                <a href="pages/profile/activity.html" class="btn btn-bg-white text-primary">
+                    نمایش تمام فعالیت ها
+                    <span class="svg-icon svg-icon-3 svg-icon-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                            height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polygon points="0 0 24 0 24 24 0 24" />
+                                <rect fill="#000000" opacity="0.5"
+                                    transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000)"
+                                    x="7.5" y="7.5" width="2" height="9" rx="1" />
+                                <path
+                                    d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                    fill="#000000" fill-rule="nonzero"
+                                    transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="ppc_scrolltop" class="scrolltop" data-ppc-scrolltop="true">
+        <span class="svg-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <polygon points="0 0 24 0 24 24 0 24" />
+                    <rect fill="#000000" opacity="0.5" x="11" y="10" width="2" height="10" rx="1" />
+                    <path
+                        d="M6.70710678,12.7071068 C6.31658249,13.0976311 5.68341751,13.0976311 5.29289322,12.7071068 C4.90236893,12.3165825 4.90236893,11.6834175 5.29289322,11.2928932 L11.2928932,5.29289322 C11.6714722,4.91431428 12.2810586,4.90106866 12.6757246,5.26284586 L18.6757246,10.7628459 C19.0828436,11.1360383 19.1103465,11.7686056 18.7371541,12.1757246 C18.3639617,12.5828436 17.7313944,12.6103465 17.3242754,12.2371541 L12.0300757,7.38413782 L6.70710678,12.7071068 Z"
+                        fill="#000000" fill-rule="nonzero" />
+                </g>
+            </svg>
+        </span>
+    </div>
+
+    <script src="~/theme/Desktop/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/theme/Desktop/assets/js/scripts.bundle.js"></script>
+
+    <script src="~/theme/Desktop/assets/js/custom/widgets.js"></script>
+    <script src="~/theme/Desktop/assets/js/custom/modals/create-app.js"></script>
+    <script src="~/theme/Desktop/assets/js/custom/modals/upgrade-plan.js"></script>
+
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+    @* <script src="~/js/console.js" asp-append-version="true"></script> *@
+
+    <div id="MessagePanel"></div>
+</body>
+
+</html>

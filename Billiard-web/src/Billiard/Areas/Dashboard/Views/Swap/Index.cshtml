@@ -1,0 +1,301 @@
+@{
+	ViewData["Title"] = "مبادله رمزارز";
+	ViewData["isMarket"] = true;
+}
+<style>
+	#ppc_content {
+		padding-top: 0px;
+	}
+</style>
+
+<div class="bgi-no-repeat bgi-position-center bgi-size-cover d-flex flex-column h-500px h-lg-600px"
+	style="background-image:url('/theme/Desktop/assets/media/patterns/pattern-1.jpg')">
+
+	<div class="container">
+
+		<div class="d-flex flex-stack py-3 py-lg-8">
+
+			<h2 class="fw-bolder text-white pe-2 m-0">مبادله رمزارز</h2>
+
+
+			<button class="btn btn-success enableEthereumButton">اتصال کیف
+				پول</button>
+
+			<span class="showAccount"></span>
+		</div>
+
+	</div>
+
+
+	<div class="separator separator-solid opacity-10"></div>
+
+
+	<div class="container pt-10 pt-lg-10">
+
+
+		<div class="position-relative w-100 mw-600px mx-auto ">
+			<div class="row inputswap">
+				
+				<div class="col-6">
+
+					<span
+						class="svg-icon svg-icon-2qx svg-icon-white position-absolute top-50 translate-middle ms-9 opacity-50">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24" />
+								<path
+									d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+									fill="#000000" fill-rule="nonzero" opacity="0.3" />
+								<path
+									d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+									fill="#000000" fill-rule="nonzero" />
+							</g>
+						</svg>
+					</span>
+
+					<input type="text" autocomplete="off" class="form-control bg-transparent fs-2 py-6 ps-17 text-white"
+						name="from" style="border: 0px" value="" placeholder="ارز خود را انتخاب کنید" />
+
+
+
+				</div>
+				<div class="col-6">
+
+					<span
+						class="svg-icon svg-icon-2qx svg-icon-white position-absolute top-50 translate-middle ms-9 opacity-50">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24" />
+								<path
+									d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z"
+									fill="#000000" opacity="0.3"
+									transform="translate(11.500000, 12.000000) rotate(-345.000000) translate(-11.500000, -12.000000) " />
+								<path
+									d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z M11.5,14 C12.6045695,14 13.5,13.1045695 13.5,12 C13.5,10.8954305 12.6045695,10 11.5,10 C10.3954305,10 9.5,10.8954305 9.5,12 C9.5,13.1045695 10.3954305,14 11.5,14 Z"
+									fill="#000000" />
+							</g>
+						</svg>
+					</span>
+
+					<input type="number" autocomplete="off"
+						class="form-control bg-transparent fs-2 py-6 ps-17  text-white" style="border: 0px" name="from"
+						placeholder="مقدار" />
+
+
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="btnchange">
+			<span class="svg-icon svg-icon-2 cursor-pointer" id="changeside">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+					height="24px" viewBox="0 0 24 24" version="1.1">
+					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<polygon points="0 0 24 0 24 24 0 24"></polygon>
+						<rect fill="#000000" opacity="0.3"
+							transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) "
+							x="7" y="11" width="10" height="2" rx="1"></rect>
+						<path
+							d="M6.70710678,8.70710678 C6.31658249,9.09763107 5.68341751,9.09763107 5.29289322,8.70710678 C4.90236893,8.31658249 4.90236893,7.68341751 5.29289322,7.29289322 L11.2928932,1.29289322 C11.6714722,0.914314282 12.2810586,0.90106866 12.6757246,1.26284586 L18.6757246,6.76284586 C19.0828436,7.13603827 19.1103465,7.76860564 18.7371541,8.17572463 C18.3639617,8.58284362 17.7313944,8.61034655 17.3242754,8.23715414 L12.0300757,3.38413782 L6.70710678,8.70710678 Z"
+							fill="#000000" fill-rule="nonzero"></path>
+						<path
+							d="M6.70710678,22.7071068 C6.31658249,23.0976311 5.68341751,23.0976311 5.29289322,22.7071068 C4.90236893,22.3165825 4.90236893,21.6834175 5.29289322,21.2928932 L11.2928932,15.2928932 C11.6714722,14.9143143 12.2810586,14.9010687 12.6757246,15.2628459 L18.6757246,20.7628459 C19.0828436,21.1360383 19.1103465,21.7686056 18.7371541,22.1757246 C18.3639617,22.5828436 17.7313944,22.6103465 17.3242754,22.2371541 L12.0300757,17.3841378 L6.70710678,22.7071068 Z"
+							fill="#000000" fill-rule="nonzero"
+							transform="translate(12.000003, 18.999999) rotate(-180.000000) translate(-12.000003, -18.999999) ">
+						</path>
+					</g>
+				</svg>
+			</span>
+		</div>
+
+
+
+		<div class="position-relative mt-10 w-100 mw-600px mx-auto">
+
+			<div class="row inputswap">
+				
+				<div class="col-6">
+
+					<span
+						class="svg-icon svg-icon-2qx svg-icon-white position-absolute top-50 translate-middle ms-9 opacity-50">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24" />
+								<path
+									d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+									fill="#000000" fill-rule="nonzero" opacity="0.3" />
+								<path
+									d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+									fill="#000000" fill-rule="nonzero" />
+							</g>
+						</svg>
+					</span>
+
+					<input type="text" autocomplete="off" class="form-control bg-transparent fs-2 py-6 ps-17 text-white"
+						name="from" style="border: 0px" value="" placeholder="ارز خود را انتخاب کنید" />
+
+
+
+				</div>
+				<div class="col-6">
+
+					<span
+						class="svg-icon svg-icon-2qx svg-icon-white position-absolute top-50 translate-middle ms-9 opacity-50">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24" />
+								<path
+									d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z"
+									fill="#000000" opacity="0.3"
+									transform="translate(11.500000, 12.000000) rotate(-345.000000) translate(-11.500000, -12.000000) " />
+								<path
+									d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z M11.5,14 C12.6045695,14 13.5,13.1045695 13.5,12 C13.5,10.8954305 12.6045695,10 11.5,10 C10.3954305,10 9.5,10.8954305 9.5,12 C9.5,13.1045695 10.3954305,14 11.5,14 Z"
+									fill="#000000" />
+							</g>
+						</svg>
+					</span>
+
+					<input type="number" autocomplete="off"
+						class="form-control bg-transparent fs-2 py-6 ps-17  text-white" style="border: 0px" name="from"
+						placeholder="مقدار" />
+
+
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="position-relative mt-10 w-100 mw-600px mx-auto">
+
+			<div class="row inputswap">
+				
+				<div class="col-12">
+
+					<span
+						class="svg-icon svg-icon-2qx svg-icon-white position-absolute top-50 translate-middle ms-9 opacity-50">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24" />
+								<path
+									d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+									fill="#000000" fill-rule="nonzero" opacity="0.3" />
+								<path
+									d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+									fill="#000000" fill-rule="nonzero" />
+							</g>
+						</svg>
+					</span>
+
+					<input type="text" autocomplete="off" class="form-control bg-transparent fs-2 py-6 ps-17 text-white"
+						name="from" style="border: 0px" value="" placeholder="آدرس کیف پول" />
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="container">
+
+	<div class="card translate-middle-y mt-10 mt-lg-10">
+
+		<div class="card-body">
+
+			<ul class="nav mx-auto flex-shrink-0 flex-center flex-wrap border-transparent fs-6 fw-bolder">
+
+				<li class="nav-item my-3">
+					<a class="btn btn-active-light-primary fw-boldest nav-link btn-color-gray-700 px-3 px-lg-8 mx-1 text-uppercase"
+						href="apps/support-center/tutorials/list.html">آموزش مبادله ارز در سناتور</a>
+				</li>
+
+				<li class="nav-item my-3">
+					<a class="btn btn-active-light-primary fw-boldest nav-link btn-color-gray-700 px-3 px-lg-8 mx-1 text-uppercase"
+						href="apps/support-center/overview.html">تحلیل فاندامنتال</a>
+				</li>
+
+				<li class="nav-item my-3">
+					<a class="btn btn-active-light-primary fw-boldest nav-link btn-color-gray-700 px-3 px-lg-8 mx-1 text-uppercase active"
+						href="apps/support-center/tickets/list.html">ابزار تحلیل تکنیکال</a>
+				</li>
+
+				<li class="nav-item my-3">
+					<a class="btn btn-active-light-primary fw-boldest nav-link btn-color-gray-700 px-3 px-lg-8 mx-1 text-uppercase"
+						href="apps/support-center/faq.html">سپیدنامه سناتور</a>
+				</li>
+
+
+				<li class="nav-item my-3">
+					<a class="btn btn-active-light-primary fw-boldest nav-link btn-color-gray-700 px-3 px-lg-8 mx-1 text-uppercase"
+						href="apps/support-center/licenses.html">قرارداد هوشمند سناتور</a>
+				</li>
+
+
+
+			</ul>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+<div class="container">
+
+	<div class="card">
+
+		<div class="card-body py-2 me-xxl-9">
+
+			<div class="d-flex flex-column flex-xl-row">
+
+				<div class="flex-lg-row-fluid">
+
+					<div class="card">
+
+						<div class="card-body py-14 me-lg-10">
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+@section Scripts{
+<script>
+	const ethereumButton = document.querySelector('.enableEthereumButton');
+	const showAccount = document.querySelector('.showAccount');
+
+	ethereumButton.addEventListener('click', () => {
+		getAccount();
+	});
+
+	async function getAccount() {
+		const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+		const account = accounts[0];
+		showAccount.innerHTML = account;
+	}
+</script>
+}

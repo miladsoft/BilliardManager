@@ -1,0 +1,403 @@
+@inject IUsersPhotoService PhotoService
+
+@{
+    var displayName = User.Identity.GetUserDisplayName();
+    var username = User.Identity.GetUserName();
+    var photoUrl = PhotoService.GetCurrentUserPhotoUrl();
+}
+
+
+<div class="row g-5 g-xl-8">
+    <div class="col-xl-4">
+
+        <div class="card bg-light-success card-xl-stretch mb-xl-8">
+
+            <div class="card-body my-3">
+                <a href="#" class="card-title fw-bolder text-success fs-5 mb-3 d-block">پروژه پیام رسان سناتور</a>
+                <div class="py-1">
+                    <span class="text-dark fs-1 fw-bolder me-2">50%</span>
+                    <span class="fw-bold text-muted fs-7">پیشرفت</span>
+                </div>
+                <div class="progress h-7px bg-success bg-opacity-50 mt-7">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-xl-4">
+
+        <div class="card bg-light-warning card-xl-stretch mb-xl-8">
+
+            <div class="card-body my-3">
+                <a href="#" class="card-title fw-bolder text-warning fs-5 mb-3 d-block">
+                    پروژه شبکه اجتماعی سناتور</a>
+                <div class="py-1">
+                    <span class="text-dark fs-1 fw-bolder me-2">35%</span>
+                    <span class="fw-bold text-muted fs-7">پیشرفت</span>
+                </div>
+                <div class="progress h-7px bg-warning bg-opacity-50 mt-7">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 35%" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-xl-4">
+
+        <div class="card bg-light-primary card-xl-stretch mb-5 mb-xl-8">
+
+            <div class="card-body my-3">
+                <a href="#" class="card-title fw-bolder text-primary fs-5 mb-3 d-block">پروژه بازار سناتور</a>
+                <div class="py-1">
+                    <span class="text-dark fs-1 fw-bolder me-2">56%</span>
+                    <span class="fw-bold text-muted fs-7">پیشرفت</span>
+                </div>
+                <div class="progress h-7px bg-primary bg-opacity-50 mt-7">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 56%" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<security-trimming asp-area="@AreaConstants.DashboardArea" asp-controller="Wallet" asp-action="Index">
+    <div class="row g-6 g-xl-9">
+        <div class="col-lg-6">
+
+            <div class="card card-flush h-lg-100">
+
+                <div class="card-header mt-6">
+
+                    <div class="card-title flex-column">
+                        <h3 class="fw-bolder mb-1">کیف پول ها</h3>
+                        <div class="fs-6 fw-bold text-gray-400">گزارش کیف پول های سناتور</div>
+                    </div>
+
+                    <div class="card-toolbar">
+                        <a href="#" class="btn btn-light btn-sm">ورود به بخش کیف پول ها</a>
+                    </div>
+
+                </div>
+
+
+                <div class="card-body p-9 pt-5">
+                    <div class="d-flex flex-wrap">
+
+
+
+
+                        <div class="d-flex flex-column justify-content-center flex-row-fluid pe-11 mb-5">
+
+                            <div class="d-flex fs-6 fw-bold align-items-center mb-3">
+                                <div class="bullet bg-primary me-3"></div>
+                                <div class="text-gray-400">کیف پول تومان</div>
+                                <div class="ms-auto fw-bolder text-gray-700">0</div>
+                            </div>
+
+
+                            <div class="d-flex fs-6 fw-bold align-items-center mb-3">
+                                <div class="bullet bg-success me-3"></div>
+                                <div class="text-gray-400">کیف پول وبمانی</div>
+                                <div class="ms-auto fw-bolder text-gray-700">0</div>
+                            </div>
+
+                            <div class="d-flex fs-6 fw-bold align-items-center mb-3">
+                                <div class="bullet bg-gray-300 me-3"></div>
+                                <div class="text-gray-400">درآمد شما از شبکه اجتماعی سناتور</div>
+                                <div class="ms-auto fw-bolder text-gray-700">0</div>
+                            </div>
+
+                            <div class="d-flex fs-6 fw-bold align-items-center">
+                                <div class="bullet bg-danger me-3"></div>
+                                <div class="text-gray-400">درآمد شما از معرفی دوستان</div>
+                                <div class="ms-auto fw-bolder text-gray-700">0</div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
+
+                        <div class="d-flex flex-stack flex-grow-1">
+
+                            <div class="fw-bold">
+                                <div class="fs-6 text-gray-600">
+
+                                    برای کسب درآمد از سناتور وارد بخش <a href="#" class="fw-bolder me-1"> معرفی دوستان
+                                    </a>شوید
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card card-flush h-lg-100">
+
+                <div class="card-header mt-6">
+
+                    <div class="card-title flex-column">
+                        <h3 class="fw-bolder mb-1">وضعیت حساب کاربری</h3>
+
+                    </div>
+
+                    <div class="card-toolbar">
+                        <a href="#" class="btn btn-bg-light btn-active-color-primary btn-sm">احراز هویت و ارتقاء سطح</a>
+                    </div>
+
+                </div>
+                <div class="card-body d-flex flex-column p-9 pt-3 mb-9">
+                    <div class="d-flex align-items-center mb-5">
+
+                        <div class="me-5 position-relative">
+
+                            <div class="symbol symbol-35px symbol-circle">
+                                <span class="symbol-label bg-light-danger text-danger fw-bold">س</span>
+                            </div>
+                        </div>
+                        <div class="fw-bold">
+                            <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary">سطح کاربری</a>
+                        </div>
+
+
+                        <div class="badge badge-success ms-auto">سطح 0 کاربری</div>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-5">
+                        <div class="me-5 position-relative">
+
+                            <div class="symbol symbol-35px symbol-circle">
+                                <span class="symbol-label bg-light-danger text-danger fw-bold">ت</span>
+                            </div>
+                        </div>
+                        <div class="fw-bold">
+                            <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary">برداشت روزانه تومان</a>
+                        </div>
+
+
+                        <div class="badge badge-success ms-auto">0از 50 میلیون تومان</div>
+                    </div>
+                    <div class="d-flex align-items-center mb-5">
+                        <div class="me-5 position-relative">
+
+                            <div class="symbol symbol-35px symbol-circle">
+                                <span class="symbol-label bg-light-danger text-danger fw-bold">و</span>
+                            </div>
+                        </div>
+                        <div class="fw-bold">
+                            <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary">برداشت روزانه وبمانی</a>
+                        </div>
+
+
+                        <div class="badge badge-success ms-auto">0از 10,000 دلار</div>
+                    </div>
+
+                    <div class="separator"></div>
+                    <div class="d-flex align-items-center mb-5 mt-5">
+
+                        <div class="fw-bold">
+                            <a href="#" class="fs-5 fw-bolder text-info text-hover-primary">مجموع معاملات بازار</a>
+                        </div>
+
+
+                        <div class="badge badge-light ms-auto">0 تومان</div>
+                    </div>
+                    <div class="d-flex align-items-center mb-5">
+
+                        <div class="fw-bold">
+                            <a href="#" class="fs-5 fw-bolder text-info  text-hover-primary">مجموع درآمد متفرقه شما از
+                                سناتور</a>
+                        </div>
+
+
+                        <div class="badge badge-light ms-auto">0 تومان</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card card-flush mt-6 mt-xl-9">
+
+        <div class="card-header">
+
+            <div class="card-title flex-column">
+                <h3 class="fw-bolder mb-1">دسترسی سریع</h3>
+            </div>
+
+
+        </div>
+
+
+        <div class="card-body pt-0">
+            <div class="position-relative">
+                <div class="row">
+
+                    <div class="col-xl-2 col-md-3 col-lg-3 col-4 gutter-b">
+                        <a href="/profile"
+                            class="p-3 rounded-xl d-block mb-2 rounded border-primary border bg-light-primary  border-dashed">
+                            <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <rect fill="#000000" opacity="0.3" x="4" y="4" width="4" height="4" rx="2">
+                                        </rect>
+                                        <rect fill="#000000" x="4" y="10" width="4" height="4" rx="2"></rect>
+                                        <rect fill="#000000" x="10" y="4" width="4" height="4" rx="2"></rect>
+                                        <rect fill="#000000" x="10" y="10" width="4" height="4" rx="2"></rect>
+                                        <rect fill="#000000" x="16" y="4" width="4" height="4" rx="2"></rect>
+                                        <rect fill="#000000" x="16" y="10" width="4" height="4" rx="2"></rect>
+                                        <rect fill="#000000" x="4" y="16" width="4" height="4" rx="2"></rect>
+                                        <rect fill="#000000" x="10" y="16" width="4" height="4" rx="2"></rect>
+                                        <rect fill="#000000" x="16" y="16" width="4" height="4" rx="2"></rect>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="text-primary font-weight-bold font-size-h6 d-block">
+                                احراز هویت
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-2 col-md-3 col-lg-3 col-4 gutter-b">
+                        <a href="/wallet/list"
+                            class="p-3 rounded-xl d-block mb-2  rounded border-primary border border-dashed bg-light-dark">
+                            <span class="svg-icon svg-icon-3x svg-icon-dark d-block my-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <rect fill="#000000" opacity="0.3" x="2" y="2" width="10" height="12" rx="2">
+                                        </rect>
+                                        <path
+                                            d="M4,6 L20,6 C21.1045695,6 22,6.8954305 22,8 L22,20 C22,21.1045695 21.1045695,22 20,22 L4,22 C2.8954305,22 2,21.1045695 2,20 L2,8 C2,6.8954305 2.8954305,6 4,6 Z M18,16 C19.1045695,16 20,15.1045695 20,14 C20,12.8954305 19.1045695,12 18,12 C16.8954305,12 16,12.8954305 16,14 C16,15.1045695 16.8954305,16 18,16 Z"
+                                            fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="text-dark font-weight-bold font-size-h6 d-block">
+                                کیف پول ها
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-2 col-md-3 col-lg-3 col-4 gutter-b">
+                        <a href="/tradingmarket/webmoney"
+                            class="p-3 rounded-xl d-block mb-2 rounded border-primary border border-dashed bg-light-danger">
+                            <span class="svg-icon svg-icon-3x svg-icon-danger  d-block my-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <rect fill="#000000" opacity="0.3" x="11.5" y="2" width="2" height="4" rx="1">
+                                        </rect>
+                                        <rect fill="#000000" opacity="0.3" x="11.5" y="16" width="2" height="5" rx="1">
+                                        </rect>
+                                        <path
+                                            d="M15.493,8.044 C15.2143319,7.68933156 14.8501689,7.40750104 14.4005,7.1985 C13.9508311,6.98949895 13.5170021,6.885 13.099,6.885 C12.8836656,6.885 12.6651678,6.90399981 12.4435,6.942 C12.2218322,6.98000019 12.0223342,7.05283279 11.845,7.1605 C11.6676658,7.2681672 11.5188339,7.40749914 11.3985,7.5785 C11.2781661,7.74950085 11.218,7.96799867 11.218,8.234 C11.218,8.46200114 11.2654995,8.65199924 11.3605,8.804 C11.4555005,8.95600076 11.5948324,9.08899943 11.7785,9.203 C11.9621676,9.31700057 12.1806654,9.42149952 12.434,9.5165 C12.6873346,9.61150047 12.9723317,9.70966616 13.289,9.811 C13.7450023,9.96300076 14.2199975,10.1308324 14.714,10.3145 C15.2080025,10.4981676 15.6576646,10.7419985 16.063,11.046 C16.4683354,11.3500015 16.8039987,11.7268311 17.07,12.1765 C17.3360013,12.6261689 17.469,13.1866633 17.469,13.858 C17.469,14.6306705 17.3265014,15.2988305 17.0415,15.8625 C16.7564986,16.4261695 16.3733357,16.8916648 15.892,17.259 C15.4106643,17.6263352 14.8596698,17.8986658 14.239,18.076 C13.6183302,18.2533342 12.97867,18.342 12.32,18.342 C11.3573285,18.342 10.4263378,18.1741683 9.527,17.8385 C8.62766217,17.5028317 7.88033631,17.0246698 7.285,16.404 L9.413,14.238 C9.74233498,14.6433354 10.176164,14.9821653 10.7145,15.2545 C11.252836,15.5268347 11.7879973,15.663 12.32,15.663 C12.5606679,15.663 12.7949989,15.6376669 13.023,15.587 C13.2510011,15.5363331 13.4504991,15.4540006 13.6215,15.34 C13.7925009,15.2259994 13.9286662,15.0740009 14.03,14.884 C14.1313338,14.693999 14.182,14.4660013 14.182,14.2 C14.182,13.9466654 14.1186673,13.7313342 13.992,13.554 C13.8653327,13.3766658 13.6848345,13.2151674 13.4505,13.0695 C13.2161655,12.9238326 12.9248351,12.7908339 12.5765,12.6705 C12.2281649,12.5501661 11.8323355,12.420334 11.389,12.281 C10.9583312,12.141666 10.5371687,11.9770009 10.1255,11.787 C9.71383127,11.596999 9.34650161,11.3531682 9.0235,11.0555 C8.70049838,10.7578318 8.44083431,10.3968355 8.2445,9.9725 C8.04816568,9.54816454 7.95,9.03200304 7.95,8.424 C7.95,7.67666293 8.10199848,7.03700266 8.406,6.505 C8.71000152,5.97299734 9.10899753,5.53600171 9.603,5.194 C10.0970025,4.85199829 10.6543302,4.60183412 11.275,4.4435 C11.8956698,4.28516587 12.5226635,4.206 13.156,4.206 C13.9160038,4.206 14.6918294,4.34533194 15.4835,4.624 C16.2751706,4.90266806 16.9686637,5.31433061 17.564,5.859 L15.493,8.044 Z"
+                                            fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="text-danger font-weight-bold font-size-h6 d-block">
+                                بازار وبمانی
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-2 col-md-3 col-lg-3 col-4 gutter-b">
+                        <a href="/support/ticket/addnew"
+                            class="p-3 rounded-xl d-block mb-2 rounded border-primary border border-dashed bg-light-success">
+                            <span class="svg-icon svg-icon-3x svg-icon-success  d-block my-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path
+                                            d="M19,16 L19,12 C19,8.13400675 15.8659932,5 12,5 C8.13400675,5 5,8.13400675 5,12 L5,16 L19,16 Z M21,16 L3,16 L3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 L21,16 Z"
+                                            fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                        <path
+                                            d="M5,14 L6,14 C7.1045695,14 8,14.8954305 8,16 L8,19 C8,20.1045695 7.1045695,21 6,21 L5,21 C3.8954305,21 3,20.1045695 3,19 L3,16 C3,14.8954305 3.8954305,14 5,14 Z M18,14 L19,14 C20.1045695,14 21,14.8954305 21,16 L21,19 C21,20.1045695 20.1045695,21 19,21 L18,21 C16.8954305,21 16,20.1045695 16,19 L16,16 C16,14.8954305 16.8954305,14 18,14 Z"
+                                            fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="text-success font-weight-bold font-size-h6 d-block">
+                                ارسال تیکت
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-2 col-md-3 col-lg-3 col-4 gutter-b">
+                        <a href="/referral"
+                            class="p-3 rounded-xl d-block mb-2 rounded border-primary border border-dashed bg-light-info">
+                            <span class="svg-icon svg-icon-3x svg-icon-info d-block my-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path
+                                            d="M16.0322024,5.68722152 L5.75790403,15.945742 C5.12139076,16.5812778 5.12059836,17.6124773 5.75613416,18.2489906 C5.75642891,18.2492858 5.75672377,18.2495809 5.75701875,18.2498759 L5.75701875,18.2498759 C6.39304347,18.8859006 7.42424328,18.8859006 8.060268,18.2498759 C8.06056298,18.2495809 8.06085784,18.2492858 8.0611526,18.2489906 L18.3196731,7.9746922 C18.9505124,7.34288268 18.9501191,6.31942463 18.3187946,5.68810005 L18.3187946,5.68810005 C17.68747,5.05677547 16.6640119,5.05638225 16.0322024,5.68722152 Z"
+                                            fill="#000000" fill-rule="nonzero"></path>
+                                        <path
+                                            d="M9.85714286,6.92857143 C9.85714286,8.54730513 8.5469533,9.85714286 6.93006028,9.85714286 C5.31316726,9.85714286 4,8.54730513 4,6.92857143 C4,5.30983773 5.31316726,4 6.93006028,4 C8.5469533,4 9.85714286,5.30983773 9.85714286,6.92857143 Z M20,17.0714286 C20,18.6901623 18.6898104,20 17.0729174,20 C15.4560244,20 14.1428571,18.6901623 14.1428571,17.0714286 C14.1428571,15.4497247 15.4560244,14.1428571 17.0729174,14.1428571 C18.6898104,14.1428571 20,15.4497247 20,17.0714286 Z"
+                                            fill="#000000" opacity="0.3"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="text-info font-weight-bold font-size-h6 d-block">
+                                معرفی دوستان
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-2 col-md-3 col-lg-3 col-4 gutter-b">
+                        <a href="/security/twostepverification"
+                            class="p-3 rounded-xl d-block mb-2 rounded border-primary border border-dashed bg-light-warning">
+                            <span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path
+                                            d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                            fill="#000000" opacity="0.3"></path>
+                                        <path
+                                            d="M14.5,11 C15.0522847,11 15.5,11.4477153 15.5,12 L15.5,15 C15.5,15.5522847 15.0522847,16 14.5,16 L9.5,16 C8.94771525,16 8.5,15.5522847 8.5,15 L8.5,12 C8.5,11.4477153 8.94771525,11 9.5,11 L9.5,10.5 C9.5,9.11928813 10.6192881,8 12,8 C13.3807119,8 14.5,9.11928813 14.5,10.5 L14.5,11 Z M12,9 C11.1715729,9 10.5,9.67157288 10.5,10.5 L10.5,11 L13.5,11 L13.5,10.5 C13.5,9.67157288 12.8284271,9 12,9 Z"
+                                            fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="text-warning font-weight-bold font-size-h6 d-block">
+                                امنیت
+                            </span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</security-trimming>
+
+
+@section Scripts{
+<script src="~/theme/Desktop/assets/js/custom/pages/projects/project/project.js"></script>
+
+}

@@ -1,0 +1,25 @@
+@model User
+@inject IUsersPhotoService PhotoService
+@{
+    var photoUrl = PhotoService.GetUserPhotoUrl(Model.PhotoFileName);
+}
+<div class="d-flex align-items-center border-dashed card-rounded p-5 p-lg-10 mb-14">
+    <div class="text-center flex-shrink-0 me-7 me-lg-13">
+        <div class="symbol symbol-70px symbol-circle mb-2">
+            <img src="@photoUrl" class="" alt="@Model.DisplayName" />
+        </div>
+        <div class="mb-0">
+            <a href="#"
+                class="text-gray-700 fw-bolder text-hover-primary">@Model.DisplayName</a>
+            <span class="text-gray-400 fs-7 fw-bold d-block mt-1">@Model.Job</span>
+        </div>
+    </div>
+    <div class="mb-0 fs-6">
+        <div class="text-muted fw-bold lh-lg mb-2">
+
+            @Model.UserDescription
+
+        </div>
+        <a href="#" class="fw-bold link-primary">ارسال پیام خصوصی</a>
+    </div>
+</div>
